@@ -1,0 +1,30 @@
+TEAL EXPO VISITOR CAPTURE — HOW TO GET THE APK
+
+What is ready:
+- Android application source project
+- Offline local visitor storage
+- Separate visitor photo and visitor badge/business-card photo fields
+- Camera/gallery chooser
+- Excel export with both images embedded
+- JSON backup and import
+- GitHub Actions workflow to compile the APK
+- Mobile screen mockup/preview
+
+Important: a compiled APK binary is not included. This environment has no Android SDK or Gradle installed, and outbound downloads are blocked, so I could not compile or test a real APK here.
+
+FASTEST BUILD ROUTE (no Android Studio installation needed on your computer):
+1. Download and extract TEAL_Expo_Android_Source_Project.zip.
+2. Create a PRIVATE repository on GitHub.
+3. Upload all files and folders from TEAL_Expo_Android_Project into the repository, including the hidden .github/workflows/build-apk.yml file.
+4. Open the repository's Actions tab. Enable workflows if prompted. Run “Build TEAL Expo APK” or wait for the push-triggered build.
+5. Open the successful run and download the artifact named TEAL-Expo-Visitor-Capture-APK. Extract it to get app-debug.apk.
+6. Transfer app-debug.apk to the Android phone and install it. Approve “Install unknown apps” for the file manager if Android asks.
+
+The first build may take several minutes because GitHub downloads the Android SDK and Gradle packages. Visitor data and photos are not sent to GitHub; GitHub is only used to compile the source app.
+
+BEFORE THE EXPO:
+- Test registration of 3 visitors.
+- Test visitor portrait and business-card/badge photos separately.
+- Export Excel and verify both photo columns and embedded photos.
+- Test JSON backup/import and reopen the app to confirm records persist.
+- Confirm camera selection on the exact phone intended for the booth.
