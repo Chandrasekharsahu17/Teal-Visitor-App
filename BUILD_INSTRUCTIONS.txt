@@ -21,8 +21,8 @@ BACKUP BEFORE REINSTALLING
 
 FEATURES
 - Four-step visitor-registration workflow with business-card capture first.
-- On-device ML Kit OCR with suggested name, company, designation, phone, email,
-  alternate phone, website, LinkedIn/profile and labelled address.
+- On-device ML Kit OCR with suggested name, company, designation, mobile/alternate phone,
+  fax, multiple email addresses, website, LinkedIn/profile, department and address.
 - All original recognized OCR text is retained with each record for verification.
 - Required fields: visitor name, company, designation, phone number.
 - Optional contact data, interests, TEAL representative, meeting notes and visitor photo.
