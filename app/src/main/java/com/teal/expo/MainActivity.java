@@ -49,12 +49,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(Color.rgb(17, 42, 70));
-        getWindow().setNavigationBarColor(Color.rgb(17, 42, 70));
+        getWindow().setStatusBarColor(Color.rgb(11, 34, 51));
+        getWindow().setNavigationBarColor(Color.rgb(11, 34, 51));
         getWindow().getDecorView().setSystemUiVisibility(0);
 
         webView = new WebView(this);
-        webView.setBackgroundColor(Color.rgb(243, 246, 249));
+        webView.setBackgroundColor(Color.rgb(242, 246, 247));
         setContentView(webView);
 
         WebSettings settings = webView.getSettings();
@@ -67,6 +67,7 @@ public class MainActivity extends Activity {
         settings.setBuiltInZoomControls(false);
         settings.setDisplayZoomControls(false);
         settings.setDefaultTextEncodingName("UTF-8");
+        settings.setTextZoom(100);
 
         assetLoader = new WebViewAssetLoader.Builder()
                 .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this))
@@ -261,10 +262,9 @@ public class MainActivity extends Activity {
                 final String message = resultMessage;
                 runOnUiThread(() -> {
                     Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-                    String jsMessage = "window.onNativeSaveResult && window.onNativeSaveResult('" +
-                            callbackId.replace("'", "") + "'," + ok + ",\"" +
-                            message.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", " ") + "\");";
-                    webView.evaluateJavascript(jsMessage, null);
+                    String jsMessage = "window.onNativeSaveResult && window.onNativeSaveResult(" +
+                            JSONObject.quote(callbackId) + "," + ok + "," + JSONObject.quote(message) + ");";
+                    if (webView != null && !isFinishing()) webView.evaluateJavascript(jsMessage, null);
                 });
             }).start();
             return true;
@@ -273,8 +273,15 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (webView != null && webView.canGoBack()) webView.goBack();
-        else super.onBackPressed();
+        if (webView == null) {
+            super.onBackPressed();
+            return;
+        }
+        webView.evaluateJavascript(
+                "(function(){return !!(window.handleAndroidBack && window.handleAndroidBack());})()",
+                result -> {
+                    if (!"true".equals(result)) MainActivity.super.onBackPressed();
+                });
     }
 
     @Override
