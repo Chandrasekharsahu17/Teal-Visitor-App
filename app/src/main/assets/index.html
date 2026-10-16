@@ -6,212 +6,107 @@
 <meta name="theme-color" content="#112a46">
 <title>TEAL Expo — Visitor Capture</title>
 <style>
-:root{--navy:#112a46;--navy2:#1e4265;--teal:#087e8b;--ink:#172433;--muted:#617184;--line:#dce4ec;--bg:#f3f6f9;--white:#fff;--green:#177245;--red:#b42318;--shadow:0 10px 30px rgba(17,42,70,.07)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:15px}button,input,textarea{font:inherit}button{cursor:pointer}.topbar{background:linear-gradient(110deg,var(--navy),var(--navy2));color:#fff;padding:22px max(20px,calc((100vw - 1180px)/2));display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:14px}.logo{width:48px;height:48px;border:1px solid rgba(255,255,255,.5);border-radius:12px;display:grid;place-items:center;font-weight:800;letter-spacing:1px;font-size:15px;background:rgba(255,255,255,.08)}h1{font-size:22px;line-height:1.2;margin:0 0 5px;font-weight:750;letter-spacing:-.3px}.subtitle{color:#d8e5f0;font-size:13px}.offline{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);border-radius:30px;padding:8px 12px;font-size:12px;white-space:nowrap}.offline:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#65dfa0;margin-right:7px}.wrap{max-width:1180px;margin:26px auto;padding:0 20px}.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:18px}.intro h2{margin:0 0 5px;font-size:23px;letter-spacing:-.4px}.intro p{margin:0;color:var(--muted);font-size:14px}.stats{display:flex;gap:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:130px;box-shadow:0 2px 8px rgba(17,42,70,.025)}.stat strong{display:block;font-size:23px;color:var(--navy)}.stat span{font-size:12px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0, .95fr) minmax(0,1.25fr);gap:20px;align-items:start}.panel{background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.panel-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-head h3{margin:0;font-size:17px}.eyebrow{color:var(--muted);font-size:12px}.panel-body{padding:20px}.field{margin-bottom:17px}.field label,.field-label{display:block;font-size:13px;font-weight:700;margin:0 0 7px}.required{color:var(--red)}input[type=text],input[type=email],input[type=tel],textarea,.search{width:100%;border:1px solid #cdd8e3;border-radius:9px;background:#fff;padding:11px 12px;color:var(--ink);outline:none;transition:border .15s,box-shadow .15s}input:focus,textarea:focus,.search:focus{border-color:#4289b7;box-shadow:0 0 0 3px rgba(66,137,183,.13)}input::placeholder,textarea::placeholder{color:#96a2af}.interest-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.interest{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:10px;font-size:12px;line-height:1.35;min-height:54px;background:#fff;cursor:pointer}.interest:has(input:checked){border-color:#278a94;background:#f0fbfa}.interest input{margin:2px 0 0;accent-color:var(--teal);flex:0 0 auto}.interest span{font-weight:550}.hint{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px}.photo-box{border:1px dashed #b8c7d6;border-radius:12px;background:#f8fafc;padding:13px;display:flex;gap:14px;align-items:center}.photo-preview{width:92px;height:92px;border-radius:10px;object-fit:cover;background:#e6edf3;flex:0 0 auto;display:none}.photo-placeholder{width:92px;height:92px;border-radius:10px;background:#e6edf3;display:grid;place-items:center;flex:0 0 auto;color:#65778a}.photo-placeholder svg{width:33px;height:33px}.photo-actions{display:flex;gap:8px;flex-wrap:wrap}.small-note{font-size:11px;color:var(--muted);margin-top:7px}.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:transform .05s,background .15s}.btn:active{transform:translateY(1px)}.btn:disabled{opacity:.5;cursor:not-allowed}.btn-primary{background:var(--teal);color:#fff}.btn-primary:hover{background:#066c77}.btn-dark{background:var(--navy);color:#fff}.btn-outline{background:#fff;border:1px solid #cad6e1;color:var(--navy)}.btn-outline:hover{background:#f5f8fb}.btn-danger{background:#fff0ef;color:var(--red);border:1px solid #f3c8c5}.btn-small{padding:8px 10px;font-size:12px}.form-actions{display:flex;gap:10px;margin-top:21px}.form-actions .btn-primary{flex:1}.camera{display:none;margin-top:12px;background:#0c1723;padding:10px;border-radius:12px}.camera video{display:block;width:100%;max-height:290px;object-fit:contain;border-radius:8px}.camera-actions{display:flex;gap:8px;margin-top:9px}.camera-actions button{flex:1}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.search-row{display:flex;gap:10px;padding:15px 20px;border-bottom:1px solid var(--line)}.search{flex:1;min-width:120px}.records{padding:0 20px 12px;max-height:690px;overflow:auto}.record{padding:14px 0;display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:12px;align-items:start;border-bottom:1px solid #edf1f5}.record:last-child{border-bottom:0}.thumb{width:54px;height:54px;border-radius:9px;object-fit:cover;background:#e6edf3}.record-main{min-width:0}.record-name{font-weight:750;font-size:14px;overflow-wrap:anywhere}.record-company{color:#405267;font-size:12px;margin-top:3px;overflow-wrap:anywhere}.record-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.tag{background:#edf5f7;border-radius:5px;padding:4px 6px;font-size:10px;color:#24566a;line-height:1.2}.record-date{font-size:10px;color:#8290a0;margin-top:7px}.record-right{display:flex;flex-direction:column;gap:6px;align-items:flex-end}.empty{padding:42px 20px;text-align:center;color:var(--muted)}.empty .empty-icon{font-size:30px;margin-bottom:8px}.empty strong{display:block;color:var(--ink);margin-bottom:5px}.section-footer{border-top:1px solid var(--line);padding:14px 20px;background:#fbfcfe;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.section-footer p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.notice{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#142a40;color:white;padding:12px 17px;border-radius:10px;box-shadow:0 8px 30px #1724332b;font-size:13px;z-index:30;transition:all .2s;max-width:calc(100vw - 32px)}.notice.show{opacity:1;transform:translate(-50%,0)}.notice.error{background:#8d2018}.consent{font-size:11px;color:var(--muted);line-height:1.45;margin-top:13px}.footer-note{text-align:center;color:#8492a0;font-size:11px;margin:18px 0 30px}.hidden{display:none!important}.other-field{margin-top:9px}.btn-icon{font-size:15px;line-height:1}.kbd-note{font-size:11px;color:var(--muted)}.ocr-raw{white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto;margin:0;padding:12px;background:#f6f8fa;border:1px solid var(--line);border-radius:8px;font:12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace}
-@media(max-width:900px){.layout{grid-template-columns:1fr}.records{max-height:none}.topbar{padding:17px 20px}.wrap{margin:20px auto}.intro{align-items:flex-start;flex-direction:column}.stats{width:100%}.stat{flex:1}.panel-head{align-items:flex-start;flex-direction:column}.panel-head .toolbar{width:100%}}
-@media(max-width:520px){.topbar{align-items:flex-start}.offline{font-size:0;padding:10px}.offline:before{margin:0}.brand{gap:10px}.logo{width:42px;height:42px}h1{font-size:18px}.subtitle{font-size:11px}.wrap{padding:0 12px}.panel-body{padding:15px}.panel-head{padding:15px}.search-row{padding:12px}.records{padding:0 14px 8px}.interest-grid{grid-template-columns:1fr}.photo-box{align-items:flex-start}.photo-preview,.photo-placeholder{width:78px;height:78px}.stat{min-width:0;padding:10px}.stat strong{font-size:20px}.record{grid-template-columns:44px minmax(0,1fr) auto;gap:8px}.thumb{width:44px;height:44px}.record-right .btn{padding:6px 7px}.form-actions{flex-direction:column}}
 
-/* Clean TEAL visitor-capture visual system */
-:root{--navy:#102b3d;--navy2:#16475a;--teal:#087f83;--ink:#182a36;--muted:#647782;--line:#dbe5e8;--bg:#f2f6f7;--white:#fff;--shadow:0 8px 26px rgba(16,43,61,.065)}
-body{background:var(--bg);font-size:14px;line-height:1.45}
-.topbar{position:relative;padding:18px max(18px,calc((100vw - 1120px)/2));border-bottom:4px solid #48d9c5;gap:18px;background:linear-gradient(112deg,#102b3d,#16475a)}
-.brand{gap:14px;min-width:0}
-.logo-lockup{width:120px;flex:0 0 120px;display:flex;align-items:center}
-.logo-lockup svg{display:block;width:100%;height:auto;max-height:44px;overflow:visible}
-.brand-copy{min-width:0}
-h1{font-size:20px;line-height:1.2;letter-spacing:-.2px;margin:0 0 5px;font-weight:760}
-.subtitle{font-size:12px;color:#d8e8ec;line-height:1.35}
-.offline{font-size:11px;letter-spacing:.15px;padding:7px 10px}
-.wrap{max-width:1120px;margin:22px auto;padding:0 18px}
-.intro{align-items:center;margin-bottom:16px}
-.intro h2{font-size:21px;color:var(--navy)}
-.intro p{font-size:13px;line-height:1.5}
-.stat{border-radius:13px;min-width:112px;padding:10px 13px}
-.stat strong{font-size:21px}
-.layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
-.panel{border-radius:16px;box-shadow:0 5px 20px rgba(16,43,61,.055)}
-.panel-head{padding:16px 18px;background:#fcfefe}
-.panel-head h3{font-size:16px}
-.panel-body{padding:18px}
-.field{margin-bottom:14px}
-.field label,.field-label{font-size:12px;margin-bottom:6px}
-input[type=text],input[type=email],input[type=tel],textarea,.search{border-color:#cbdadd;border-radius:10px;padding:11px 12px;font-size:14px;min-height:43px}
-input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3px rgba(22,143,145,.12)}
-.capture-card{padding:15px;border:1px solid #b9e6df;border-radius:15px;background:linear-gradient(145deg,#f0fbf8,#fbfefd);margin:0 0 22px;box-shadow:0 4px 14px rgba(8,127,131,.06)}
-.capture-heading{display:flex;align-items:center;gap:11px;margin-bottom:12px}
-.capture-symbol{width:39px;height:39px;flex:0 0 39px;border-radius:12px;display:grid;place-items:center;background:#087f83;color:#fff;font-size:19px}
-.capture-heading h4,.section-title h4{font-size:14px;font-weight:750;letter-spacing:-.1px;color:var(--navy);margin:0}
-.capture-heading p,.section-title p{font-size:11px;color:var(--muted);line-height:1.45;margin:3px 0 0}
-.capture-heading>div:nth-child(2){flex:1;min-width:0}
-.optional-badge,.optional-inline{display:inline-flex;align-items:center;border-radius:20px;background:#edf5f5;color:#577078;font-size:9px;font-weight:750;letter-spacing:.35px;padding:4px 7px;white-space:nowrap}
-.optional-inline{margin-left:4px;font-size:9px;padding:2px 6px;letter-spacing:0;vertical-align:1px}
-.capture-card .field{margin:0}
-.capture-card .field-label{font-size:12px;font-weight:750}
-.capture-card .photo-box{border:1px solid #d3e8e5;background:#fff;padding:10px;gap:10px;border-radius:12px}
-.capture-card .photo-preview,.capture-card .photo-placeholder{width:66px;height:66px;border-radius:9px}
-.capture-card .photo-placeholder{background:#edf7f6;color:#4e8480}
-.capture-card .photo-actions{gap:6px}
-.capture-card .btn{min-height:34px;border-radius:8px}
-.capture-card .small-note{font-size:10px}
-.section-title{display:flex;align-items:center;gap:10px;margin:0 0 12px}
-.section-number{width:25px;height:25px;flex:0 0 25px;border-radius:8px;display:grid;place-items:center;background:#dff6f0;color:#087f83;font-size:11px;font-weight:800}
-.soft-number{background:#eef3f4;color:#6b8088}
-.core-fields,.optional-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
-.core-fields .field,.optional-fields .field{min-width:0}
-.optional-fields{border:1px solid #e1e9eb;background:#fbfdfd;border-radius:13px;padding:13px 12px 0;margin:0 0 21px;gap:0 12px}
-.optional-fields .field{margin-bottom:13px}
-.optional-section{margin-top:17px}
-.interest-field{margin-bottom:17px}
-.interest-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-.interest{border-radius:10px;border-color:#e0e9eb;padding:9px;min-height:46px;font-size:11px;line-height:1.35}
-.interest:has(input:checked){border-color:#168f91;background:#effaf7;box-shadow:inset 0 0 0 1px rgba(22,143,145,.08)}
-.photo-box{border-radius:12px;background:#fafcfc;border-color:#d4e0e3;padding:11px}
-.photo-preview,.photo-placeholder{width:78px;height:78px}
-.photo-actions{gap:7px}
-.btn{border-radius:10px;padding:10px 13px;font-size:12px}
-.btn-primary{background:#087f83}
-.btn-primary:hover{background:#066d71}
-.btn-outline{border-color:#cad8dc;color:#244657}
-.form-actions{margin-top:18px;gap:8px}
-.form-actions .btn{min-height:43px}
-.section-footer{background:#f9fbfb;padding:13px 17px}
-.record{gap:10px;padding:12px 0}
-.record-tags{gap:4px}
-.tag{background:#edf5f5;color:#285e65}
-.consent{background:#f8fafb;border:1px solid #e3eaed;border-radius:10px;padding:10px 11px}
-.footer-note{margin:15px 0 25px}
-@media(max-width:800px){
-  .topbar{flex-wrap:wrap;padding:14px 16px;gap:10px}
-  .brand{flex:1 1 100%;gap:12px}
-  .logo-lockup{width:105px;flex-basis:105px}
-  h1{font-size:18px}
-  .offline{white-space:normal;align-self:flex-start;font-size:10px}
-  .wrap{margin:16px auto;padding:0 12px}
-  .layout{grid-template-columns:minmax(0,1fr);gap:14px}
-  .intro{align-items:flex-start;flex-direction:column;gap:12px}
-  .stats{width:100%}
-  .stat{flex:1}
-  .panel-body{padding:15px}
-  .core-fields,.optional-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media(max-width:450px){
-  .logo-lockup{width:94px;flex-basis:94px}
-  .brand{gap:10px}
-  h1{font-size:16px}
-  .subtitle{font-size:10px}
-  .capture-card{padding:12px}
-  .capture-heading{align-items:flex-start;gap:8px}
-  .capture-symbol{width:33px;height:33px;flex-basis:33px}
-  .capture-heading h4{font-size:13px}
-  .capture-heading p{font-size:10px}
-  .optional-badge{font-size:8px;padding:4px 5px}
-  .core-fields,.optional-fields{grid-template-columns:minmax(0,1fr);gap:0}
-  .optional-fields{padding:12px 12px 0}
-  .interest-grid{grid-template-columns:minmax(0,1fr)}
-  .photo-box{align-items:flex-start}
-  .photo-preview,.photo-placeholder{width:64px;height:64px}
-  .photo-actions .btn{padding:8px 9px;font-size:11px}
-}
+:root{--navy:#0B2233;--navy2:#143D50;--teal:#078B88;--mint:#4DE0C6;--ink:#152A37;--muted:#6B7F8A;--line:#DCE7EA;--canvas:#F2F6F7;--white:#FFF;--green:#087E68;--red:#B42318;--shadow:0 12px 32px rgba(11,34,51,.075)}
+*{box-sizing:border-box}html{background:var(--canvas);scroll-behavior:smooth}body{margin:0;background:var(--canvas);color:var(--ink);font:14px/1.45 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid rgba(77,224,198,.45);outline-offset:2px}button:disabled{opacity:.55;cursor:wait}.hidden{display:none!important}
+.app-header{min-height:78px;padding:14px max(18px,calc((100vw - 1080px)/2));background:linear-gradient(112deg,#081D2B,#133C50);border-bottom:3px solid var(--mint);display:flex;align-items:center;justify-content:space-between;gap:16px;color:#fff}.brand{display:flex;align-items:center;gap:12px;min-width:0}.brandmark{width:94px;flex:0 0 94px;display:block}.brandmark svg{display:block;width:100%;height:auto}.brand-copy{min-width:0}.brand-copy h1{font-size:18px;line-height:1.25;margin:0 0 3px;font-weight:780;letter-spacing:-.25px}.brand-copy p{margin:0;color:#CADDE5;font-size:11px;letter-spacing:.15px}.header-right{display:flex;align-items:center;gap:10px}.privacy-pill{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.22);border-radius:24px;padding:8px 11px;background:rgba(255,255,255,.055);color:#E8F5F6;font-size:10px;white-space:nowrap}.privacy-dot{width:7px;height:7px;border-radius:50%;background:#63E5B2;box-shadow:0 0 0 3px rgba(99,229,178,.12)}.header-icon{width:38px;height:38px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);border-radius:11px;background:rgba(255,255,255,.07);color:#fff;font-size:18px}
+.app-shell{max-width:1080px;margin:0 auto;padding:22px 18px 48px}.screen{display:none;animation:screenIn .16s ease-out}.screen.active{display:block}@keyframes screenIn{from{opacity:.65;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.page-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.eyebrow{color:var(--teal);text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:1.1px;margin-bottom:6px}.page-heading h2,.home-copy h2{font-size:25px;line-height:1.16;letter-spacing:-.65px;margin:0;color:var(--navy);font-weight:800}.page-heading p{font-size:13px;color:var(--muted);margin:7px 0 0;max-width:600px}.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:17px}.stat-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 15px;box-shadow:0 3px 10px rgba(11,34,51,.025);min-width:0}.stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;font-weight:650}.stat-icon{height:27px;width:27px;display:grid;place-items:center;border-radius:9px;background:#E9F8F5;color:var(--teal);font-size:15px}.stat-card strong{display:block;color:var(--navy);font-size:25px;line-height:1.1;margin-top:12px;font-weight:800}.stat-card small{display:block;color:#8697A0;font-size:10px;margin-top:5px}
+.home-hero{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:18px;overflow:hidden;border-radius:20px;padding:24px;background:linear-gradient(115deg,#0C2A3A 0%,#164B5C 72%,#106A6B 100%);color:#fff;box-shadow:0 12px 28px rgba(11,34,51,.12);margin-bottom:17px}.home-hero:after{content:"";position:absolute;z-index:-1;width:230px;height:230px;border-radius:50%;right:-60px;top:-110px;border:1px solid rgba(77,224,198,.25);box-shadow:0 0 0 22px rgba(77,224,198,.035),0 0 0 50px rgba(77,224,198,.025)}.home-copy{max-width:600px}.home-copy .eyebrow{color:var(--mint)}.home-copy h2{color:#fff;font-size:28px;max-width:490px}.home-copy p{color:#D2E5E8;font-size:13px;line-height:1.65;max-width:510px;margin:9px 0 17px}.hero-actions{display:flex;flex-wrap:wrap;gap:9px}.hero-art{width:126px;flex:0 0 126px;display:grid;place-items:center;opacity:.95}.hero-art svg{width:100%;max-width:126px;height:auto}
+.btn{border:0;min-height:41px;border-radius:10px;padding:10px 14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:750;line-height:1.2;transition:background .15s,border-color .15s,transform .05s}.btn:active{transform:translateY(1px)}.btn-primary{background:var(--teal);color:#fff;box-shadow:0 4px 9px rgba(7,139,136,.15)}.btn-primary:hover{background:#087A78}.btn-hero{background:var(--mint);color:#062C37}.btn-hero:hover{background:#7AEDD9}.btn-light{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.32);color:#fff}.btn-light:hover{background:rgba(255,255,255,.14)}.btn-outline{background:#fff;border:1px solid #CCDCE0;color:var(--navy)}.btn-outline:hover{background:#F7FAFA}.btn-danger{background:#FFF3F1;border:1px solid #F1D1CC;color:var(--red)}.btn-small{min-height:34px;padding:7px 10px;font-size:11px}
+.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:18px}.quick-card{display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid var(--line);border-radius:15px;background:#fff;color:var(--ink);text-align:left;min-width:0;box-shadow:0 3px 12px rgba(11,34,51,.025)}.quick-card:hover{border-color:#A9DAD4;box-shadow:0 6px 18px rgba(11,34,51,.06)}.quick-icon{width:39px;height:39px;flex:0 0 39px;display:grid;place-items:center;border-radius:12px;background:#E9F8F5;color:var(--teal);font-size:18px}.quick-card strong{display:block;font-size:13px;color:var(--navy);margin:2px 0 4px}.quick-card span{display:block;font-size:11px;line-height:1.45;color:var(--muted)}.quick-arrow{margin-left:auto;color:#8A9DA5;font-size:18px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 16px rgba(11,34,51,.035);overflow:hidden}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #E8EFF0}.panel-head h3{font-size:14px;margin:0;color:var(--navy)}.panel-head p{font-size:11px;color:var(--muted);margin:4px 0 0}.panel-body{padding:17px 18px}.rep-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-radius:14px;background:#fff;border:1px solid var(--line)}.rep-identity{display:flex;align-items:center;gap:11px;min-width:0}.rep-avatar{width:39px;height:39px;display:grid;place-items:center;border-radius:13px;background:#E8F5F4;color:var(--teal);font-weight:800;font-size:14px}.rep-meta strong{display:block;color:var(--navy);font-size:12px;overflow-wrap:anywhere}.rep-meta span{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.page-bar{display:flex;align-items:center;gap:12px;margin-bottom:18px}.back-button{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--navy);font-size:18px}.page-bar h2{font-size:21px;line-height:1.2;color:var(--navy);margin:0;font-weight:800;letter-spacing:-.45px}.page-bar p{font-size:11px;color:var(--muted);margin:4px 0 0}.wizard-card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow);overflow:hidden}.wizard-progress{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;padding:15px 18px 13px;border-bottom:1px solid #E8EFF0;background:#FCFEFE}.progress-step{position:relative;display:flex;align-items:center;gap:8px;min-width:0;color:#96A5AD}.progress-step:not(:last-child):after{content:"";position:absolute;left:27px;right:8px;top:13px;height:2px;background:#E1EAEC;z-index:0}.progress-step.done:not(:last-child):after{background:#83D7CA}.progress-index{position:relative;z-index:1;width:27px;height:27px;flex:0 0 27px;display:grid;place-items:center;border-radius:50%;border:1px solid #D6E1E4;background:#fff;color:#8A9CA4;font-size:11px;font-weight:800}.progress-step span:last-child{font-size:10px;font-weight:750;white-space:nowrap}.progress-step.active{color:var(--teal)}.progress-step.active .progress-index{border-color:var(--teal);background:var(--teal);color:#fff;box-shadow:0 0 0 4px #E5F7F4}.progress-step.done .progress-index{background:#DFF5EF;border-color:#B4E7DB;color:#087D79}.wizard-content{padding:21px}.wizard-step{display:none}.wizard-step.active{display:block}.step-intro{margin-bottom:17px}.step-intro h3{font-size:18px;line-height:1.25;letter-spacing:-.3px;color:var(--navy);margin:0;font-weight:800}.step-intro p{font-size:12px;line-height:1.55;color:var(--muted);margin:6px 0 0}.capture-card{border:1px solid #BFE9E1;border-radius:15px;background:linear-gradient(150deg,#F0FBF8,#FCFEFD);padding:16px;margin-bottom:16px}.capture-heading{display:flex;align-items:flex-start;gap:11px;margin-bottom:13px}.capture-symbol{width:39px;height:39px;flex:0 0 39px;border-radius:12px;display:grid;place-items:center;background:#087F83;color:#fff;font-size:18px}.capture-heading h4{font-size:14px;color:var(--navy);margin:0;font-weight:800}.capture-heading p{font-size:11px;color:var(--muted);line-height:1.5;margin:4px 0 0}.optional-badge,.optional-inline{display:inline-flex;align-items:center;justify-content:center;background:#E9F3F3;color:#58757C;border-radius:20px;padding:4px 7px;font-size:9px;font-weight:800;letter-spacing:.3px;white-space:nowrap}.optional-inline{padding:2px 6px;letter-spacing:0;font-size:9px;margin-left:4px;vertical-align:1px}
+.field{margin-bottom:15px;min-width:0}.field label,.field-label{display:block;color:#243C49;font-size:12px;font-weight:750;margin:0 0 6px}.required{color:#D23D40;font-weight:800}input[type=text],input[type=email],input[type=tel],input[type=search],textarea,select,.search{display:block;width:100%;min-width:0;min-height:43px;border:1px solid #CDDCE0;border-radius:10px;background:#fff;padding:10px 12px;color:var(--ink);font-size:13px;outline:none;transition:border .15s,box-shadow .15s}input:focus,textarea:focus,select:focus,.search:focus{border-color:#149A91;box-shadow:0 0 0 3px rgba(20,154,145,.12)}input::placeholder,textarea::placeholder{color:#98A8AE}textarea{resize:vertical;min-height:85px;line-height:1.5}.field-hint{font-size:10px;line-height:1.45;color:#7C9098;margin-top:6px}.grid-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 13px}.form-divider{border:0;height:1px;background:#E8EFF0;margin:18px 0}.subsection-title{font-size:12px;font-weight:800;color:var(--navy);margin:0 0 11px;display:flex;align-items:center;gap:8px}.subsection-title span{color:var(--teal);background:#E7F7F4;border-radius:7px;padding:4px 7px;font-size:10px}.photo-box{display:flex;gap:12px;align-items:center;border:1px dashed #BBD0D5;background:#FAFCFC;border-radius:13px;padding:12px}.photo-preview{width:83px;height:83px;flex:0 0 83px;object-fit:cover;border-radius:10px;background:#E5EEF0;display:none}.photo-placeholder{width:83px;height:83px;flex:0 0 83px;display:grid;place-items:center;border-radius:10px;background:#E8F4F3;color:#6A9391}.photo-placeholder svg{width:32px;height:32px}.photo-actions{display:flex;flex-wrap:wrap;gap:7px}.small-note{font-size:10px;color:var(--muted);line-height:1.45;margin-top:7px}.interest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.interest{display:flex;align-items:flex-start;gap:9px;min-height:43px;padding:10px;border:1px solid #DDE8EA;border-radius:10px;background:#fff;cursor:pointer;font-size:11px;line-height:1.4}.interest:has(input:checked){border-color:#39A9A0;background:#EFFAF7;box-shadow:inset 0 0 0 1px rgba(57,169,160,.08)}.interest input{margin:2px 0 0;accent-color:var(--teal);flex:0 0 auto}.interest span{color:#2B4651;font-weight:600}.ocr-raw{max-height:170px;overflow:auto;margin:9px 0 0;padding:12px;border:1px solid #D3E6E2;border-radius:10px;background:#fff;color:#2B4C54;font:11px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.camera{display:none;margin-top:12px;background:#071923;padding:10px;border-radius:12px}.camera video{display:block;width:100%;max-height:280px;object-fit:contain;border-radius:8px}.camera-actions{display:flex;gap:8px;margin-top:9px}.camera-actions button{flex:1}
+.wizard-actions{display:none;align-items:center;justify-content:space-between;gap:10px;padding:14px 20px;background:#FBFDFD;border-top:1px solid #E7EFF0}.wizard-actions.active{display:flex}.action-left,.action-right{display:flex;align-items:center;gap:8px}.wizard-actions .btn{min-width:108px}.form-error{border:1px solid #F2CBC6;background:#FFF5F3;color:#982D24;border-radius:10px;padding:10px 12px;font-size:11px;margin:0 0 14px}.review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.review-item{min-width:0;border:1px solid #E2EAEC;border-radius:11px;padding:11px;background:#FCFEFE}.review-item small{display:block;color:#7C9097;font-size:10px;margin-bottom:4px}.review-item strong{display:block;white-space:pre-wrap;overflow-wrap:anywhere;color:#203B47;font-size:12px;font-weight:750}.review-item.wide{grid-column:1/-1}.success-card{max-width:610px;margin:24px auto 0;text-align:center;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:30px}.success-check{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:#DFF8EF;color:#078567;margin:0 auto 16px;font-size:30px;font-weight:900}.success-card h2{font-size:23px;color:var(--navy);margin:0}.success-card>p{font-size:12px;color:var(--muted);line-height:1.6;margin:8px 0 18px}.success-summary{padding:15px;border:1px solid #E0EAEC;background:#FAFCFC;border-radius:13px;text-align:left;margin:0 0 18px}.success-summary strong{display:block;font-size:14px;color:var(--navy)}.success-summary span{display:block;font-size:11px;color:var(--muted);margin-top:4px}.success-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}
+.search-row{display:flex;align-items:center;gap:9px;padding:13px 16px;border-bottom:1px solid #E8EFF0}.search-row .search{flex:1}.records{padding:0 17px;max-height:none}.record{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:11px;align-items:center;padding:13px 0;border-bottom:1px solid #ECF1F2}.record:last-child{border-bottom:0}.thumb{width:48px;height:48px;display:block;object-fit:cover;border-radius:12px;background:#EAF1F2}.record-main{min-width:0}.record-name{font-weight:800;color:var(--navy);font-size:12px;overflow-wrap:anywhere}.record-company{color:#526A75;font-size:11px;margin-top:3px;overflow-wrap:anywhere}.record-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}.tag{display:inline-flex;align-items:center;border-radius:6px;background:#EAF6F4;padding:3px 6px;font-size:9px;color:#276660;line-height:1.25}.record-date{font-size:9px;color:#83959D;margin-top:6px}.record-right{display:flex;flex-direction:column;gap:5px;align-items:flex-end}.empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:12px}.empty-icon{width:48px;height:48px;margin:0 auto 12px;display:grid;place-items:center;border-radius:15px;background:#E8F6F3;color:var(--teal);font-size:22px}.empty strong{display:block;color:var(--navy);font-size:13px;margin-bottom:6px}.section-footer{border-top:1px solid #E8EFF0;background:#FAFCFC;padding:13px 17px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.section-footer p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}
+.export-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.export-option{border:1px solid var(--line);border-radius:15px;padding:17px;background:#fff;display:flex;gap:12px;align-items:flex-start}.export-icon{width:43px;height:43px;flex:0 0 43px;display:grid;place-items:center;border-radius:12px;background:#E7F7F2;color:#0B806A;font-size:21px;font-weight:850}.export-option h3{font-size:13px;color:var(--navy);margin:1px 0 5px}.export-option p{font-size:11px;color:var(--muted);line-height:1.55;margin:0 0 12px}.export-option .btn{width:100%}.export-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}.export-stat{border-radius:12px;background:#F5F9F9;border:1px solid #E4ECEE;padding:13px}.export-stat strong{font-size:21px;display:block;color:var(--navy)}.export-stat span{font-size:10px;color:var(--muted)}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid #EDF1F2}.setting-row:last-child{border-bottom:0}.setting-row strong{display:block;font-size:12px;color:var(--navy)}.setting-row p{font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.5}.privacy-note{padding:13px;border-radius:11px;background:#F0F8F7;color:#47696D;font-size:11px;line-height:1.6;border:1px solid #D8EBE7}
+.bottom-nav{display:none}.notice{position:fixed;z-index:100;bottom:20px;left:50%;max-width:calc(100vw - 32px);width:max-content;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:#0D2837;color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.2);font-size:12px;line-height:1.4;transition:opacity .18s,transform .18s}.notice.show{opacity:1;transform:translate(-50%,0)}.notice.error{background:#8F2D26}.detail-modal{position:fixed;z-index:80;inset:0;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(4,17,25,.65);backdrop-filter:blur(4px)}.detail-modal.open{display:flex}.modal-card{width:min(650px,100%);max-height:min(88vh,850px);overflow:auto;background:#fff;border-radius:18px;box-shadow:0 20px 65px rgba(0,0,0,.25)}.modal-head{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;background:#fff;border-bottom:1px solid var(--line)}.modal-head h3{font-size:15px;color:var(--navy);margin:0}.modal-body{padding:18px}.modal-actions{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px;border-top:1px solid var(--line);background:#FBFDFD}.modal-image{width:100%;max-height:230px;object-fit:contain;border-radius:12px;background:#F2F6F7;border:1px solid var(--line);margin-top:8px}.app-footer{text-align:center;color:#8899A1;font-size:10px;padding:20px 0 5px}.no-bottom-nav .app-shell{padding-bottom:30px}
+@media(max-width:720px){.app-header{min-height:68px;padding:11px 14px}.brand{gap:9px}.brandmark{width:77px;flex-basis:77px}.brand-copy h1{font-size:15px}.brand-copy p{font-size:10px}.privacy-pill{font-size:9px;padding:7px 8px}.header-icon{width:34px;height:34px;flex:0 0 34px}.app-shell{padding:16px 12px 88px}.page-heading{margin-bottom:14px}.page-heading h2,.home-copy h2{font-size:22px}.stats-grid{gap:7px;margin-bottom:12px}.stat-card{padding:11px 10px;border-radius:12px}.stat-top{font-size:9px;gap:5px}.stat-icon{width:23px;height:23px;font-size:12px}.stat-card strong{font-size:21px;margin-top:8px}.stat-card small{font-size:9px}.home-hero{border-radius:16px;padding:19px 16px;gap:8px;margin-bottom:12px}.home-copy h2{font-size:24px}.home-copy p{font-size:12px;margin:8px 0 14px}.hero-art{width:75px;flex-basis:75px}.hero-art svg{width:75px}.btn{min-height:40px;padding:10px 12px}.quick-grid{grid-template-columns:minmax(0,1fr);gap:8px;margin-bottom:14px}.quick-card{align-items:center;padding:12px;gap:11px}.quick-icon{width:36px;height:36px;flex-basis:36px}.quick-card span{font-size:10px}.rep-card{padding:12px}.page-bar{margin-bottom:13px}.page-bar h2{font-size:19px}.wizard-progress{padding:12px 10px}.progress-step{justify-content:center;gap:5px}.progress-step:not(:last-child):after{left:calc(50% + 15px);right:-4px;top:13px}.progress-step span:last-child{display:none}.wizard-content{padding:15px 13px}.step-intro h3{font-size:17px}.step-intro p{font-size:11px}.capture-card{padding:12px}.capture-heading{gap:8px}.capture-symbol{width:34px;height:34px;flex-basis:34px}.capture-heading h4{font-size:13px}.capture-heading p{font-size:10px}.grid-two{grid-template-columns:minmax(0,1fr);gap:0}.interest-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.interest{font-size:10px;padding:9px;min-height:43px}.photo-box{align-items:flex-start;gap:9px;padding:9px}.photo-preview,.photo-placeholder{width:64px;height:64px;flex-basis:64px}.photo-actions .btn{min-height:33px;padding:7px 8px;font-size:10px}.wizard-actions{padding:11px 13px}.wizard-actions .btn{min-width:0;flex:1}.action-left,.action-right{flex:1}.review-grid{gap:7px}.review-item{padding:9px}.review-item strong{font-size:11px}.success-card{padding:23px 16px;margin-top:12px}.record{grid-template-columns:42px minmax(0,1fr) auto;gap:8px}.thumb{width:42px;height:42px}.record-right .btn{padding:6px 7px;font-size:10px}.search-row{padding:11px;gap:6px}.search-row .btn{padding:7px 8px;font-size:10px}.records{padding:0 11px}.export-grid{grid-template-columns:minmax(0,1fr)}.export-summary{gap:6px}.export-stat{padding:10px}.export-stat strong{font-size:18px}.export-stat span{font-size:9px}.bottom-nav{position:fixed;z-index:50;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:7px 6px max(7px,env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid #DDE7E9;backdrop-filter:blur(12px)}.bottom-nav button{border:0;background:transparent;color:#7A8D95;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9px;font-weight:750;padding:4px 2px;border-radius:9px}.bottom-nav button span:first-child{font-size:17px;line-height:1.2}.bottom-nav button.active{color:var(--teal);background:#EAF8F5}.detail-modal{padding:8px}.modal-card{max-height:94vh}.modal-body{padding:13px}}
+@media(max-width:380px){.privacy-pill{max-width:108px;white-space:normal;line-height:1.2}.home-hero{align-items:flex-start}.hero-art{display:none}.stat-card strong{font-size:18px}.interest-grid{grid-template-columns:minmax(0,1fr)}.progress-index{width:24px;height:24px;flex-basis:24px}.progress-step:not(:last-child):after{top:12px}}
 
-</style>
+</style></style>
 </head>
 <body>
-<header class="topbar">
-  <div class="brand">
-    <div class="logo-lockup" aria-label="TEAL logo">
-      <svg viewBox="0 0 190 54" role="img" aria-hidden="true">
-        <g fill="#48D9C5">
-          <path d="M2 4 27 8 27 49 17 43 16 18 2 15Z"/>
-          <path d="M31 8 56 4 56 15 42 18 41 43 31 49Z"/>
-        </g>
-        <text x="64" y="42" fill="#F2EEE8" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" letter-spacing="1.3">TEAL</text>
-        <path d="M91 10 H116 V14 H91 Z" fill="#48D9C5"/>
-      </svg>
-    </div>
-    <div class="brand-copy"><h1>Expo Visitor Capture</h1><div class="subtitle">Visitor registration · Exhibition mode · Offline</div></div>
-  </div>
-  <div class="offline">OFFLINE READY · DATA STAYS ON THIS DEVICE</div>
+<header class="app-header">
+  <div class="brand"><a class="brandmark" href="#home" data-nav="home" aria-label="TEAL home"><svg viewBox="0 0 190 54" role="img" aria-label="TEAL"><g fill="#4DE0C6"><path d="M2 4 27 8 27 49 17 43 16 18 2 15Z"/><path d="M31 8 56 4 56 15 42 18 41 43 31 49Z"/></g><text x="64" y="42" fill="#F2EEE8" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="700" letter-spacing="1.3">TEAL</text><path d="M91 10 H116 V14 H91 Z" fill="#4DE0C6"/></svg></a><div class="brand-copy"><h1>Expo Visitor Capture</h1><p>Visitor registration · Offline-first</p></div></div>
+  <div class="header-right"><div class="privacy-pill"><span class="privacy-dot"></span> Stored only on this device</div><button class="header-icon" type="button" data-nav="settings" aria-label="Open settings">⚙</button></div>
 </header>
-<main class="wrap">
-  <div class="intro"><div><h2>Visitor register</h2><p>Capture visitor details during the event and export them to Excel at the end.</p></div><div class="stats"><div class="stat"><strong id="totalCount">0</strong><span>Total visitors saved</span></div><div class="stat"><strong id="todayCount">0</strong><span>Registered today</span></div></div></div>
-  <div class="layout">
-    <section class="panel" aria-labelledby="formTitle">
-      <div class="panel-head"><div><h3 id="formTitle">New visitor</h3><div class="eyebrow" style="margin-top:4px">Usually takes less than a minute</div></div><span class="tag">NEW ENTRY</span></div>
-      <div class="panel-body">
-        <form id="visitorForm">
-          <section class="capture-card" aria-labelledby="captureCardTitle">
-            <div class="capture-heading">
-              <div class="capture-symbol" aria-hidden="true">▤</div>
-              <div><h4 id="captureCardTitle">Start with the business card</h4><p>Scan once to fill in contact details, then review them before saving.</p></div>
-              <span class="optional-badge">OPTIONAL</span>
-            </div>
-          <div class="field">
-            <span class="field-label">Visitor card / business card photo <span style="font-weight:400;color:var(--muted)">(optional)</span></span>
-            <div class="photo-box">
-              <div id="cardPhotoPlaceholder" class="photo-placeholder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19M6 14h5"/></svg></div>
-              <img id="cardPhotoPreview" class="photo-preview" alt="Visitor card photo preview">
-              <div style="min-width:0;flex:1"><div class="photo-actions"><button class="btn btn-primary btn-small" type="button" id="scanCardBtn">Scan &amp; auto-fill</button><button class="btn btn-outline btn-small" type="button" id="takeCardPhotoBtn"><span class="btn-icon">◎</span> Take photo</button><button class="btn btn-outline btn-small" type="button" id="chooseCardPhotoBtn">Choose image</button><button class="btn btn-outline btn-small hidden" type="button" id="removeCardPhotoBtn">Remove</button></div><input id="cardPhotoInput" type="file" accept="image/*" capture="environment" class="hidden"><div class="small-note">Capture the visitor badge or business card for later reference.</div></div>
-            </div>
-          </div>
+<main class="app-shell">
+  <section class="screen active" id="view-home" aria-labelledby="homeTitle">
+    <div class="page-heading"><div><div class="eyebrow">TEAL · Exhibition desk</div><h2 id="homeTitle">Visitor control centre</h2><p>Register visitors quickly, retain their card details and export everything for follow-up.</p></div></div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-top">Total visitors <span class="stat-icon">▤</span></div><strong id="totalCount">0</strong><small>Saved on this device</small></div>
+      <div class="stat-card"><div class="stat-top">Today <span class="stat-icon">◷</span></div><strong id="todayCount">0</strong><small>Registrations today</small></div>
+      <div class="stat-card"><div class="stat-top">With photos <span class="stat-icon">▧</span></div><strong id="homePhotoCount">0</strong><small>Visitor or card photo</small></div>
+    </div>
+    <div class="home-hero"><div class="home-copy"><div class="eyebrow">Every conversation matters</div><h2>Make every visitor count.</h2><p>Scan a business card, verify the details, and save a complete visitor record in a few steps. No internet connection is needed.</p><div class="hero-actions"><button class="btn btn-hero" type="button" data-open-new>＋ New visitor <span>→</span></button><button class="btn btn-light" type="button" data-nav="visitors">View saved visitors</button></div></div><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 140 140" fill="none"><rect x="19" y="18" width="86" height="108" rx="13" stroke="#7DE8D5" stroke-width="2"/><rect x="29" y="29" width="66" height="34" rx="7" fill="#4DE0C6" fill-opacity=".17" stroke="#4DE0C6"/><circle cx="48" cy="46" r="8" stroke="#7DE8D5" stroke-width="2"/><path d="M38 59c3-9 17-9 20 0M62 43h24M62 50h18" stroke="#7DE8D5" stroke-width="2" stroke-linecap="round"/><path d="M31 76h61M31 85h49M31 94h54" stroke="#D6F8F2" stroke-width="3" stroke-linecap="round"/><circle cx="104" cy="105" r="25" fill="#0D5B62" stroke="#4DE0C6" stroke-width="2"/><path d="m93 105 8 8 15-17" stroke="#4DE0C6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="quick-grid"><button class="quick-card" type="button" data-nav="visitors"><span class="quick-icon">☷</span><span><strong>Saved visitors</strong><span>Search, review, edit or remove existing records.</span></span><span class="quick-arrow">›</span></button><button class="quick-card" type="button" data-nav="exports"><span class="quick-icon">↓</span><span><strong>Export data</strong><span>Excel workbook with photos or a complete backup.</span></span><span class="quick-arrow">›</span></button><button class="quick-card" type="button" data-nav="settings"><span class="quick-icon">⚙</span><span><strong>App settings</strong><span>Set your representative name and protect event data.</span></span><span class="quick-arrow">›</span></button></div>
+    <div class="rep-card"><div class="rep-identity"><div class="rep-avatar" id="homeRepAvatar">TE</div><div class="rep-meta"><strong id="homeRepDisplay">TEAL representative not set</strong><span>Current representative · default for new records</span></div></div><button class="btn btn-outline btn-small" type="button" data-nav="settings">Manage</button></div>
+    <div class="app-footer">TEAL Expo Visitor Capture · Offline storage · No cloud upload</div>
+  </section>
 
-          <div id="ocrPanel" class="field hidden"><label>Text extracted from business card — verify before saving</label><pre id="ocrRaw" class="ocr-raw"></pre><div class="hint">OCR can misread small print. Confirm name, company and contact fields before saving.</div></div>
-
+  <section class="screen no-nav" id="view-new" aria-labelledby="newTitle">
+    <div class="page-bar"><button class="back-button" type="button" data-nav="home" aria-label="Back to home">‹</button><div><h2 id="newTitle">New visitor</h2><p id="wizardSubtitle">Start by capturing the business card.</p></div></div>
+    <div class="wizard-card">
+      <div class="wizard-progress" aria-label="Visitor registration progress"><div class="progress-step active" data-progress="1"><span class="progress-index">1</span><span>Scan card</span></div><div class="progress-step" data-progress="2"><span class="progress-index">2</span><span>Contact</span></div><div class="progress-step" data-progress="3"><span class="progress-index">3</span><span>More details</span></div><div class="progress-step" data-progress="4"><span class="progress-index">4</span><span>Review</span></div></div>
+      <form id="visitorForm" novalidate>
+        <div class="wizard-content">
+          <section class="wizard-step active" data-wizard-step="1">
+            <div class="step-intro"><h3>Capture the business card</h3><p>Take a clear photo or select an image. Offline text recognition will suggest contact details for you to verify.</p></div>
+            <div class="capture-card"><div class="capture-heading"><div class="capture-symbol">▤</div><div style="flex:1;min-width:0"><h4>Business card scanner</h4><p>Keep the full card in the frame, with readable text and minimal glare. Scanning is optional; you can enter details manually.</p></div><span class="optional-badge">OPTIONAL</span></div>
+              <div class="field"><span class="field-label">Business card image</span><div class="photo-box"><div id="cardPhotoPlaceholder" class="photo-placeholder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19M6 14h5"/></svg></div><img id="cardPhotoPreview" class="photo-preview" alt="Business card preview"><div style="min-width:0;flex:1"><div class="photo-actions"><button class="btn btn-primary btn-small" type="button" id="scanCardBtn">✦ Scan &amp; auto-fill</button><button class="btn btn-outline btn-small" type="button" id="takeCardPhotoBtn">◎ Camera</button><button class="btn btn-outline btn-small" type="button" id="chooseCardPhotoBtn">▧ Gallery</button><button class="btn btn-outline btn-small hidden" type="button" id="removeCardPhotoBtn">Remove</button></div><input id="cardPhotoInput" type="file" accept="image/*" capture="environment" class="hidden"><div class="small-note">The original image will be retained in the visitor record and Excel export.</div></div></div></div>
+              <div id="ocrPanel" class="field hidden" style="margin:14px 0 0"><label>Text extracted from the card</label><pre id="ocrRaw" class="ocr-raw"></pre><div class="field-hint">OCR can misread characters. Check the next screen carefully. All extracted text is saved with the record.</div></div>
+            </div>
+            <div class="privacy-note">Photos and visitor records stay in this app on this phone. No server or cloud service is used.</div>
           </section>
-          <div class="section-title"><span class="section-number">01</span><div><h4>Visitor details</h4><p>Name, company, designation and phone are required.</p></div></div>
-          <div class="core-fields">
-          <div class="field"><label for="visitorName">Visitor name <span class="required">*</span></label><input id="visitorName" name="name" type="text" placeholder="Enter full name" autocomplete="off" required maxlength="120"></div>Visitor name <span class="required">*</span></label><input id="visitorName" name="name" type="text" placeholder="Enter full name" autocomplete="off" required maxlength="120"></div>
-          <div class="field"><label for="company">Company name <span class="required">*</span></label><input id="company" name="company" type="text" placeholder="Company / organisation" autocomplete="organization" required maxlength="140"></div>
-          <div class="field"><label for="designation">Designation <span class="required">*</span></label><input id="designation" name="designation" type="text" placeholder="Job title / role" required maxlength="120"></div>
-          <div class="field"><label for="mobile">Phone number <span class="required">*</span></label><input id="mobile" name="mobile" type="tel" placeholder="Phone number" inputmode="tel" required maxlength="40"></div>
-          </div>
-          <div class="section-title optional-section"><span class="section-number soft-number">02</span><div><h4>Other contact details</h4><p>Email and website are optional.</p></div></div>
-          <div class="optional-fields">
-          <div class="field"><label for="email">Email <span class="optional-inline">Optional</span></label><input id="email" name="email" type="email" placeholder="name@company.com" autocomplete="email" maxlength="160"></div>
-          <div class="field"><label for="website">Website <span class="optional-inline">Optional</span></label><input id="website" name="website" type="text" placeholder="www.company.com" maxlength="160"></div>
-          </div>
-          <div class="section-title optional-section"><span class="section-number soft-number">03</span><div><h4>Areas of interest</h4><p>Select any that apply, or leave blank.</p></div></div>
-          <div class="field interest-field"><span class="field-label">Select all that apply</span>
-            <div class="interest-grid" id="interestGrid">
-              <label class="interest"><input type="checkbox" value="Industrial Automation & Robotics"><span>Industrial Automation & Robotics</span></label>
-              <label class="interest"><input type="checkbox" value="Assembly & Testing Systems"><span>Assembly & Testing Systems</span></label>
-              <label class="interest"><input type="checkbox" value="CNC / Machine Tending"><span>CNC / Machine Tending</span></label>
-              <label class="interest"><input type="checkbox" value="Material Handling / Intralogistics"><span>Material Handling / Intralogistics</span></label>
-              <label class="interest"><input type="checkbox" value="Special Purpose Machines"><span>Special Purpose Machines</span></label>
-              <label class="interest"><input type="checkbox" value="Software / Digital Solutions"><span>Software / Digital Solutions</span></label>
-              <label class="interest"><input type="checkbox" value="Aerospace / Precision Engineering"><span>Aerospace / Precision Engineering</span></label>
-              <label class="interest"><input type="checkbox" value="Automotive / EV"><span>Automotive / EV</span></label>
-              <label class="interest"><input type="checkbox" value="General Enquiry"><span>General Enquiry</span></label>
-              <label class="interest"><input id="otherInterestCheck" type="checkbox" value="Other"><span>Other</span></label>
-            </div>
-            <div id="otherInterestWrap" class="other-field hidden"><input id="otherInterest" type="text" placeholder="Specify other area of interest" maxlength="120"></div>
-            <div class="hint">Select all areas that apply.</div>
-          </div>
-          <div class="section-title optional-section"><span class="section-number soft-number">04</span><div><h4>Follow-up details</h4><p>Optional details for the TEAL team.</p></div></div>
-          <div class="field"><label for="repName">Collected by — TEAL representative <span class="optional-inline">Optional</span></label><input id="repName" name="repName" type="text" placeholder="Your name (remembered on this phone)" maxlength="120"><div class="hint">When entered, your name is remembered on this phone.</div></div>
-          <div class="field"><label for="notes">Meeting notes / requirement</label><textarea id="notes" name="notes" rows="3" placeholder="Key requirement, product, follow-up action…" maxlength="1000"></textarea></div>
-          <div class="field">
-            <span class="field-label">Visitor photo <span style="font-weight:400;color:var(--muted)">(optional)</span></span>
-            <div class="photo-box">
-              <div id="photoPlaceholder" class="photo-placeholder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg></div>
-              <img id="photoPreview" class="photo-preview" alt="Visitor photo preview">
-              <div style="min-width:0;flex:1"><div class="photo-actions"><button class="btn btn-outline btn-small" type="button" id="takePhotoBtn"><span class="btn-icon">◎</span> Take photo</button><button class="btn btn-outline btn-small" type="button" id="choosePhotoBtn">Choose photo</button><button class="btn btn-outline btn-small hidden" type="button" id="removePhotoBtn">Remove</button></div><input id="photoInput" type="file" accept="image/*" capture="environment" class="hidden"><div class="small-note">Take a live photo or choose an existing image.</div></div>
-            </div>
-          </div>
-          <div id="cameraBox" class="camera"><video id="cameraVideo" autoplay playsinline muted></video><div class="camera-actions"><button type="button" class="btn btn-primary btn-small" id="captureBtn">Capture</button><button type="button" class="btn btn-outline btn-small" id="closeCameraBtn">Cancel</button></div></div>
-          <div class="form-actions"><button type="submit" class="btn btn-primary" id="saveBtn"><span class="btn-icon">＋</span> Save visitor</button><button type="reset" class="btn btn-outline" id="resetBtn">Clear form</button></div>
-          <div class="consent">Store only the information needed for business follow-up. Confirm the visitor is comfortable having their photo recorded.</div>
-        </form>
-      </div>
-    </section>
-    <section class="panel" aria-labelledby="recordsTitle">
-      <div class="panel-head"><div><h3 id="recordsTitle">Saved visitors</h3><div class="eyebrow" style="margin-top:4px">Stored on this device</div></div><div class="toolbar"><button class="btn btn-primary btn-small" id="exportBtn">↓ Export Excel</button><button class="btn btn-outline btn-small" id="backupBtn">Backup</button></div></div>
-      <div class="search-row"><input class="search" id="searchInput" type="text" placeholder="Search name, company or interest…" aria-label="Search saved visitors"><button class="btn btn-outline btn-small" id="importBtn">Import backup</button><input id="importInput" type="file" accept="application/json,.json" class="hidden"></div>
-      <div id="recordList" class="records"><div class="empty"><div class="empty-icon">▤</div><strong>No visitors saved yet</strong>New registrations will appear here.</div></div>
-      <div class="section-footer"><p><strong>Keep your data safe.</strong> Export Excel regularly and keep a JSON backup.<br>Do not clear browser data or switch browsers during the event.</p><button class="btn btn-outline btn-small" id="refreshBtn">Refresh list</button></div>
-    </section>
-  </div>
-  <div class="footer-note">TEAL Expo Visitor Capture · Offline storage · No cloud upload</div>
+          <section class="wizard-step" data-wizard-step="2">
+            <div class="step-intro"><h3>Contact details</h3><p>Review the scanned details carefully. The four starred fields are the only required fields.</p></div>
+            <div class="grid-two"><div class="field"><label for="visitorName">Visitor name <span class="required">*</span></label><input id="visitorName" name="name" type="text" placeholder="Full name" autocomplete="off" required maxlength="120"></div><div class="field"><label for="company">Company name <span class="required">*</span></label><input id="company" name="company" type="text" placeholder="Company / organisation" autocomplete="organization" required maxlength="140"></div><div class="field"><label for="designation">Designation <span class="required">*</span></label><input id="designation" name="designation" type="text" placeholder="Job title / role" required maxlength="120"></div><div class="field"><label for="mobile">Phone number <span class="required">*</span></label><input id="mobile" name="mobile" type="tel" placeholder="Mobile / phone number" inputmode="tel" required maxlength="40" pattern="(?=.*[0-9])[+0-9() .-]{7,40}" title="Enter a valid phone number with at least 7 characters."></div></div>
+            <hr class="form-divider"><div class="subsection-title"><span>OPTIONAL</span> Additional contact information</div>
+            <div class="grid-two"><div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" placeholder="name@company.com" autocomplete="email" maxlength="200"></div><div class="field"><label for="website">Website</label><input id="website" name="website" type="text" placeholder="www.company.com" maxlength="200"></div></div>
+            <div class="field-hint">If a card contains more than one email, multiple phone numbers or a company address, check the original OCR text on step 1. It is retained in the visitor record and Excel export.</div>
+          </section>
+          <section class="wizard-step" data-wizard-step="3">
+            <div class="step-intro"><h3>Interests &amp; follow-up</h3><p>Capture context to help the TEAL team after the exhibition. All fields on this step are optional.</p></div><div class="subsection-title"><span>OPTIONAL</span> Areas of interest</div>
+            <div class="interest-grid" id="interestGrid"><label class="interest"><input type="checkbox" value="Industrial Automation & Robotics"><span>Industrial automation &amp; robotics</span></label><label class="interest"><input type="checkbox" value="Assembly & Testing Systems"><span>Assembly &amp; testing systems</span></label><label class="interest"><input type="checkbox" value="CNC / Machine Tending"><span>CNC / machine tending</span></label><label class="interest"><input type="checkbox" value="Material Handling / Intralogistics"><span>Material handling / intralogistics</span></label><label class="interest"><input type="checkbox" value="Special Purpose Machines"><span>Special purpose machines</span></label><label class="interest"><input type="checkbox" value="Software / Digital Solutions"><span>Software / digital solutions</span></label><label class="interest"><input type="checkbox" value="Aerospace / Precision Engineering"><span>Aerospace / precision engineering</span></label><label class="interest"><input type="checkbox" value="Automotive / EV"><span>Automotive / EV</span></label><label class="interest"><input type="checkbox" value="General Enquiry"><span>General enquiry</span></label><label class="interest"><input id="otherInterestCheck" type="checkbox" value="Other"><span>Other</span></label></div><div id="otherInterestWrap" class="field hidden" style="margin-top:10px"><input id="otherInterest" type="text" placeholder="Please specify" maxlength="120"></div>
+            <hr class="form-divider"><div class="grid-two"><div class="field"><label for="repName">Collected by — TEAL representative</label><input id="repName" name="repName" type="text" placeholder="Representative name" maxlength="120"><div class="field-hint">Defaults to your saved representative name.</div></div><div class="field"><label for="notes">Meeting notes / requirement</label><textarea id="notes" name="notes" rows="3" placeholder="Product interest, requirement, next action…" maxlength="1500"></textarea></div></div>
+            <div class="field"><span class="field-label">Visitor photo <span class="optional-inline">Optional</span></span><div class="photo-box"><div id="photoPlaceholder" class="photo-placeholder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg></div><img id="photoPreview" class="photo-preview" alt="Visitor photo preview"><div style="min-width:0;flex:1"><div class="photo-actions"><button class="btn btn-outline btn-small" type="button" id="takePhotoBtn">◎ Camera</button><button class="btn btn-outline btn-small" type="button" id="choosePhotoBtn">▧ Gallery</button><button class="btn btn-outline btn-small hidden" type="button" id="removePhotoBtn">Remove</button></div><input id="photoInput" type="file" accept="image/*" capture="environment" class="hidden"><div class="small-note">Ask permission before taking a visitor photo.</div></div></div></div>
+            <div id="cameraBox" class="camera"><video id="cameraVideo" autoplay playsinline muted></video><div class="camera-actions"><button type="button" class="btn btn-primary btn-small" id="captureBtn">Capture photo</button><button type="button" class="btn btn-outline btn-small" id="closeCameraBtn">Cancel</button></div></div>
+          </section>
+          <section class="wizard-step" data-wizard-step="4">
+            <div class="step-intro"><h3>Review before saving</h3><p>Confirm the information below. Go back to correct anything. The original card text and photos are saved with this record.</p></div><div class="review-grid">
+              <div class="review-item"><small>Visitor name</small><strong id="reviewName">—</strong></div><div class="review-item"><small>Company</small><strong id="reviewCompany">—</strong></div><div class="review-item"><small>Designation</small><strong id="reviewDesignation">—</strong></div><div class="review-item"><small>Phone number</small><strong id="reviewMobile">—</strong></div><div class="review-item"><small>Email</small><strong id="reviewEmail">—</strong></div><div class="review-item"><small>Website</small><strong id="reviewWebsite">—</strong></div><div class="review-item wide"><small>Areas of interest</small><strong id="reviewInterests">—</strong></div><div class="review-item wide"><small>TEAL representative</small><strong id="reviewRep">—</strong></div><div class="review-item wide"><small>Meeting notes</small><strong id="reviewNotes">—</strong></div><div class="review-item"><small>Business card</small><strong id="reviewCardPhoto">Not attached</strong></div><div class="review-item"><small>Visitor photo</small><strong id="reviewVisitorPhoto">Not attached</strong></div><div class="review-item wide"><small>Original card text</small><strong id="reviewRawText">No text scanned</strong></div>
+            </div><div id="saveError" class="form-error hidden" style="margin-top:14px"></div>
+          </section>
+        </div>
+        <div class="wizard-actions active" data-wizard-actions="1"><div class="action-left"><button class="btn btn-outline" type="button" data-nav="home">Cancel</button></div><div class="action-right"><button class="btn btn-primary" type="button" id="nextToContact">Continue to details →</button></div></div>
+        <div class="wizard-actions" data-wizard-actions="2"><div class="action-left"><button class="btn btn-outline" type="button" id="backToCard">← Back</button></div><div class="action-right"><button class="btn btn-primary" type="button" id="nextToFollowup">Continue →</button></div></div>
+        <div class="wizard-actions" data-wizard-actions="3"><div class="action-left"><button class="btn btn-outline" type="button" id="backToDetails">← Back</button></div><div class="action-right"><button class="btn btn-primary" type="button" id="nextToReview">Review visitor →</button></div></div>
+        <div class="wizard-actions" data-wizard-actions="4"><div class="action-left"><button class="btn btn-outline" type="button" id="backToFollowup">← Back</button><button class="btn btn-outline" type="reset" id="resetBtn">Clear</button></div><div class="action-right"><button class="btn btn-primary" type="submit" id="saveBtn">✓ Save visitor</button></div></div>
+      </form>
+    </div><div class="app-footer">Verify OCR suggestions before saving · Local records only</div>
+  </section>
+
+  <section class="screen no-nav" id="view-success" aria-labelledby="successTitle"><div class="success-card"><div class="success-check">✓</div><h2 id="successTitle">Visitor saved successfully</h2><p>The visitor record has been saved to the local database on this device. No internet connection is required.</p><div class="success-summary"><strong id="successName">Visitor name</strong><span id="successCompany">Company</span><span id="successId">Record saved</span><span id="successWhen"></span></div><div class="success-actions"><button class="btn btn-primary" type="button" data-open-new>＋ Add another visitor</button><button class="btn btn-outline" type="button" data-nav="visitors">View saved visitors</button><button class="btn btn-outline" type="button" data-nav="home">Home</button></div></div></section>
+
+  <section class="screen" id="view-visitors" aria-labelledby="visitorsTitle"><div class="page-heading"><div><div class="eyebrow">Visitor database</div><h2 id="visitorsTitle">Saved visitors</h2><p>Search records, review contact details or edit a record. Everything is stored locally.</p></div><button class="btn btn-primary" type="button" data-open-new>＋ New visitor</button></div><section class="panel"><div class="search-row"><input class="search" id="searchInput" type="search" placeholder="Search name, company, phone, email or interest…" aria-label="Search saved visitors"><button class="btn btn-outline btn-small" type="button" id="refreshBtn">↻ Refresh</button></div><div id="recordList" class="records"><div class="empty"><div class="empty-icon">☷</div><strong>No visitors saved yet</strong>New visitor records will appear here.</div></div><div class="section-footer"><p><strong>Protect the event data.</strong><br>Export an Excel file and create a JSON backup regularly.</p><button class="btn btn-outline btn-small" type="button" data-nav="exports">Export data →</button></div></section></section>
+
+  <section class="screen" id="view-exports" aria-labelledby="exportsTitle"><div class="page-heading"><div><div class="eyebrow">Take data with you</div><h2 id="exportsTitle">Export data</h2><p>Create a photo-enabled Excel workbook or a full JSON backup. Import the backup to restore records on this phone.</p></div></div><div class="export-grid">
+    <article class="export-option"><div class="export-icon">▦</div><div style="flex:1;min-width:0"><h3>Excel workbook</h3><p>Visitor details, interests, notes, original OCR text and embedded visitor/card photos.</p><button class="btn btn-primary" type="button" id="exportBtn">↓ Export Excel</button></div></article>
+    <article class="export-option"><div class="export-icon">↻</div><div style="flex:1;min-width:0"><h3>Full data backup</h3><p>Backup includes every saved field and both photos. Keep a copy safe before switching phones.</p><button class="btn btn-outline" type="button" id="backupBtn">↓ Create JSON backup</button></div></article>
+    <article class="export-option"><div class="export-icon">＋</div><div style="flex:1;min-width:0"><h3>Restore backup</h3><p>Import a previously created TEAL visitor JSON backup. Existing records will not be erased.</p><button class="btn btn-outline" type="button" id="importBtn">↑ Import JSON backup</button><input id="importInput" type="file" accept="application/json,.json" class="hidden"></div></article>
+    <article class="export-option"><div class="export-icon">✓</div><div style="flex:1;min-width:0"><h3>Export checklist</h3><p>Check record counts, review the workbook on a computer and retain the JSON backup.</p><div class="privacy-note">Exports are saved to <strong>Downloads / TEAL Expo</strong> on Android 10+.</div></div></article>
+  </div><div class="export-summary"><div class="export-stat"><strong id="exportTotalCount">0</strong><span>Total records</span></div><div class="export-stat"><strong id="exportWithPhotoCount">0</strong><span>Records with photos</span></div><div class="export-stat"><strong id="exportWithoutPhotoCount">0</strong><span>Records without photos</span></div></div></section>
+
+  <section class="screen" id="view-settings" aria-labelledby="settingsTitle"><div class="page-heading"><div><div class="eyebrow">Your preferences</div><h2 id="settingsTitle">App settings</h2><p>Set the representative name used by default for new visitor records.</p></div></div>
+    <section class="panel" style="margin-bottom:14px"><div class="panel-head"><div><h3>TEAL representative</h3><p>Stored on this phone and used to prefill new registrations.</p></div></div><div class="panel-body"><div class="field"><label for="settingsRepName">Representative name</label><input id="settingsRepName" type="text" placeholder="Enter your name" maxlength="120"></div><button class="btn btn-primary" type="button" id="saveRepBtn">Save preference</button></div></section>
+    <section class="panel"><div class="panel-head"><div><h3>Privacy &amp; data safety</h3><p>Designed to work in the exhibition hall without internet access.</p></div></div><div class="panel-body"><div class="setting-row"><div><strong>Local-only operation</strong><p>Visitor records and photos stay in the app's private local database. The app does not upload them.</p></div><span class="tag">ON DEVICE</span></div><div class="setting-row"><div><strong>Offline business-card OCR</strong><p>Text recognition runs on the phone using the bundled recognition engine. Always verify results.</p></div><span class="tag">ON DEVICE</span></div><div class="setting-row"><div><strong>Recommended routine</strong><p>Create a JSON backup after important batches and an Excel export at the end of each exhibition day.</p></div><button class="btn btn-outline btn-small" type="button" data-nav="exports">Open exports</button></div></div></section>
+  </section>
+  <div class="app-footer">TEAL Expo Visitor Capture · Offline-first · No third-party analytics</div>
 </main>
+<nav class="bottom-nav" id="bottomNav" aria-label="Main navigation"><button type="button" data-nav="home" class="active"><span>⌂</span>Home</button><button type="button" data-nav="visitors"><span>☷</span>Visitors</button><button type="button" data-nav="exports"><span>↓</span>Export</button><button type="button" data-nav="settings"><span>⚙</span>Settings</button></nav>
+<div id="detailsModal" class="detail-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><div class="modal-head"><h3 id="modalTitle">Visitor details</h3><button type="button" class="back-button" id="closeDetailsBtn" aria-label="Close details">×</button></div><div class="modal-body" id="modalContent"></div><div class="modal-actions"><button type="button" class="btn btn-outline" id="closeDetailsBtnBottom">Close</button><button type="button" class="btn btn-primary" id="modalEditBtn">Edit visitor</button></div></div></div>
 <div id="notice" class="notice" role="status" aria-live="polite"></div>
 <script>
 (() => {
@@ -221,6 +116,10 @@ input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3
   let db = null;
   let currentPhoto = null;
   let currentCardPhoto = null;
+  let currentCardText = '';
+  let editRecordId = null;
+  let lastSavedRecord = null;
+  let suppressResetCleanup = false;
   let activePhotoKind = 'visitor';
   let cameraStream = null;
   let noticeTimer = null;
@@ -252,6 +151,7 @@ input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3
   }
   function allRecords() { return new Promise((resolve,reject) => { const tx=db.transaction('visitors','readonly'); const req=tx.objectStore('visitors').getAll(); req.onsuccess=()=>resolve(req.result || []); req.onerror=()=>reject(req.error); }); }
   function addRecord(record) { return new Promise((resolve,reject) => { const tx=db.transaction('visitors','readwrite'); const req=tx.objectStore('visitors').add(record); req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error); }); }
+  function updateRecord(record) { return new Promise((resolve,reject) => { const tx=db.transaction('visitors','readwrite'); const req=tx.objectStore('visitors').put(record); req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error); }); }
   function deleteRecord(id) { return new Promise((resolve,reject) => { const tx=db.transaction('visitors','readwrite'); const req=tx.objectStore('visitors').delete(Number(id)); req.onsuccess=()=>resolve(); req.onerror=()=>reject(req.error); }); }
   function clearRecords() { return new Promise((resolve,reject) => { const tx=db.transaction('visitors','readwrite'); const req=tx.objectStore('visitors').clear(); req.onsuccess=()=>resolve(); req.onerror=()=>reject(req.error); }); }
   function saveImported(record) { const copy = {...record}; delete copy.id; return addRecord(copy); }
@@ -263,6 +163,11 @@ input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3
     records.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
     $('totalCount').textContent = records.length;
     $('todayCount').textContent = records.filter(r => todayKey(r.createdAt) === todayKey()).length;
+    const withPhotos = records.filter(r => ((r.visitorPhoto && r.visitorPhoto.data) || (r.photo && r.photo.data) || (r.cardPhoto && r.cardPhoto.data))).length;
+    if ($('homePhotoCount')) $('homePhotoCount').textContent = withPhotos;
+    if ($('exportTotalCount')) $('exportTotalCount').textContent = records.length;
+    if ($('exportWithPhotoCount')) $('exportWithPhotoCount').textContent = withPhotos;
+    if ($('exportWithoutPhotoCount')) $('exportWithoutPhotoCount').textContent = records.length - withPhotos;
     const query = $('searchInput').value.trim().toLowerCase();
     const filtered = records.filter(r => [r.name,r.company,r.designation,r.mobile,r.email,r.website,r.repName,r.notes,(r.interests||[]).join(' ')].join(' ').toLowerCase().includes(query));
     const root = $('recordList');
@@ -313,6 +218,7 @@ input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3
   function applyBusinessCardText(text) {
     const raw = String(text || '').replace(/\r/g, '').trim();
     if (!raw) { notify('No readable text found. Try a clearer, well-lit photo.', true); return; }
+    currentCardText = raw;
     $('ocrRaw').textContent = raw;
     $('ocrPanel').classList.remove('hidden');
     const lines = raw.split('\n').map(s => s.replace(/[|•·]+/g, ' ').replace(/\s+/g, ' ').trim()).filter(Boolean);
@@ -405,19 +311,37 @@ input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    const name=$('visitorName').value.trim(), company=$('company').value.trim(), designation=$('designation').value.trim(), mobile=$('mobile').value.trim(), interests=selectedInterests();
-    const repName=$('repName').value.trim();
-    if(!name || !company || !designation || !mobile){notify('Complete the four required fields: name, company, designation and phone number.',true);return;}
-    const saveBtn=$('saveBtn'); saveBtn.disabled=true; saveBtn.textContent='Saving…';
-    try {
-      if(repName) localStorage.setItem('teal-expo-rep-name', repName);
-      await addRecord({createdAt:new Date().toISOString(),name,company,designation,mobile,email:$('email').value.trim(),website:$('website').value.trim(),repName,department:'',notes:$('notes').value.trim(),interests,visitorPhoto:currentPhoto ? {...currentPhoto} : null,cardPhoto:currentCardPhoto ? {...currentCardPhoto} : null});
-      const savedRep=localStorage.getItem('teal-expo-rep-name') || repName;
-      form.reset(); $('repName').value=savedRep; setPhoto(null,'visitor'); setPhoto(null,'card'); $('ocrPanel').classList.add('hidden'); $('ocrRaw').textContent=''; $('otherInterestWrap').classList.add('hidden'); await stopCamera(); $('visitorName').focus(); await renderRecords(); notify('Visitor saved on this phone.');
-    } catch(e) { notify('Could not save. Export a backup if this keeps happening, then retry.',true); console.error(e); }
-    finally { saveBtn.disabled=false; saveBtn.innerHTML='<span class="btn-icon">＋</span> Save visitor'; }
+    if(!validateContactFields()){showWizardStep(2);return;}
+    const name=$('visitorName').value.trim(),company=$('company').value.trim(),designation=$('designation').value.trim(),mobile=$('mobile').value.trim();
+    const interests=selectedInterests(),repName=$('repName').value.trim(),saveBtn=$('saveBtn'),saveError=$('saveError');
+    if(saveError){saveError.classList.add('hidden');saveError.textContent='';}
+    saveBtn.disabled=true;saveBtn.textContent=editRecordId===null?'Saving visitor…':'Updating visitor…';
+    try{
+      if(repName)localStorage.setItem('teal-expo-rep-name',repName);
+      const existing=editRecordId!==null?(await allRecords()).find(r=>r.id===editRecordId):null;
+      const record={
+        ...(existing||{}),createdAt:existing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString(),
+        name,company,designation,mobile,email:$('email').value.trim(),website:$('website').value.trim(),repName,
+        department:existing?.department||'',notes:$('notes').value.trim(),interests,
+        cardText:currentCardText||existing?.cardText||'',
+        visitorPhoto:currentPhoto?{...currentPhoto}:(existing?.visitorPhoto||existing?.photo||null),
+        cardPhoto:currentCardPhoto?{...currentCardPhoto}:(existing?.cardPhoto||null)
+      };
+      let savedId;if(editRecordId!==null){record.id=editRecordId;savedId=await updateRecord(record);}else{savedId=await addRecord(record);record.id=savedId;}
+      lastSavedRecord={...record,id:savedId};editRecordId=null;
+      const savedRep=localStorage.getItem('teal-expo-rep-name')||repName;
+      form.reset();$('repName').value=savedRep;setPhoto(null,'visitor');setPhoto(null,'card');currentCardText='';
+      $('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';$('otherInterestWrap').classList.add('hidden');
+      await stopCamera();await renderRecords();populateSuccess(lastSavedRecord);showScreen('success');
+      notify(existing?'Visitor record updated.':'Visitor saved on this phone.');
+      $('settingsRepName').value=savedRep;$('homeRepDisplay').textContent=savedRep||'TEAL representative not set';
+      $('homeRepAvatar').textContent=savedRep?savedRep.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase():'TE';
+    }catch(e){
+      if(saveError){saveError.textContent='Could not save this visitor. Your entries are still on screen; please retry. '+(e.message||'');saveError.classList.remove('hidden');}
+      notify('Could not save this visitor. Your entries are still on screen; please retry.',true);console.error(e);
+    }finally{saveBtn.disabled=false;saveBtn.innerHTML='✓ Save visitor';}
   });
-  form.addEventListener('reset', () => { setTimeout(()=>{setPhoto(null,'visitor');setPhoto(null,'card');$('otherInterestWrap').classList.add('hidden');stopCamera();},0); });
+  form.addEventListener('reset', () => { if(suppressResetCleanup)return; setTimeout(()=>{setPhoto(null,'visitor');setPhoto(null,'card');currentCardText='';$('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';$('otherInterestWrap').classList.add('hidden');stopCamera();},0); });
   otherCheck.addEventListener('change',()=> $('otherInterestWrap').classList.toggle('hidden',!otherCheck.checked));
   $('choosePhotoBtn').addEventListener('click',()=>$('photoInput').click());
   $('photoInput').addEventListener('change',e=>chooseFile(e.target.files[0],'visitor'));
@@ -430,19 +354,36 @@ input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3
     await chooseFile(file,'card');
     if(shouldScan && currentCardPhoto) runOfflineOcr(currentCardPhoto);
   });
-  $('removeCardPhotoBtn').addEventListener('click',()=>{setPhoto(null,'card');notify('Card photo removed.');});
+  $('removeCardPhotoBtn').addEventListener('click',()=>{setPhoto(null,'card');currentCardText='';$('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';notify('Card photo removed.');});
   $('takeCardPhotoBtn').addEventListener('click',()=>startCamera('card'));
   $('captureBtn').addEventListener('click',capturePhoto);
   $('closeCameraBtn').addEventListener('click',stopCamera);
   $('searchInput').addEventListener('input',renderRecords);
   $('refreshBtn').addEventListener('click',()=>renderRecords().then(()=>notify('Visitor list refreshed.')));
+  function openVisitorDetails(record){
+    const fields=[['Visitor name',record.name],['Company',record.company],['Designation',record.designation],['Phone',record.mobile],['Email',record.email],['Website',record.website],['Collected by',record.repName],['Registered',localDateTime(record.createdAt)],['Areas of interest',(record.interests||[]).join(', ')],['Meeting notes',record.notes]];
+    $('modalTitle').textContent=record.name||'Visitor details';
+    let html='<div class="review-grid">'+fields.map(([label,value])=>'<div class="review-item'+(['Areas of interest','Meeting notes'].includes(label)?' wide':'')+'"><small>'+escapeHtml(label)+'</small><strong>'+escapeHtml(value||'—')+'</strong></div>').join('')+'</div>';
+    const vp=record.visitorPhoto||record.photo,cp=record.cardPhoto;
+    if(vp&&vp.data)html+='<h4 style="font-size:12px;color:#173849;margin:18px 0 4px">Visitor photo</h4><img class="modal-image" src="'+vp.data+'" alt="Visitor photo">';
+    if(cp&&cp.data)html+='<h4 style="font-size:12px;color:#173849;margin:18px 0 4px">Original business card</h4><img class="modal-image" src="'+cp.data+'" alt="Business card photo">';
+    if(record.cardText)html+='<h4 style="font-size:12px;color:#173849;margin:18px 0 4px">Original OCR text</h4><pre class="ocr-raw">'+escapeHtml(record.cardText)+'</pre>';
+    $('modalContent').innerHTML=html;$('modalEditBtn').dataset.id=String(record.id);
+    $('detailsModal').classList.add('open');document.body.classList.add('modal-open');
+  }
+  function closeVisitorDetails(){$('detailsModal').classList.remove('open');document.body.classList.remove('modal-open');}
+  $('closeDetailsBtn').addEventListener('click',closeVisitorDetails);$('closeDetailsBtnBottom').addEventListener('click',closeVisitorDetails);
+  $('detailsModal').addEventListener('click',e=>{if(e.target===$('detailsModal'))closeVisitorDetails();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVisitorDetails();});
+  $('modalEditBtn').addEventListener('click',async()=>{const id=Number($('modalEditBtn').dataset.id),records=await allRecords(),record=records.find(r=>r.id===id);if(!record)return;closeVisitorDetails();openRecordForEdit(record);});
   $('recordList').addEventListener('click',async e=>{
-    const btn=e.target.closest('button[data-action]'); if(!btn)return; const id=Number(btn.dataset.id); const records=await allRecords(); const record=records.find(r=>r.id===id); if(!record)return;
-    if(btn.dataset.action==='delete') { if(!confirm(`Delete the visitor record for ${record.name}? This cannot be undone.`))return; try{await deleteRecord(id);await renderRecords();notify('Visitor record deleted.');}catch(err){notify('Could not delete this visitor.',true);} }
-    else if(btn.dataset.action==='details') { const lines=[`Name: ${record.name}`,`Company: ${record.company}`,`Designation: ${record.designation||'—'}`,`Mobile: ${record.mobile||'—'}`,`Email: ${record.email||'—'}`,`Website: ${record.website||'—'}`,`Collected by: ${record.repName||'—'}`,`Notes: ${record.notes||'—'}`,`Areas of interest: ${(record.interests||[]).join(', ')}`,`Registered: ${localDateTime(record.createdAt)}`,`Visitor photo: ${(record.visitorPhoto||record.photo)?'Yes':'No'}`,`Visitor card photo: ${record.cardPhoto?'Yes':'No'}`]; alert(lines.join('\n')); }
+    const btn=e.target.closest('button[data-action]');if(!btn)return;
+    const id=Number(btn.dataset.id),records=await allRecords(),record=records.find(r=>r.id===id);if(!record)return;
+    if(btn.dataset.action==='delete'){if(!confirm('Delete the visitor record for '+record.name+'? This cannot be undone.'))return;try{await deleteRecord(id);await renderRecords();notify('Visitor record deleted.');}catch(err){notify('Could not delete this visitor.',true);}}
+    else if(btn.dataset.action==='details')openVisitorDetails(record);
   });
 
-  // Small dependency-free ZIP writer. The XLSX file is a standard Office Open XML workbook;
+  // Small dependency-free ZIP writer.  // Small dependency-free ZIP writer. The XLSX file is a standard Office Open XML workbook;
   // visitor photos are embedded as actual worksheet images, not pasted as text.
   const encoder = new TextEncoder();
   const crcTable = (()=>{const table=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?(0xedb88320^(c>>>1)):(c>>>1);table[n]=c>>>0;}return table;})();
@@ -462,12 +403,12 @@ input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3
   function base64ToBytes(dataUrl){const base64=dataUrl.split(',')[1]||'';const bin=atob(base64);const out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
   function cell(ref,value,style=''){const sty=style?` s="${style}"`:'';return `<c r="${ref}" t="inlineStr"${sty}><is><t xml:space="preserve">${xmlEscape(value)}</t></is></c>`;}
   function buildWorkbook(records){
-    const headers=['Visitor ID','Registered At','Visitor Name','Company','Designation','Mobile','Email','Website','Areas of Interest','Collected By (TEAL)','Notes','Visitor Photo','Visitor Card Photo'];
+    const headers=['Visitor ID','Registered At','Visitor Name','Company','Designation','Mobile','Email','Website','Areas of Interest','Collected By (TEAL)','Notes','Original Card Text (OCR)','Visitor Photo','Visitor Card Photo'];
     const photos=[];
     records.forEach((record,index)=>{
       const visitorPhoto=record.visitorPhoto || record.photo || null;
-      if(visitorPhoto && visitorPhoto.data) photos.push({record,rowIndex:index,photo:visitorPhoto,col:11,kind:'Visitor photo'});
-      if(record.cardPhoto && record.cardPhoto.data) photos.push({record,rowIndex:index,photo:record.cardPhoto,col:12,kind:'Visitor card photo'});
+      if(visitorPhoto && visitorPhoto.data) photos.push({record,rowIndex:index,photo:visitorPhoto,col:12,kind:'Visitor photo'});
+      if(record.cardPhoto && record.cardPhoto.data) photos.push({record,rowIndex:index,photo:record.cardPhoto,col:13,kind:'Visitor card photo'});
     });
     const imgFiles=[],drawings=[],drawingRels=[];
     photos.forEach((item,idx)=>{
@@ -480,11 +421,11 @@ input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3
     rows.push(`<row r="1" ht="27" customHeight="1">${headers.map((h,i)=>cell(`${colName(i+1)}1`,h,'1')).join('')}</row>`);
     records.forEach((r,i)=>{
       const n=i+2, interests=(r.interests||[]).join('; ');const vp=(r.visitorPhoto||r.photo);const cp=r.cardPhoto;
-      const vals=[String(r.id??i+1),localDateTime(r.createdAt),r.name,r.company,r.designation||'',r.mobile||'',r.email||'',r.website||'',interests,r.repName||'',r.notes||'',vp&&vp.data?'Image embedded':'No photo',cp&&cp.data?'Image embedded':'No photo'];
+      const vals=[String(r.id??i+1),localDateTime(r.createdAt),r.name,r.company,r.designation||'',r.mobile||'',r.email||'',r.website||'',interests,r.repName||'',r.notes||'',r.cardText||'',vp&&vp.data?'Image embedded':'No photo',cp&&cp.data?'Image embedded':'No photo'];
       rows.push(`<row r="${n}" ht="54" customHeight="1">${vals.map((v,j)=>cell(`${colName(j+1)}${n}`,v)).join('')}</row>`);
     });
     const rowCount=records.length+1;
-    const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><dimension ref="A1:M${rowCount}"/><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="18"/><cols><col min="1" max="1" width="12" customWidth="1"/><col min="2" max="2" width="23" customWidth="1"/><col min="3" max="3" width="25" customWidth="1"/><col min="4" max="4" width="26" customWidth="1"/><col min="5" max="5" width="18" customWidth="1"/><col min="6" max="6" width="17" customWidth="1"/><col min="7" max="7" width="28" customWidth="1"/><col min="8" max="8" width="28" customWidth="1"/><col min="9" max="9" width="46" customWidth="1"/><col min="10" max="10" width="25" customWidth="1"/><col min="11" max="11" width="38" customWidth="1"/><col min="12" max="12" width="18" customWidth="1"/><col min="13" max="13" width="22" customWidth="1"/></cols><sheetData>${rows.join('')}</sheetData><autoFilter ref="A1:M${rowCount}"/>${photos.length?'<drawing r:id="rId1"/>':''}</worksheet>`;
+    const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><dimension ref="A1:N${rowCount}"/><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="18"/><cols><col min="1" max="1" width="12" customWidth="1"/><col min="2" max="2" width="23" customWidth="1"/><col min="3" max="3" width="25" customWidth="1"/><col min="4" max="4" width="26" customWidth="1"/><col min="5" max="5" width="18" customWidth="1"/><col min="6" max="6" width="17" customWidth="1"/><col min="7" max="7" width="28" customWidth="1"/><col min="8" max="8" width="28" customWidth="1"/><col min="9" max="9" width="46" customWidth="1"/><col min="10" max="10" width="25" customWidth="1"/><col min="11" max="11" width="38" customWidth="1"/><col min="12" max="12" width="58" customWidth="1"/><col min="13" max="13" width="18" customWidth="1"/><col min="14" max="14" width="22" customWidth="1"/></cols><sheetData>${rows.join('')}</sheetData><autoFilter ref="A1:N${rowCount}"/>${photos.length?'<drawing r:id="rId1"/>':''}</worksheet>`;
     const files=[
       {name:'[Content_Types].xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpg" ContentType="image/jpeg"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${photos.length?'<Override PartName="/xl/drawings/drawing1.xml" ContentType="application/vnd.openxmlformats-officedocument.drawing+xml"/>':''}</Types>`},
       {name:'_rels/.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
@@ -511,11 +452,76 @@ input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3
   $('importBtn').addEventListener('click',()=>$('importInput').click());
   $('importInput').addEventListener('change',async e=>{
     const file=e.target.files[0];if(!file)return;
-    try{const parsed=JSON.parse(await file.text());const records=Array.isArray(parsed)?parsed:parsed.records;if(!Array.isArray(records))throw new Error('This file does not look like a TEAL visitor backup.');let count=0;for(const r of records){if(!r||!String(r.name||'').trim()||!String(r.company||'').trim())continue;const visitorPhoto=(r.visitorPhoto&&r.visitorPhoto.data)?r.visitorPhoto:(r.photo&&r.photo.data?r.photo:null);await saveImported({createdAt:r.createdAt||new Date().toISOString(),name:String(r.name),company:String(r.company),interests:Array.isArray(r.interests)?r.interests.map(String):[],visitorPhoto,cardPhoto:r.cardPhoto&&r.cardPhoto.data?r.cardPhoto:null});count++;}await renderRecords();notify(`Imported ${count} visitor record${count===1?'':'s'}.`);}catch(err){notify(err.message||'Could not import this backup.',true);}finally{$('importInput').value='';}
+    try{const parsed=JSON.parse(await file.text());const records=Array.isArray(parsed)?parsed:parsed.records;if(!Array.isArray(records))throw new Error('This file does not look like a TEAL visitor backup.');let count=0;for(const r of records){if(!r||!String(r.name||'').trim()||!String(r.company||'').trim())continue;const visitorPhoto=(r.visitorPhoto&&r.visitorPhoto.data)?r.visitorPhoto:(r.photo&&r.photo.data?r.photo:null);await saveImported({createdAt:r.createdAt||new Date().toISOString(),updatedAt:r.updatedAt||null,name:String(r.name),company:String(r.company),designation:String(r.designation||''),mobile:String(r.mobile||''),email:String(r.email||''),website:String(r.website||''),repName:String(r.repName||''),department:String(r.department||''),notes:String(r.notes||''),interests:Array.isArray(r.interests)?r.interests.map(String):[],cardText:String(r.cardText||''),visitorPhoto,cardPhoto:r.cardPhoto&&r.cardPhoto.data?r.cardPhoto:null});count++;}await renderRecords();notify(`Imported ${count} visitor record${count===1?'':'s'}.`);}catch(err){notify(err.message||'Could not import this backup.',true);}finally{$('importInput').value='';}
   });
 
-  $('repName').value = localStorage.getItem('teal-expo-rep-name') || '';
-  $('repName').addEventListener('change',()=>localStorage.setItem('teal-expo-rep-name',$('repName').value.trim()));
+
+  let currentWizardStep=1;
+  function showScreen(name){
+    document.querySelectorAll('.screen').forEach(el=>el.classList.toggle('active',el.id==='view-'+name));
+    document.body.classList.toggle('no-bottom-nav',['new','success'].includes(name));
+    document.querySelectorAll('.bottom-nav [data-nav]').forEach(btn=>btn.classList.toggle('active',btn.dataset.nav===name));
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  function showWizardStep(step){
+    currentWizardStep=Math.max(1,Math.min(4,Number(step)||1));
+    document.querySelectorAll('[data-wizard-step]').forEach(el=>el.classList.toggle('active',Number(el.dataset.wizardStep)===currentWizardStep));
+    document.querySelectorAll('[data-wizard-actions]').forEach(el=>el.classList.toggle('active',Number(el.dataset.wizardActions)===currentWizardStep));
+    document.querySelectorAll('[data-progress]').forEach(el=>{const n=Number(el.dataset.progress);el.classList.toggle('active',n===currentWizardStep);el.classList.toggle('done',n<currentWizardStep);const idx=el.querySelector('.progress-index');if(idx)idx.textContent=n<currentWizardStep?'✓':String(n);});
+    const subtitles={1:'Start by capturing a business card.',2:'Verify name, company, designation and phone.',3:'Optional interests and follow-up details.',4:'Review and save the visitor record.'};
+    $('wizardSubtitle').textContent=subtitles[currentWizardStep];
+    if(currentWizardStep===4)populateReview();
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  function validateContactFields(){
+    const fields=[['visitorName','Enter the visitor name.'],['company','Enter the company name.'],['designation','Enter the designation.'],['mobile','Enter a phone number.']];
+    for(const [id,message] of fields){const el=$(id);if(!el.value.trim()){notify(message,true);el.focus();return false;}if(!el.checkValidity()){notify(id==='mobile'?'Check the phone number format.':'Check this field.',true);el.focus();return false;}}
+    if($('email').value.trim()&&!$('email').checkValidity()){notify('Check the email address format.',true);$('email').focus();return false;}
+    return true;
+  }
+  function reviewSet(id,value){const el=$(id);if(el)el.textContent=value&&String(value).trim()?String(value).trim():'—';}
+  function populateReview(){
+    reviewSet('reviewName',$('visitorName').value);reviewSet('reviewCompany',$('company').value);reviewSet('reviewDesignation',$('designation').value);
+    reviewSet('reviewMobile',$('mobile').value);reviewSet('reviewEmail',$('email').value);reviewSet('reviewWebsite',$('website').value);
+    reviewSet('reviewInterests',selectedInterests().join(', '));reviewSet('reviewRep',$('repName').value);reviewSet('reviewNotes',$('notes').value);
+    reviewSet('reviewCardPhoto',currentCardPhoto?'Attached':'Not attached');reviewSet('reviewVisitorPhoto',currentPhoto?'Attached':'Not attached');reviewSet('reviewRawText',currentCardText);
+  }
+  function populateSuccess(record){if(!record)return;$('successName').textContent=record.name||'Visitor';$('successCompany').textContent=record.company||'';$('successId').textContent='Record ID: '+record.id;$('successWhen').textContent='Saved '+localDateTime(record.createdAt);}
+  function startNewVisitor(){
+    editRecordId=null;form.reset();$('repName').value=localStorage.getItem('teal-expo-rep-name')||$('settingsRepName').value||'';
+    currentPhoto=null;currentCardPhoto=null;currentCardText='';setPhoto(null,'visitor');setPhoto(null,'card');$('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';
+    $('otherInterestWrap').classList.add('hidden');$('saveError').classList.add('hidden');$('newTitle').textContent='New visitor';$('saveBtn').textContent='✓ Save visitor';
+    showWizardStep(1);showScreen('new');
+  }
+  function openRecordForEdit(record){
+    editRecordId=record.id;suppressResetCleanup=true;form.reset();suppressResetCleanup=false;
+    $('visitorName').value=record.name||'';$('company').value=record.company||'';$('designation').value=record.designation||'';$('mobile').value=record.mobile||'';
+    $('email').value=record.email||'';$('website').value=record.website||'';$('repName').value=record.repName||localStorage.getItem('teal-expo-rep-name')||'';$('notes').value=record.notes||'';
+    const chosen=new Set(record.interests||[]);document.querySelectorAll('#interestGrid input[type=checkbox]').forEach(input=>{const other=Array.from(chosen).some(v=>v.startsWith('Other: '));input.checked=chosen.has(input.value)||(input.value==='Other'&&other);});
+    const otherValue=(record.interests||[]).find(v=>v.startsWith('Other: '));$('otherInterest').value=otherValue?otherValue.slice(7):'';$('otherInterestWrap').classList.toggle('hidden',!$('otherInterestCheck').checked);
+    currentPhoto=record.visitorPhoto||record.photo||null;currentCardPhoto=record.cardPhoto||null;currentCardText=record.cardText||'';
+    setPhoto(currentPhoto,'visitor');setPhoto(currentCardPhoto,'card');$('ocrRaw').textContent=currentCardText;$('ocrPanel').classList.toggle('hidden',!currentCardText);
+    $('newTitle').textContent='Edit visitor';$('saveBtn').textContent='✓ Update visitor';$('saveError').classList.add('hidden');showWizardStep(2);showScreen('new');
+  }
+  document.querySelectorAll('[data-nav]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();const dst=btn.dataset.nav;if(dst==='new'){startNewVisitor();return;}showScreen(dst);}));
+  document.querySelectorAll('[data-open-new]').forEach(btn=>btn.addEventListener('click',startNewVisitor));
+  $('nextToContact').addEventListener('click',()=>showWizardStep(2));$('backToCard').addEventListener('click',()=>showWizardStep(1));
+  $('nextToFollowup').addEventListener('click',()=>{if(validateContactFields())showWizardStep(3);});$('backToDetails').addEventListener('click',()=>showWizardStep(2));
+  $('nextToReview').addEventListener('click',()=>showWizardStep(4));$('backToFollowup').addEventListener('click',()=>showWizardStep(3));
+  $('searchInput').addEventListener('input',()=>renderRecords());$('refreshBtn').addEventListener('click',async()=>{await renderRecords();notify('Visitor list refreshed.');});
+  $('saveRepBtn').addEventListener('click',()=>{
+    const name=$('settingsRepName').value.trim();if(name)localStorage.setItem('teal-expo-rep-name',name);else localStorage.removeItem('teal-expo-rep-name');
+    $('repName').value=name;$('homeRepDisplay').textContent=name||'TEAL representative not set';$('homeRepAvatar').textContent=name?name.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase():'TE';
+    notify(name?'Representative preference saved.':'Representative preference cleared.');
+  });
+  $('settingsRepName').addEventListener('change',()=>{$('repName').value=$('settingsRepName').value.trim();});
+  document.querySelectorAll('#interestGrid input[type=checkbox]').forEach(input=>input.addEventListener('change',()=>{if(input.id==='otherInterestCheck')$('otherInterestWrap').classList.toggle('hidden',!input.checked);}));
+
+  $('repName').value=localStorage.getItem('teal-expo-rep-name')||'';
+  $('settingsRepName').value=localStorage.getItem('teal-expo-rep-name')||'';
+  $('homeRepDisplay').textContent=localStorage.getItem('teal-expo-rep-name')||'TEAL representative not set';
+  $('homeRepAvatar').textContent=(localStorage.getItem('teal-expo-rep-name')||'TE').split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
+  $('repName').addEventListener('change',()=>{const v=$('repName').value.trim();if(v)localStorage.setItem('teal-expo-rep-name',v);$('settingsRepName').value=v;$('homeRepDisplay').textContent=v||'TEAL representative not set';$('homeRepAvatar').textContent=v?v.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase():'TE';});
   window.addEventListener('beforeunload',()=>{if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());});
   (async()=>{try{db=await openDB();await renderRecords();}catch(e){console.error(e);notify('Local database could not start. Close and reopen the app, then retry.',true);$('recordList').innerHTML='<div class="empty"><strong>Local storage could not start</strong>Previously saved visitors may be unavailable until storage is fixed. Create backups regularly.</div>';}})();
 })();
