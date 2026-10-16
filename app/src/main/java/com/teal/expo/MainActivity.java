@@ -280,7 +280,7 @@ public class MainActivity extends Activity {
         webView.evaluateJavascript(
                 "(function(){return !!(window.handleAndroidBack && window.handleAndroidBack());})()",
                 result -> {
-                    if (!"true".equals(result)) MainActivity.super.onBackPressed();
+                    if (!"true".equals(result)) finish();
                 });
     }
 
