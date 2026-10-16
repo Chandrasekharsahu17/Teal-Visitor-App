@@ -5,6 +5,9 @@ on:
     branches: [main]
 permissions:
   contents: read
+concurrency:
+  group: teal-visitor-apk-main
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,6 +23,23 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
+      - name: Restore stable debug signing key
+        id: debug-key-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: teal-expo-debug-signing-key-v1
+      - name: Create debug signing key on first build
+        if: steps.debug-key-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p "$HOME/.android"
+          keytool -genkeypair -keystore "$HOME/.android/debug.keystore" -storepass android -keypass android -alias androiddebugkey -dname "CN=Android Debug,O=Android,C=US" -validity 10000 -keyalg RSA -keysize 2048
+      - name: Cache debug signing key for future updates
+        if: steps.debug-key-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: teal-expo-debug-signing-key-v1
       - name: Build debug APK
         run: gradle --no-daemon assembleDebug
       - name: Verify APK exists
@@ -30,4 +50,4 @@ jobs:
           name: TEAL-Expo-Visitor-Capture-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 30
