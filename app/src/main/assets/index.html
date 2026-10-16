@@ -249,6 +249,10 @@
     const linkedin = (raw.match(/(?:https?:\/\/)?(?:www\.)?linkedin\.com\/[^\s,;]+/i) || [])[0] || '';
     let website = urls.find(u => !/linkedin\.com/i.test(u) && !u.includes('@')) || '';
     website = website.replace(/[.,;]+$/, '');
+    const emailDomains = emails.map(value => (value.split('@').pop() || '').toLowerCase().replace(/[.,;]+$/,''));
+    const websiteDomain = website.replace(/^https?:\/\//i,'').replace(/^www\./i,'').split('/')[0].toLowerCase();
+    // Do not copy an email's own domain into Website if OCR has split/wrapped the address into separate lines.
+    if (website && !/^(?:https?:\/\/|www\.)/i.test(website) && emailDomains.includes(websiteDomain)) website = '';
     const phonePattern = /(?:\+?\d[\d\s().-]{6,}\d)/g;
     const faxCandidates = lines.filter(line => /\bfax\b/i.test(line)).flatMap(line => line.match(phonePattern) || []);
     const fax = faxCandidates.find(v=>v.replace(/\D/g,'').length>=7)?.replace(/\s+/g,' ').trim() || '';
@@ -266,7 +270,7 @@
     }
     const mobile = phoneNumbers[0] || '';
     const alternatePhone = phoneNumbers.slice(1).join('; ');
-    const companyWords = /\b(private limited|pvt\.?\s*ltd\.?|limited|\bltd\.?|inc\.?|llp|llc|gmbh|corporation|corp\.?|technologies|technology|industries|industry|engineering|automation|manufacturing|solutions|enterprises|company|group|systems|services|motors|india)\b/i;
+    const companyWords = /\b(private limited|pvt\.?\s*ltd\.?|limited|\bltd\.?|inc\.?|llp|llc|gmbh|corporation|corp\.?|technologies|technology|industries|industry|industrial|engineering|automation|robotics|manufacturing|solutions|enterprises|company|group|systems|services|motors|global|international|trading|holdings|partners|associates|logistics|electronics|aerospace|precision|pharma|healthcare|digital|india)\b/i;
     const roleWords = /\b(CEO|CTO|CFO|COO|director|manager|head|president|vice president|VP|plant|purchase|procurement|engineer|consultant|founder|owner|sales|marketing|operations|executive|specialist|lead|supervisor|officer|professor|doctor|Dr\.)\b/i;
     const contactLine = line => /@|www\.|https?:\/\/|linkedin\.com|\d{7}/i.test(line);
     const cleanLabel = (line,labels) => line.replace(new RegExp('^\\s*(?:'+labels+')\\s*[:|—-]?\\s*','i'),'').trim();
