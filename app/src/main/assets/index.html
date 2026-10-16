@@ -481,7 +481,9 @@
 
 
   let currentWizardStep=1;
+  let currentScreenName='home';
   function showScreen(name){
+    currentScreenName=name;
     document.querySelectorAll('.screen').forEach(el=>el.classList.toggle('active',el.id==='view-'+name));
     document.body.classList.toggle('no-bottom-nav',['new','success'].includes(name));
     document.querySelectorAll('.bottom-nav [data-nav]').forEach(btn=>btn.classList.toggle('active',btn.dataset.nav===name));
@@ -527,6 +529,13 @@
     setPhoto(currentPhoto,'visitor');setPhoto(currentCardPhoto,'card');$('ocrRaw').textContent=currentCardText;$('ocrPanel').classList.toggle('hidden',!currentCardText);
     $('newTitle').textContent='Edit visitor';$('saveBtn').textContent='✓ Update visitor';$('saveError').classList.add('hidden');showWizardStep(2);showScreen('new');
   }
+  window.handleAndroidBack=function(){
+    if($('detailsModal').classList.contains('open')){closeVisitorDetails();return true;}
+    if(currentScreenName==='new'){if(currentWizardStep>1){showWizardStep(currentWizardStep-1);}else{showScreen('home');}return true;}
+    if(currentScreenName==='success'){showScreen('home');return true;}
+    if(currentScreenName!=='home'){showScreen('home');return true;}
+    return false;
+  };
   document.querySelectorAll('[data-nav]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();const dst=btn.dataset.nav;if(dst==='new'){startNewVisitor();return;}showScreen(dst);}));
   document.querySelectorAll('[data-open-new]').forEach(btn=>btn.addEventListener('click',startNewVisitor));
   $('nextToContact').addEventListener('click',()=>showWizardStep(2));$('backToCard').addEventListener('click',()=>showWizardStep(1));
