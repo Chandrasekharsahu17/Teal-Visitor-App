@@ -127,6 +127,10 @@
   let editRecordId = null;
   let lastSavedRecord = null;
   let suppressResetCleanup = false;
+  let suppressPhotoDirty = false;
+  let visitorPhotoChanged = false;
+  let cardPhotoChanged = false;
+  let cardTextChanged = false;
   let activePhotoKind = 'visitor';
   let cameraStream = null;
   let noticeTimer = null;
@@ -198,7 +202,8 @@
     return selected;
   }
   function setPhoto(data, kind='visitor') {
-    if (kind === 'visitor') currentPhoto = data; else currentCardPhoto = data;
+    if (kind === 'visitor') { currentPhoto = data; if(!suppressPhotoDirty) visitorPhotoChanged = true; }
+    else { currentCardPhoto = data; if(!suppressPhotoDirty) cardPhotoChanged = true; }
     const ids = kind === 'visitor'
       ? {preview:'photoPreview',placeholder:'photoPlaceholder',remove:'removePhotoBtn'}
       : {preview:'cardPhotoPreview',placeholder:'cardPhotoPlaceholder',remove:'removeCardPhotoBtn'};
@@ -226,6 +231,7 @@
     const raw = String(text || '').replace(/\r/g, '').trim();
     if (!raw) { notify('No readable text found. Try a clearer, well-lit photo.', true); return; }
     currentCardText = raw;
+    cardTextChanged = true;
     $('ocrRaw').textContent = raw;
     $('ocrPanel').classList.remove('hidden');
     const lines = raw.split('\n').map(s => s.replace(/[|•·]+/g, ' ').replace(/\s+/g, ' ').trim()).filter(Boolean);
@@ -347,14 +353,14 @@
         ...(existing||{}),createdAt:existing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString(),
         name,company,designation,mobile,alternatePhone:$('alternatePhone').value.trim(),email:$('email').value.trim(),additionalEmails:$('additionalEmails').value.trim(),website:$('website').value.trim(),linkedin:$('linkedin').value.trim(),address:$('address').value.trim(),repName,
         department:existing?.department||'',notes:$('notes').value.trim(),interests,
-        cardText:currentCardText||existing?.cardText||'',
-        visitorPhoto:currentPhoto?{...currentPhoto}:(existing?.visitorPhoto||existing?.photo||null),
-        cardPhoto:currentCardPhoto?{...currentCardPhoto}:(existing?.cardPhoto||null)
+        cardText:(editRecordId!==null && !cardTextChanged) ? (existing?.cardText||'') : currentCardText,
+        visitorPhoto:(editRecordId!==null && !visitorPhotoChanged) ? (existing?.visitorPhoto||existing?.photo||null) : (currentPhoto?{...currentPhoto}:null),
+        cardPhoto:(editRecordId!==null && !cardPhotoChanged) ? (existing?.cardPhoto||null) : (currentCardPhoto?{...currentCardPhoto}:null)
       };
       let savedId;if(editRecordId!==null){record.id=editRecordId;savedId=await updateRecord(record);}else{savedId=await addRecord(record);record.id=savedId;}
       lastSavedRecord={...record,id:savedId};editRecordId=null;
       const savedRep=localStorage.getItem('teal-expo-rep-name')||repName;
-      form.reset();$('repName').value=savedRep;setPhoto(null,'visitor');setPhoto(null,'card');currentCardText='';
+      suppressPhotoDirty=true;form.reset();$('repName').value=savedRep;setPhoto(null,'visitor');setPhoto(null,'card');suppressPhotoDirty=false;currentCardText='';visitorPhotoChanged=false;cardPhotoChanged=false;cardTextChanged=false;
       $('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';$('otherInterestWrap').classList.add('hidden');
       await stopCamera();await renderRecords();populateSuccess(lastSavedRecord);showScreen('success');
       notify(existing?'Visitor record updated.':'Visitor saved on this phone.');
@@ -375,11 +381,11 @@
   $('scanCardBtn').addEventListener('click',()=>{if(currentCardPhoto){runOfflineOcr(currentCardPhoto);return;}scanCardPending=true;$('cardPhotoInput').click();});
   $('cardPhotoInput').addEventListener('change',async e=>{
     const file=e.target.files[0], shouldScan=scanCardPending; scanCardPending=false;
-    if(file){currentCardText='';$('ocrRaw').textContent='';$('ocrPanel').classList.add('hidden');}
+    if(file){currentCardText='';cardTextChanged=true;$('ocrRaw').textContent='';$('ocrPanel').classList.add('hidden');}
     await chooseFile(file,'card');
     if(shouldScan && currentCardPhoto) runOfflineOcr(currentCardPhoto);
   });
-  $('removeCardPhotoBtn').addEventListener('click',()=>{setPhoto(null,'card');currentCardText='';$('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';notify('Card photo removed.');});
+  $('removeCardPhotoBtn').addEventListener('click',()=>{setPhoto(null,'card');currentCardText='';cardTextChanged=true;$('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';notify('Card photo removed.');});
   $('takeCardPhotoBtn').addEventListener('click',()=>startCamera('card'));
   $('captureBtn').addEventListener('click',capturePhoto);
   $('closeCameraBtn').addEventListener('click',stopCamera);
@@ -515,19 +521,19 @@
   }
   function populateSuccess(record){if(!record)return;$('successName').textContent=record.name||'Visitor';$('successCompany').textContent=record.company||'';$('successId').textContent='Record ID: '+record.id;$('successWhen').textContent='Saved '+localDateTime(record.createdAt);}
   function startNewVisitor(){
-    editRecordId=null;form.reset();$('repName').value=localStorage.getItem('teal-expo-rep-name')||$('settingsRepName').value||'';
-    currentPhoto=null;currentCardPhoto=null;currentCardText='';setPhoto(null,'visitor');setPhoto(null,'card');$('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';
+    editRecordId=null;suppressPhotoDirty=true;form.reset();$('repName').value=localStorage.getItem('teal-expo-rep-name')||$('settingsRepName').value||'';
+    currentPhoto=null;currentCardPhoto=null;currentCardText='';setPhoto(null,'visitor');setPhoto(null,'card');suppressPhotoDirty=false;visitorPhotoChanged=false;cardPhotoChanged=false;cardTextChanged=false;$('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';
     $('otherInterestWrap').classList.add('hidden');$('saveError').classList.add('hidden');$('newTitle').textContent='New visitor';$('saveBtn').textContent='✓ Save visitor';
     showWizardStep(1);showScreen('new');
   }
   function openRecordForEdit(record){
-    editRecordId=record.id;suppressResetCleanup=true;form.reset();suppressResetCleanup=false;
+    editRecordId=record.id;suppressPhotoDirty=true;suppressResetCleanup=true;form.reset();suppressResetCleanup=false;
     $('visitorName').value=record.name||'';$('company').value=record.company||'';$('designation').value=record.designation||'';$('mobile').value=record.mobile||'';
     $('email').value=record.email||'';$('additionalEmails').value=record.additionalEmails||'';$('website').value=record.website||'';$('linkedin').value=record.linkedin||'';$('address').value=record.address||'';$('alternatePhone').value=record.alternatePhone||'';$('repName').value=record.repName||localStorage.getItem('teal-expo-rep-name')||'';$('notes').value=record.notes||'';
     const chosen=new Set(record.interests||[]);document.querySelectorAll('#interestGrid input[type=checkbox]').forEach(input=>{const other=Array.from(chosen).some(v=>v.startsWith('Other: '));input.checked=chosen.has(input.value)||(input.value==='Other'&&other);});
     const otherValue=(record.interests||[]).find(v=>v.startsWith('Other: '));$('otherInterest').value=otherValue?otherValue.slice(7):'';$('otherInterestWrap').classList.toggle('hidden',!$('otherInterestCheck').checked);
     currentPhoto=record.visitorPhoto||record.photo||null;currentCardPhoto=record.cardPhoto||null;currentCardText=record.cardText||'';
-    setPhoto(currentPhoto,'visitor');setPhoto(currentCardPhoto,'card');$('ocrRaw').textContent=currentCardText;$('ocrPanel').classList.toggle('hidden',!currentCardText);
+    setPhoto(currentPhoto,'visitor');setPhoto(currentCardPhoto,'card');suppressPhotoDirty=false;visitorPhotoChanged=false;cardPhotoChanged=false;cardTextChanged=false;$('ocrRaw').textContent=currentCardText;$('ocrPanel').classList.toggle('hidden',!currentCardText);
     $('newTitle').textContent='Edit visitor';$('saveBtn').textContent='✓ Update visitor';$('saveError').classList.add('hidden');showWizardStep(2);showScreen('new');
   }
   window.handleAndroidBack=function(){
