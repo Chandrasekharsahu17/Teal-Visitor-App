@@ -274,7 +274,7 @@
     const roleWords = /\b(CEO|CTO|CFO|COO|director|manager|head|president|vice president|VP|plant|purchase|procurement|engineer|consultant|founder|owner|sales|marketing|operations|executive|specialist|lead|supervisor|officer|professor|doctor|Dr\.)\b/i;
     const contactLine = line => /@|www\.|https?:\/\/|linkedin\.com|\d{7}/i.test(line);
     const cleanLabel = (line,labels) => line.replace(new RegExp('^\\s*(?:'+labels+')\\s*[:|—-]?\\s*','i'),'').trim();
-    const companyCandidate = lines.find(line => /^(company|company name|organisation|organization|firm)\s*[:|—-]/i.test(line)) || lines.find(line => companyWords.test(line) && !contactLine(line)) || '';
+    const companyCandidate = lines.find(line => /^(company|company name|organisation|organization|firm)\s*[:|—-]/i.test(line)) || lines.find(line => companyWords.test(line) && !contactLine(line)) || lines.find(line => /^(?=.*[A-Z])[A-Z0-9&.-]{2,24}$/.test(line) && !contactLine(line) && !roleWords.test(line)) || '';
     const companyLine = companyCandidate ? cleanLabel(companyCandidate,'company name|company|organisation|organization|firm') : '';
     const roleCandidate = lines.find(line => /^(designation|job title|title|role|position)\s*[:|—-]/i.test(line)) || lines.find(line => roleWords.test(line) && !contactLine(line) && line !== companyCandidate) || '';
     const roleLine = roleCandidate ? cleanLabel(roleCandidate,'designation|job title|title|role|position') : '';
@@ -285,7 +285,18 @@
       return words.length >= 2 && words.length <= 5 && /^[\p{L}.' -]+$/u.test(line);
     }) || '');
     const addressCandidate = lines.find(line => /^(company address|office address|registered office|corporate office|head office|address|location)\s*[:|—-]/i.test(line)) || lines.find(line => /\b(road|street|industrial estate|sector|avenue|boulevard|pin code|postal code)\b/i.test(line) && !contactLine(line)) || '';
-    const address = addressCandidate ? cleanLabel(addressCandidate,'company address|office address|registered office|corporate office|head office|address|location') : '';
+    const addressIndex = lines.indexOf(addressCandidate);
+    const addressParts = [];
+    if(addressCandidate){
+      const firstAddressLine=cleanLabel(addressCandidate,'company address|office address|registered office|corporate office|head office|address|location');
+      if(firstAddressLine)addressParts.push(firstAddressLine);
+      for(let idx=addressIndex+1;idx<lines.length && addressParts.length<4;idx++){
+        const line=lines[idx];
+        if(!line||contactLine(line)||/^(name|visitor name|contact name|company|company name|designation|job title|title|role|position|department|dept\.?|division|business unit|function|email|e-mail|website|web|url|linkedin|mobile|mob\.?|phone|telephone|tel\.?|fax)\b/i.test(line)||roleWords.test(line))break;
+        addressParts.push(line);
+      }
+    }
+    const address = addressParts.join(', ');
     const departmentCandidate = lines.find(line => /^(department|dept\.?|division|business unit|function)\s*[:|—-]/i.test(line)) || '';
     const department = departmentCandidate ? cleanLabel(departmentCandidate,'department|dept\.?|division|business unit|function') : '';
     const setIfDetected = (id, value) => { if (value && !$(id).value.trim()) { $(id).value = value; const field = $(id).closest('.field'); if(field) field.classList.add('ocr-suggested'); } };
