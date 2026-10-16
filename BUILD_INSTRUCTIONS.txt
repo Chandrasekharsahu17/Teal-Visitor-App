@@ -2,7 +2,7 @@ TEAL EXPO VISITOR CAPTURE — BUILD / INSTALL NOTES
 ==================================================
 
 APP VERSION
-- Version name: 2.0
+- Version name: 2.2
 - Android package: com.teal.expo
 - Minimum Android version: Android 8.0 (API 26)
 - Offline-first; no server/cloud API is used at runtime.
