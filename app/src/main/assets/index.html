@@ -213,6 +213,12 @@
     if (data && data.data) { $(ids.preview).src=data.data; $(ids.preview).style.display='block'; $(ids.placeholder).style.display='none'; $(ids.remove).classList.remove('hidden'); }
     else { $(ids.preview).removeAttribute('src'); $(ids.preview).style.display='none'; $(ids.placeholder).style.display='grid'; $(ids.remove).classList.add('hidden'); }
   }
+  function clearOldOcrSuggestions(){
+    ['visitorName','company','designation','mobile','alternatePhone','fax','department','email','additionalEmails','website','linkedin','address'].forEach(id=>{
+      const input=$(id),field=input.closest('.field');
+      if(field&&field.classList.contains('ocr-suggested')){input.value='';field.classList.remove('ocr-suggested');}
+    });
+  }
   async function imageFileToJpeg(file) {
     if (!file || !file.type.startsWith('image/')) throw new Error('Please choose a valid image file.');
     const url = URL.createObjectURL(file);
@@ -408,7 +414,7 @@
   $('scanCardBtn').addEventListener('click',()=>{if(currentCardPhoto){runOfflineOcr(currentCardPhoto);return;}scanCardPending=true;$('cardPhotoInput').click();});
   $('cardPhotoInput').addEventListener('change',async e=>{
     const file=e.target.files[0], shouldScan=scanCardPending; scanCardPending=false;
-    if(file){currentCardText='';cardTextChanged=true;$('ocrRaw').textContent='';$('ocrPanel').classList.add('hidden');}
+    if(file){clearOldOcrSuggestions();currentCardText='';cardTextChanged=true;$('ocrRaw').textContent='';$('ocrPanel').classList.add('hidden');}
     await chooseFile(file,'card');
     if(shouldScan && currentCardPhoto) runOfflineOcr(currentCardPhoto);
   });
