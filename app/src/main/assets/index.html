@@ -71,6 +71,8 @@
               <div class="field"><label for="website">Website</label><input id="website" name="website" type="text" placeholder="www.company.com" maxlength="200"></div>
               <div class="field"><label for="linkedin">LinkedIn / profile URL</label><input id="linkedin" name="linkedin" type="text" placeholder="linkedin.com/in/…" maxlength="250"></div>
               <div class="field"><label for="alternatePhone">Alternate phone</label><input id="alternatePhone" name="alternatePhone" type="tel" placeholder="Landline / second number" maxlength="50"></div>
+              <div class="field"><label for="fax">Fax number</label><input id="fax" name="fax" type="tel" placeholder="Fax, if printed on the card" maxlength="50"></div>
+              <div class="field"><label for="department">Department / function</label><input id="department" name="department" type="text" placeholder="Department or business unit" maxlength="120"></div>
               <div class="field"><label for="address">Company / office address</label><textarea id="address" name="address" rows="2" placeholder="Office address, location, PIN…" maxlength="600"></textarea></div>
             </div>
             <div class="field-hint">If a card contains more than one email, multiple phone numbers or a company address, check the original OCR text on step 1. It is retained in the visitor record and Excel export.</div>
@@ -84,7 +86,7 @@
           </section>
           <section class="wizard-step" data-wizard-step="4">
             <div class="step-intro"><h3>Review before saving</h3><p>Confirm the information below. Go back to correct anything. The original card text and photos are saved with this record.</p></div><div class="review-grid">
-              <div class="review-item"><small>Visitor name</small><strong id="reviewName">—</strong></div><div class="review-item"><small>Company</small><strong id="reviewCompany">—</strong></div><div class="review-item"><small>Designation</small><strong id="reviewDesignation">—</strong></div><div class="review-item"><small>Phone number</small><strong id="reviewMobile">—</strong></div><div class="review-item"><small>Email</small><strong id="reviewEmail">—</strong></div><div class="review-item"><small>Additional emails</small><strong id="reviewAdditionalEmails">—</strong></div><div class="review-item"><small>Website</small><strong id="reviewWebsite">—</strong></div><div class="review-item"><small>LinkedIn / profile</small><strong id="reviewLinkedin">—</strong></div><div class="review-item"><small>Alternate phone</small><strong id="reviewAlternatePhone">—</strong></div><div class="review-item wide"><small>Company / office address</small><strong id="reviewAddress">—</strong></div><div class="review-item wide"><small>Areas of interest</small><strong id="reviewInterests">—</strong></div><div class="review-item wide"><small>TEAL representative</small><strong id="reviewRep">—</strong></div><div class="review-item wide"><small>Meeting notes</small><strong id="reviewNotes">—</strong></div><div class="review-item"><small>Business card</small><strong id="reviewCardPhoto">Not attached</strong></div><div class="review-item"><small>Visitor photo</small><strong id="reviewVisitorPhoto">Not attached</strong></div><div class="review-item wide"><small>Original card text</small><strong id="reviewRawText">No text scanned</strong></div>
+              <div class="review-item"><small>Visitor name</small><strong id="reviewName">—</strong></div><div class="review-item"><small>Company</small><strong id="reviewCompany">—</strong></div><div class="review-item"><small>Designation</small><strong id="reviewDesignation">—</strong></div><div class="review-item"><small>Phone number</small><strong id="reviewMobile">—</strong></div><div class="review-item"><small>Fax number</small><strong id="reviewFax">—</strong></div><div class="review-item"><small>Department / function</small><strong id="reviewDepartment">—</strong></div><div class="review-item"><small>Email</small><strong id="reviewEmail">—</strong></div><div class="review-item"><small>Additional emails</small><strong id="reviewAdditionalEmails">—</strong></div><div class="review-item"><small>Website</small><strong id="reviewWebsite">—</strong></div><div class="review-item"><small>LinkedIn / profile</small><strong id="reviewLinkedin">—</strong></div><div class="review-item"><small>Alternate phone</small><strong id="reviewAlternatePhone">—</strong></div><div class="review-item wide"><small>Company / office address</small><strong id="reviewAddress">—</strong></div><div class="review-item wide"><small>Areas of interest</small><strong id="reviewInterests">—</strong></div><div class="review-item wide"><small>TEAL representative</small><strong id="reviewRep">—</strong></div><div class="review-item wide"><small>Meeting notes</small><strong id="reviewNotes">—</strong></div><div class="review-item"><small>Business card</small><strong id="reviewCardPhoto">Not attached</strong></div><div class="review-item"><small>Visitor photo</small><strong id="reviewVisitorPhoto">Not attached</strong></div><div class="review-item wide"><small>Original card text</small><strong id="reviewRawText">No text scanned</strong></div>
             </div><div id="saveError" class="form-error hidden" style="margin-top:14px"></div>
           </section>
         </div>
@@ -181,7 +183,7 @@
     if ($('exportWithPhotoCount')) $('exportWithPhotoCount').textContent = withPhotos;
     if ($('exportWithoutPhotoCount')) $('exportWithoutPhotoCount').textContent = records.length - withPhotos;
     const query = $('searchInput').value.trim().toLowerCase();
-    const filtered = records.filter(r => [r.name,r.company,r.designation,r.mobile,r.alternatePhone,r.email,r.additionalEmails,r.website,r.linkedin,r.address,r.repName,r.notes,r.cardText,(r.interests||[]).join(' ')].join(' ').toLowerCase().includes(query));
+    const filtered = records.filter(r => [r.name,r.company,r.designation,r.mobile,r.alternatePhone,r.fax,r.email,r.additionalEmails,r.website,r.linkedin,r.address,r.department,r.repName,r.notes,r.cardText,(r.interests||[]).join(' ')].join(' ').toLowerCase().includes(query));
     const root = $('recordList');
     if (!filtered.length) {
       root.innerHTML = `<div class="empty"><div class="empty-icon">${records.length ? '⌕' : '▤'}</div><strong>${records.length ? 'No matching visitors' : 'No visitors saved yet'}</strong>${records.length ? 'Try another name, company or interest.' : 'New registrations will appear here.'}</div>`;
@@ -247,14 +249,18 @@
     const linkedin = (raw.match(/(?:https?:\/\/)?(?:www\.)?linkedin\.com\/[^\s,;]+/i) || [])[0] || '';
     let website = urls.find(u => !/linkedin\.com/i.test(u) && !u.includes('@')) || '';
     website = website.replace(/[.,;]+$/, '');
-    const phoneLineCandidates = lines.filter(line => /\b(mobile|mob\.?|phone|telephone|tel\.?|cell|direct|office|contact)\b/i.test(line));
     const phonePattern = /(?:\+?\d[\d\s().-]{6,}\d)/g;
-    const phoneCandidates = [...new Set([...phoneLineCandidates.flatMap(line => line.match(phonePattern) || []), ...lines.flatMap(line => line.match(phonePattern) || [])])];
+    const faxCandidates = lines.filter(line => /\bfax\b/i.test(line)).flatMap(line => line.match(phonePattern) || []);
+    const fax = faxCandidates.find(v=>v.replace(/\D/g,'').length>=7)?.replace(/\s+/g,' ').trim() || '';
+    const faxDigits = new Set(faxCandidates.map(v=>v.replace(/\D/g,'')));
+    const phoneLineCandidates = lines.filter(line => /\b(mobile|mob\.?|phone|telephone|tel\.?|cell|direct|office|contact)\b/i.test(line) && !/\bfax\b/i.test(line));
+    // Parse line by line so adjacent phone numbers can never be merged by a newline.
+    const phoneCandidates = [...new Set([...phoneLineCandidates.flatMap(line => line.match(phonePattern) || []), ...lines.filter(line=>!/\bfax\b/i.test(line)).flatMap(line => line.match(phonePattern) || [])])];
     const phoneNumbers = [];
     for (const candidate of phoneCandidates) {
       const digits = candidate.replace(/\D/g, '');
       const normalized = candidate.replace(/\s+/g, ' ').trim();
-      if (digits.length >= 7 && digits.length <= 15 && !phoneNumbers.some(p => p.replace(/\D/g, '') === digits)) phoneNumbers.push(normalized);
+      if (digits.length >= 7 && digits.length <= 15 && !faxDigits.has(digits) && !phoneNumbers.some(p => p.replace(/\D/g, '') === digits)) phoneNumbers.push(normalized);
     }
     const mobile = phoneNumbers[0] || '';
     const alternatePhone = phoneNumbers.slice(1).join('; ');
@@ -274,12 +280,16 @@
     }) || '');
     const addressCandidate = lines.find(line => /^(office address|address|location)\s*[:|—-]/i.test(line)) || lines.find(line => /\b(road|street|industrial estate|sector|avenue|boulevard|pin code|postal code)\b/i.test(line) && !contactLine(line)) || '';
     const address = addressCandidate ? cleanLabel(addressCandidate,'office address|address|location') : '';
+    const departmentCandidate = lines.find(line => /^(department|dept\.?|division|business unit|function)\s*[:|—-]/i.test(line)) || '';
+    const department = departmentCandidate ? cleanLabel(departmentCandidate,'department|dept\.?|division|business unit|function') : '';
     const setIfDetected = (id, value) => { if (value && !$(id).value.trim()) { $(id).value = value; const field = $(id).closest('.field'); if(field) field.classList.add('ocr-suggested'); } };
     setIfDetected('visitorName', nameLine);
     setIfDetected('company', companyLine);
     setIfDetected('designation', roleLine);
     setIfDetected('mobile', mobile);
     setIfDetected('alternatePhone', alternatePhone);
+    setIfDetected('fax', fax);
+    setIfDetected('department', department);
     setIfDetected('email', email);
     setIfDetected('additionalEmails', additionalEmails);
     setIfDetected('website', website);
@@ -352,8 +362,8 @@
       const existing=editRecordId!==null?(await allRecords()).find(r=>r.id===editRecordId):null;
       const record={
         ...(existing||{}),createdAt:existing?.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString(),
-        name,company,designation,mobile,alternatePhone:$('alternatePhone').value.trim(),email:$('email').value.trim(),additionalEmails:$('additionalEmails').value.trim(),website:$('website').value.trim(),linkedin:$('linkedin').value.trim(),address:$('address').value.trim(),repName,
-        department:existing?.department||'',notes:$('notes').value.trim(),interests,
+        name,company,designation,mobile,alternatePhone:$('alternatePhone').value.trim(),fax:$('fax').value.trim(),email:$('email').value.trim(),additionalEmails:$('additionalEmails').value.trim(),website:$('website').value.trim(),linkedin:$('linkedin').value.trim(),address:$('address').value.trim(),repName,
+        department:$('department').value.trim(),notes:$('notes').value.trim(),interests,
         cardText:(editRecordId!==null && !cardTextChanged) ? (existing?.cardText||'') : currentCardText,
         visitorPhoto:(editRecordId!==null && !visitorPhotoChanged) ? (existing?.visitorPhoto||existing?.photo||null) : (currentPhoto?{...currentPhoto}:null),
         cardPhoto:(editRecordId!==null && !cardPhotoChanged) ? (existing?.cardPhoto||null) : (currentCardPhoto?{...currentCardPhoto}:null)
@@ -373,7 +383,6 @@
     }finally{saveBtn.disabled=false;saveBtn.innerHTML=editRecordId===null?'✓ Save visitor':'✓ Update visitor';}
   });
   form.addEventListener('reset', () => { if(suppressResetCleanup)return; setTimeout(()=>{suppressPhotoDirty=true;setPhoto(null,'visitor');setPhoto(null,'card');suppressPhotoDirty=false;visitorPhotoChanged=false;cardPhotoChanged=false;currentCardText='';cardTextChanged=false;$('ocrPanel').classList.add('hidden');$('ocrRaw').textContent='';$('otherInterestWrap').classList.add('hidden');stopCamera();},0); });
-  otherCheck.addEventListener('change',()=> $('otherInterestWrap').classList.toggle('hidden',!otherCheck.checked));
   $('choosePhotoBtn').addEventListener('click',()=>$('photoInput').click());
   $('photoInput').addEventListener('change',e=>chooseFile(e.target.files[0],'visitor'));
   $('removePhotoBtn').addEventListener('click',()=>{setPhoto(null,'visitor');notify('Visitor photo removed.');});
@@ -390,10 +399,8 @@
   $('takeCardPhotoBtn').addEventListener('click',()=>startCamera('card'));
   $('captureBtn').addEventListener('click',capturePhoto);
   $('closeCameraBtn').addEventListener('click',stopCamera);
-  $('searchInput').addEventListener('input',renderRecords);
-  $('refreshBtn').addEventListener('click',()=>renderRecords().then(()=>notify('Visitor list refreshed.')));
   function openVisitorDetails(record){
-    const fields=[['Visitor name',record.name],['Company',record.company],['Designation',record.designation],['Phone',record.mobile],['Alternate phone',record.alternatePhone],['Email',record.email],['Additional emails',record.additionalEmails],['Website',record.website],['LinkedIn / profile',record.linkedin],['Address',record.address],['Collected by',record.repName],['Registered',localDateTime(record.createdAt)],['Areas of interest',(record.interests||[]).join(', ')],['Meeting notes',record.notes]];
+    const fields=[['Visitor name',record.name],['Company',record.company],['Designation',record.designation],['Phone',record.mobile],['Alternate phone',record.alternatePhone],['Fax',record.fax],['Email',record.email],['Additional emails',record.additionalEmails],['Website',record.website],['LinkedIn / profile',record.linkedin],['Address',record.address],['Collected by',record.repName],['Registered',localDateTime(record.createdAt)],['Areas of interest',(record.interests||[]).join(', ')],['Meeting notes',record.notes]];
     $('modalTitle').textContent=record.name||'Visitor details';
     let html='<div class="review-grid">'+fields.map(([label,value])=>'<div class="review-item'+(['Areas of interest','Meeting notes'].includes(label)?' wide':'')+'"><small>'+escapeHtml(label)+'</small><strong>'+escapeHtml(value||'—')+'</strong></div>').join('')+'</div>';
     const vp=record.visitorPhoto||record.photo,cp=record.cardPhoto;
@@ -435,12 +442,12 @@
   function base64ToBytes(dataUrl){const base64=dataUrl.split(',')[1]||'';const bin=atob(base64);const out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
   function cell(ref,value,style=''){const sty=style?` s="${style}"`:'';return `<c r="${ref}" t="inlineStr"${sty}><is><t xml:space="preserve">${xmlEscape(value)}</t></is></c>`;}
   function buildWorkbook(records){
-    const headers=['Visitor ID','Registered At','Visitor Name','Company','Designation','Phone','Alternate Phone','Email','Additional Emails','Website','LinkedIn / Profile','Company Address','Areas of Interest','Collected By (TEAL)','Meeting Notes','Original Card Text (OCR)','Visitor Photo','Visitor Card Photo'];
+    const headers=['Visitor ID','Registered At','Visitor Name','Company','Designation','Phone','Alternate Phone','Fax','Email','Additional Emails','Website','LinkedIn / Profile','Company Address','Department / Function','Areas of Interest','Collected By (TEAL)','Meeting Notes','Original Card Text (OCR)','Visitor Photo','Visitor Card Photo'];
     const photos=[];
     records.forEach((record,index)=>{
       const visitorPhoto=record.visitorPhoto || record.photo || null;
-      if(visitorPhoto && visitorPhoto.data) photos.push({record,rowIndex:index,photo:visitorPhoto,col:16,kind:'Visitor photo'});
-      if(record.cardPhoto && record.cardPhoto.data) photos.push({record,rowIndex:index,photo:record.cardPhoto,col:17,kind:'Visitor card photo'});
+      if(visitorPhoto && visitorPhoto.data) photos.push({record,rowIndex:index,photo:visitorPhoto,col:18,kind:'Visitor photo'});
+      if(record.cardPhoto && record.cardPhoto.data) photos.push({record,rowIndex:index,photo:record.cardPhoto,col:19,kind:'Visitor card photo'});
     });
     const imgFiles=[],drawings=[],drawingRels=[];
     photos.forEach((item,idx)=>{
@@ -453,11 +460,11 @@
     rows.push(`<row r="1" ht="27" customHeight="1">${headers.map((h,i)=>cell(`${colName(i+1)}1`,h,'1')).join('')}</row>`);
     records.forEach((r,i)=>{
       const n=i+2, interests=(r.interests||[]).join('; ');const vp=(r.visitorPhoto||r.photo);const cp=r.cardPhoto;
-      const vals=[String(r.id??i+1),localDateTime(r.createdAt),r.name,r.company,r.designation||'',r.mobile||'',r.alternatePhone||'',r.email||'',r.additionalEmails||'',r.website||'',r.linkedin||'',r.address||'',interests,r.repName||'',r.notes||'',r.cardText||'',vp&&vp.data?'Image embedded':'No photo',cp&&cp.data?'Image embedded':'No photo'];
+      const vals=[String(r.id??i+1),localDateTime(r.createdAt),r.name,r.company,r.designation||'',r.mobile||'',r.alternatePhone||'',r.fax||'',r.email||'',r.additionalEmails||'',r.website||'',r.linkedin||'',r.address||'',r.department||'',interests,r.repName||'',r.notes||'',r.cardText||'',vp&&vp.data?'Image embedded':'No photo',cp&&cp.data?'Image embedded':'No photo'];
       rows.push(`<row r="${n}" ht="54" customHeight="1">${vals.map((v,j)=>cell(`${colName(j+1)}${n}`,v)).join('')}</row>`);
     });
     const rowCount=records.length+1;
-    const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><dimension ref="A1:R${rowCount}"/><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="18"/><cols><col min="1" max="1" width="12" customWidth="1"/><col min="2" max="2" width="23" customWidth="1"/><col min="3" max="3" width="25" customWidth="1"/><col min="4" max="4" width="26" customWidth="1"/><col min="5" max="5" width="18" customWidth="1"/><col min="6" max="6" width="17" customWidth="1"/><col min="7" max="7" width="18" customWidth="1"/><col min="8" max="8" width="28" customWidth="1"/><col min="9" max="9" width="36" customWidth="1"/><col min="10" max="10" width="28" customWidth="1"/><col min="11" max="11" width="32" customWidth="1"/><col min="12" max="12" width="42" customWidth="1"/><col min="13" max="13" width="46" customWidth="1"/><col min="14" max="14" width="25" customWidth="1"/><col min="15" max="15" width="38" customWidth="1"/><col min="16" max="16" width="58" customWidth="1"/><col min="17" max="17" width="18" customWidth="1"/><col min="18" max="18" width="22" customWidth="1"/></cols><sheetData>${rows.join('')}</sheetData><autoFilter ref="A1:R${rowCount}"/>${photos.length?'<drawing r:id="rId1"/>':''}</worksheet>`;
+    const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><dimension ref="A1:T${rowCount}"/><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="18"/><cols><col min="1" max="1" width="12" customWidth="1"/><col min="2" max="2" width="23" customWidth="1"/><col min="3" max="3" width="25" customWidth="1"/><col min="4" max="4" width="26" customWidth="1"/><col min="5" max="5" width="18" customWidth="1"/><col min="6" max="6" width="17" customWidth="1"/><col min="7" max="7" width="18" customWidth="1"/><col min="8" max="8" width="18" customWidth="1"/><col min="9" max="9" width="28" customWidth="1"/><col min="10" max="10" width="36" customWidth="1"/><col min="11" max="11" width="28" customWidth="1"/><col min="12" max="12" width="32" customWidth="1"/><col min="13" max="13" width="42" customWidth="1"/><col min="14" max="14" width="22" customWidth="1"/><col min="15" max="15" width="46" customWidth="1"/><col min="16" max="16" width="25" customWidth="1"/><col min="17" max="17" width="38" customWidth="1"/><col min="18" max="18" width="58" customWidth="1"/><col min="19" max="19" width="18" customWidth="1"/><col min="20" max="20" width="22" customWidth="1"/></cols><sheetData>${rows.join('')}</sheetData><autoFilter ref="A1:T${rowCount}"/>${photos.length?'<drawing r:id="rId1"/>':''}</worksheet>`;
     const files=[
       {name:'[Content_Types].xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpg" ContentType="image/jpeg"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${photos.length?'<Override PartName="/xl/drawings/drawing1.xml" ContentType="application/vnd.openxmlformats-officedocument.drawing+xml"/>':''}</Types>`},
       {name:'_rels/.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
@@ -484,7 +491,7 @@
   $('importBtn').addEventListener('click',()=>$('importInput').click());
   $('importInput').addEventListener('change',async e=>{
     const file=e.target.files[0];if(!file)return;
-    try{const parsed=JSON.parse(await file.text());const records=Array.isArray(parsed)?parsed:parsed.records;if(!Array.isArray(records))throw new Error('This file does not look like a TEAL visitor backup.');let count=0;for(const r of records){if(!r||!String(r.name||'').trim()||!String(r.company||'').trim())continue;const visitorPhoto=(r.visitorPhoto&&r.visitorPhoto.data)?r.visitorPhoto:(r.photo&&r.photo.data?r.photo:null);await saveImported({createdAt:r.createdAt||new Date().toISOString(),updatedAt:r.updatedAt||null,name:String(r.name),company:String(r.company),designation:String(r.designation||''),mobile:String(r.mobile||''),alternatePhone:String(r.alternatePhone||''),email:String(r.email||''),additionalEmails:String(r.additionalEmails||''),website:String(r.website||''),linkedin:String(r.linkedin||''),address:String(r.address||''),repName:String(r.repName||''),department:String(r.department||''),notes:String(r.notes||''),interests:Array.isArray(r.interests)?r.interests.map(String):[],cardText:String(r.cardText||''),visitorPhoto,cardPhoto:r.cardPhoto&&r.cardPhoto.data?r.cardPhoto:null});count++;}await renderRecords();notify(`Imported ${count} visitor record${count===1?'':'s'}.`);}catch(err){notify(err.message||'Could not import this backup.',true);}finally{$('importInput').value='';}
+    try{const parsed=JSON.parse(await file.text());const records=Array.isArray(parsed)?parsed:parsed.records;if(!Array.isArray(records))throw new Error('This file does not look like a TEAL visitor backup.');let count=0;for(const r of records){if(!r||!String(r.name||'').trim()||!String(r.company||'').trim())continue;const visitorPhoto=(r.visitorPhoto&&r.visitorPhoto.data)?r.visitorPhoto:(r.photo&&r.photo.data?r.photo:null);await saveImported({createdAt:r.createdAt||new Date().toISOString(),updatedAt:r.updatedAt||null,name:String(r.name),company:String(r.company),designation:String(r.designation||''),mobile:String(r.mobile||''),alternatePhone:String(r.alternatePhone||''),fax:String(r.fax||''),email:String(r.email||''),additionalEmails:String(r.additionalEmails||''),website:String(r.website||''),linkedin:String(r.linkedin||''),address:String(r.address||''),repName:String(r.repName||''),department:String(r.department||''),notes:String(r.notes||''),interests:Array.isArray(r.interests)?r.interests.map(String):[],cardText:String(r.cardText||''),visitorPhoto,cardPhoto:r.cardPhoto&&r.cardPhoto.data?r.cardPhoto:null});count++;}await renderRecords();notify(`Imported ${count} visitor record${count===1?'':'s'}.`);}catch(err){notify(err.message||'Could not import this backup.',true);}finally{$('importInput').value='';}
   });
 
 
@@ -516,7 +523,7 @@
   function reviewSet(id,value){const el=$(id);if(el)el.textContent=value&&String(value).trim()?String(value).trim():'—';}
   function populateReview(){
     reviewSet('reviewName',$('visitorName').value);reviewSet('reviewCompany',$('company').value);reviewSet('reviewDesignation',$('designation').value);
-    reviewSet('reviewMobile',$('mobile').value);reviewSet('reviewEmail',$('email').value);reviewSet('reviewAdditionalEmails',$('additionalEmails').value);reviewSet('reviewWebsite',$('website').value);reviewSet('reviewLinkedin',$('linkedin').value);reviewSet('reviewAlternatePhone',$('alternatePhone').value);reviewSet('reviewAddress',$('address').value);
+    reviewSet('reviewMobile',$('mobile').value);reviewSet('reviewFax',$('fax').value);reviewSet('reviewDepartment',$('department').value);reviewSet('reviewEmail',$('email').value);reviewSet('reviewAdditionalEmails',$('additionalEmails').value);reviewSet('reviewWebsite',$('website').value);reviewSet('reviewLinkedin',$('linkedin').value);reviewSet('reviewAlternatePhone',$('alternatePhone').value);reviewSet('reviewAddress',$('address').value);
     reviewSet('reviewInterests',selectedInterests().join(', '));reviewSet('reviewRep',$('repName').value);reviewSet('reviewNotes',$('notes').value);
     reviewSet('reviewCardPhoto',currentCardPhoto?'Attached':'Not attached');reviewSet('reviewVisitorPhoto',currentPhoto?'Attached':'Not attached');reviewSet('reviewRawText',currentCardText);
   }
@@ -530,7 +537,7 @@
   function openRecordForEdit(record){
     editRecordId=record.id;suppressPhotoDirty=true;suppressResetCleanup=true;form.reset();suppressResetCleanup=false;
     $('visitorName').value=record.name||'';$('company').value=record.company||'';$('designation').value=record.designation||'';$('mobile').value=record.mobile||'';
-    $('email').value=record.email||'';$('additionalEmails').value=record.additionalEmails||'';$('website').value=record.website||'';$('linkedin').value=record.linkedin||'';$('address').value=record.address||'';$('alternatePhone').value=record.alternatePhone||'';$('repName').value=record.repName||localStorage.getItem('teal-expo-rep-name')||'';$('notes').value=record.notes||'';
+    $('email').value=record.email||'';$('additionalEmails').value=record.additionalEmails||'';$('website').value=record.website||'';$('linkedin').value=record.linkedin||'';$('address').value=record.address||'';$('alternatePhone').value=record.alternatePhone||'';$('fax').value=record.fax||'';$('department').value=record.department||'';$('repName').value=record.repName||localStorage.getItem('teal-expo-rep-name')||'';$('notes').value=record.notes||'';
     const chosen=new Set(record.interests||[]);document.querySelectorAll('#interestGrid input[type=checkbox]').forEach(input=>{const other=Array.from(chosen).some(v=>v.startsWith('Other: '));input.checked=chosen.has(input.value)||(input.value==='Other'&&other);});
     const otherValue=(record.interests||[]).find(v=>v.startsWith('Other: '));$('otherInterest').value=otherValue?otherValue.slice(7):'';$('otherInterestWrap').classList.toggle('hidden',!$('otherInterestCheck').checked);
     currentPhoto=record.visitorPhoto||record.photo||null;currentCardPhoto=record.cardPhoto||null;currentCardText=record.cardText||'';
@@ -556,7 +563,7 @@
     notify(name?'Representative preference saved.':'Representative preference cleared.');
   });
   $('settingsRepName').addEventListener('change',()=>{$('repName').value=$('settingsRepName').value.trim();});
-  ['visitorName','company','designation','mobile','alternatePhone','email','additionalEmails','website','linkedin','address'].forEach(id=>$(id).addEventListener('input',()=>{const field=$(id).closest('.field');if(field)field.classList.remove('ocr-suggested');}));
+  ['visitorName','company','designation','mobile','alternatePhone','fax','department','email','additionalEmails','website','linkedin','address'].forEach(id=>$(id).addEventListener('input',()=>{const field=$(id).closest('.field');if(field)field.classList.remove('ocr-suggested');}));
   document.querySelectorAll('#interestGrid input[type=checkbox]').forEach(input=>input.addEventListener('change',()=>{if(input.id==='otherInterestCheck')$('otherInterestWrap').classList.toggle('hidden',!input.checked);}));
 
   $('repName').value=localStorage.getItem('teal-expo-rep-name')||'';
