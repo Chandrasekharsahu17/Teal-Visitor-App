@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#112a46">
+<title>TEAL Expo — Visitor Capture</title>
+<style>
+:root{--navy:#112a46;--navy2:#1e4265;--teal:#087e8b;--ink:#172433;--muted:#617184;--line:#dce4ec;--bg:#f3f6f9;--white:#fff;--green:#177245;--red:#b42318;--shadow:0 10px 30px rgba(17,42,70,.07)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:15px}button,input,textarea{font:inherit}button{cursor:pointer}.topbar{background:linear-gradient(110deg,var(--navy),var(--navy2));color:#fff;padding:22px max(20px,calc((100vw - 1180px)/2));display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:14px}.logo{width:48px;height:48px;border:1px solid rgba(255,255,255,.5);border-radius:12px;display:grid;place-items:center;font-weight:800;letter-spacing:1px;font-size:15px;background:rgba(255,255,255,.08)}h1{font-size:22px;line-height:1.2;margin:0 0 5px;font-weight:750;letter-spacing:-.3px}.subtitle{color:#d8e5f0;font-size:13px}.offline{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);border-radius:30px;padding:8px 12px;font-size:12px;white-space:nowrap}.offline:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#65dfa0;margin-right:7px}.wrap{max-width:1180px;margin:26px auto;padding:0 20px}.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:18px}.intro h2{margin:0 0 5px;font-size:23px;letter-spacing:-.4px}.intro p{margin:0;color:var(--muted);font-size:14px}.stats{display:flex;gap:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:130px;box-shadow:0 2px 8px rgba(17,42,70,.025)}.stat strong{display:block;font-size:23px;color:var(--navy)}.stat span{font-size:12px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0, .95fr) minmax(0,1.25fr);gap:20px;align-items:start}.panel{background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.panel-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-head h3{margin:0;font-size:17px}.eyebrow{color:var(--muted);font-size:12px}.panel-body{padding:20px}.field{margin-bottom:17px}.field label,.field-label{display:block;font-size:13px;font-weight:700;margin:0 0 7px}.required{color:var(--red)}input[type=text],input[type=email],input[type=tel],textarea,.search{width:100%;border:1px solid #cdd8e3;border-radius:9px;background:#fff;padding:11px 12px;color:var(--ink);outline:none;transition:border .15s,box-shadow .15s}input:focus,textarea:focus,.search:focus{border-color:#4289b7;box-shadow:0 0 0 3px rgba(66,137,183,.13)}input::placeholder,textarea::placeholder{color:#96a2af}.interest-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.interest{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:10px;font-size:12px;line-height:1.35;min-height:54px;background:#fff;cursor:pointer}.interest:has(input:checked){border-color:#278a94;background:#f0fbfa}.interest input{margin:2px 0 0;accent-color:var(--teal);flex:0 0 auto}.interest span{font-weight:550}.hint{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px}.photo-box{border:1px dashed #b8c7d6;border-radius:12px;background:#f8fafc;padding:13px;display:flex;gap:14px;align-items:center}.photo-preview{width:92px;height:92px;border-radius:10px;object-fit:cover;background:#e6edf3;flex:0 0 auto;display:none}.photo-placeholder{width:92px;height:92px;border-radius:10px;background:#e6edf3;display:grid;place-items:center;flex:0 0 auto;color:#65778a}.photo-placeholder svg{width:33px;height:33px}.photo-actions{display:flex;gap:8px;flex-wrap:wrap}.small-note{font-size:11px;color:var(--muted);margin-top:7px}.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:transform .05s,background .15s}.btn:active{transform:translateY(1px)}.btn:disabled{opacity:.5;cursor:not-allowed}.btn-primary{background:var(--teal);color:#fff}.btn-primary:hover{background:#066c77}.btn-dark{background:var(--navy);color:#fff}.btn-outline{background:#fff;border:1px solid #cad6e1;color:var(--navy)}.btn-outline:hover{background:#f5f8fb}.btn-danger{background:#fff0ef;color:var(--red);border:1px solid #f3c8c5}.btn-small{padding:8px 10px;font-size:12px}.form-actions{display:flex;gap:10px;margin-top:21px}.form-actions .btn-primary{flex:1}.camera{display:none;margin-top:12px;background:#0c1723;padding:10px;border-radius:12px}.camera video{display:block;width:100%;max-height:290px;object-fit:contain;border-radius:8px}.camera-actions{display:flex;gap:8px;margin-top:9px}.camera-actions button{flex:1}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.search-row{display:flex;gap:10px;padding:15px 20px;border-bottom:1px solid var(--line)}.search{flex:1;min-width:120px}.records{padding:0 20px 12px;max-height:690px;overflow:auto}.record{padding:14px 0;display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:12px;align-items:start;border-bottom:1px solid #edf1f5}.record:last-child{border-bottom:0}.thumb{width:54px;height:54px;border-radius:9px;object-fit:cover;background:#e6edf3}.record-main{min-width:0}.record-name{font-weight:750;font-size:14px;overflow-wrap:anywhere}.record-company{color:#405267;font-size:12px;margin-top:3px;overflow-wrap:anywhere}.record-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.tag{background:#edf5f7;border-radius:5px;padding:4px 6px;font-size:10px;color:#24566a;line-height:1.2}.record-date{font-size:10px;color:#8290a0;margin-top:7px}.record-right{display:flex;flex-direction:column;gap:6px;align-items:flex-end}.empty{padding:42px 20px;text-align:center;color:var(--muted)}.empty .empty-icon{font-size:30px;margin-bottom:8px}.empty strong{display:block;color:var(--ink);margin-bottom:5px}.section-footer{border-top:1px solid var(--line);padding:14px 20px;background:#fbfcfe;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.section-footer p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.notice{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#142a40;color:white;padding:12px 17px;border-radius:10px;box-shadow:0 8px 30px #1724332b;font-size:13px;z-index:30;transition:all .2s;max-width:calc(100vw - 32px)}.notice.show{opacity:1;transform:translate(-50%,0)}.notice.error{background:#8d2018}.consent{font-size:11px;color:var(--muted);line-height:1.45;margin-top:13px}.footer-note{text-align:center;color:#8492a0;font-size:11px;margin:18px 0 30px}.hidden{display:none!important}.other-field{margin-top:9px}.btn-icon{font-size:15px;line-height:1}.kbd-note{font-size:11px;color:var(--muted)}.ocr-raw{white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto;margin:0;padding:12px;background:#f6f8fa;border:1px solid var(--line);border-radius:8px;font:12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.records{max-height:none}.topbar{padding:17px 20px}.wrap{margin:20px auto}.intro{align-items:flex-start;flex-direction:column}.stats{width:100%}.stat{flex:1}.panel-head{align-items:flex-start;flex-direction:column}.panel-head .toolbar{width:100%}}
+@media(max-width:520px){.topbar{align-items:flex-start}.offline{font-size:0;padding:10px}.offline:before{margin:0}.brand{gap:10px}.logo{width:42px;height:42px}h1{font-size:18px}.subtitle{font-size:11px}.wrap{padding:0 12px}.panel-body{padding:15px}.panel-head{padding:15px}.search-row{padding:12px}.records{padding:0 14px 8px}.interest-grid{grid-template-columns:1fr}.photo-box{align-items:flex-start}.photo-preview,.photo-placeholder{width:78px;height:78px}.stat{min-width:0;padding:10px}.stat strong{font-size:20px}.record{grid-template-columns:44px minmax(0,1fr) auto;gap:8px}.thumb{width:44px;height:44px}.record-right .btn{padding:6px 7px}.form-actions{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">TEAL</div><div><h1>TEAL Expo Visitor Capture</h1><div class="subtitle">Visitor registration · Shop / Exhibition · Offline</div></div></div>
+  <div class="offline">OFFLINE READY · DATA STAYS ON THIS DEVICE</div>
+</header>
+<main class="wrap">
+  <div class="intro"><div><h2>Visitor register</h2><p>Capture visitor details during the event and export them to Excel at the end.</p></div><div class="stats"><div class="stat"><strong id="totalCount">0</strong><span>Total visitors saved</span></div><div class="stat"><strong id="todayCount">0</strong><span>Registered today</span></div></div></div>
+  <div class="layout">
+    <section class="panel" aria-labelledby="formTitle">
+      <div class="panel-head"><div><h3 id="formTitle">New visitor</h3><div class="eyebrow" style="margin-top:4px">Usually takes less than a minute</div></div><span class="tag">NEW ENTRY</span></div>
+      <div class="panel-body">
+        <form id="visitorForm">
+          <div class="field"><label for="visitorName">Visitor name <span class="required">*</span></label><input id="visitorName" name="name" type="text" placeholder="Enter full name" autocomplete="off" required maxlength="120"></div>
+          <div class="field"><label for="company">Company <span class="required">*</span></label><input id="company" name="company" type="text" placeholder="Company / organisation" autocomplete="organization" required maxlength="140"></div>
+          <div class="field"><label for="designation">Designation</label><input id="designation" name="designation" type="text" placeholder="Job title / role" maxlength="120"></div>
+          <div class="field"><label for="mobile">Mobile</label><input id="mobile" name="mobile" type="tel" placeholder="Phone number" inputmode="tel" maxlength="40"></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="name@company.com" autocomplete="email" maxlength="160"></div>
+          <div class="field"><label for="website">Website</label><input id="website" name="website" type="text" placeholder="www.company.com" maxlength="160"></div>
+          <div class="field"><span class="field-label">Areas of interest <span class="required">*</span></span>
+            <div class="interest-grid" id="interestGrid">
+              <label class="interest"><input type="checkbox" value="Industrial Automation & Robotics"><span>Industrial Automation & Robotics</span></label>
+              <label class="interest"><input type="checkbox" value="Assembly & Testing Systems"><span>Assembly & Testing Systems</span></label>
+              <label class="interest"><input type="checkbox" value="CNC / Machine Tending"><span>CNC / Machine Tending</span></label>
+              <label class="interest"><input type="checkbox" value="Material Handling / Intralogistics"><span>Material Handling / Intralogistics</span></label>
+              <label class="interest"><input type="checkbox" value="Special Purpose Machines"><span>Special Purpose Machines</span></label>
+              <label class="interest"><input type="checkbox" value="Software / Digital Solutions"><span>Software / Digital Solutions</span></label>
+              <label class="interest"><input type="checkbox" value="Aerospace / Precision Engineering"><span>Aerospace / Precision Engineering</span></label>
+              <label class="interest"><input type="checkbox" value="Automotive / EV"><span>Automotive / EV</span></label>
+              <label class="interest"><input type="checkbox" value="General Enquiry"><span>General Enquiry</span></label>
+              <label class="interest"><input id="otherInterestCheck" type="checkbox" value="Other"><span>Other</span></label>
+            </div>
+            <div id="otherInterestWrap" class="other-field hidden"><input id="otherInterest" type="text" placeholder="Specify other area of interest" maxlength="120"></div>
+            <div class="hint">Select all areas that apply.</div>
+          </div>
+          <div class="field"><label for="repName">Collected by — TEAL representative <span class="required">*</span></label><input id="repName" name="repName" type="text" placeholder="Your name (remembered on this phone)" required maxlength="120"><div class="hint">Enter this once; the app remembers it on this phone.</div></div>
+          <div class="field"><label for="notes">Meeting notes / requirement</label><textarea id="notes" name="notes" rows="3" placeholder="Key requirement, product, follow-up action…" maxlength="1000"></textarea></div>
+          <div class="field">
+            <span class="field-label">Visitor photo <span style="font-weight:400;color:var(--muted)">(optional)</span></span>
+            <div class="photo-box">
+              <div id="photoPlaceholder" class="photo-placeholder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg></div>
+              <img id="photoPreview" class="photo-preview" alt="Visitor photo preview">
+              <div style="min-width:0;flex:1"><div class="photo-actions"><button class="btn btn-outline btn-small" type="button" id="takePhotoBtn"><span class="btn-icon">◎</span> Take photo</button><button class="btn btn-outline btn-small" type="button" id="choosePhotoBtn">Choose photo</button><button class="btn btn-outline btn-small hidden" type="button" id="removePhotoBtn">Remove</button></div><input id="photoInput" type="file" accept="image/*" capture="environment" class="hidden"><div class="small-note">Take a live photo or choose an existing image.</div></div>
+            </div>
+          </div>
+          <div class="field">
+            <span class="field-label">Visitor card / business card photo <span style="font-weight:400;color:var(--muted)">(optional)</span></span>
+            <div class="photo-box">
+              <div id="cardPhotoPlaceholder" class="photo-placeholder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19M6 14h5"/></svg></div>
+              <img id="cardPhotoPreview" class="photo-preview" alt="Visitor card photo preview">
+              <div style="min-width:0;flex:1"><div class="photo-actions"><button class="btn btn-primary btn-small" type="button" id="scanCardBtn">Scan &amp; auto-fill</button><button class="btn btn-outline btn-small" type="button" id="takeCardPhotoBtn"><span class="btn-icon">◎</span> Take photo</button><button class="btn btn-outline btn-small" type="button" id="chooseCardPhotoBtn">Choose image</button><button class="btn btn-outline btn-small hidden" type="button" id="removeCardPhotoBtn">Remove</button></div><input id="cardPhotoInput" type="file" accept="image/*" capture="environment" class="hidden"><div class="small-note">Capture the visitor badge or business card for later reference.</div></div>
+            </div>
+          </div>
+          <div id="ocrPanel" class="field hidden"><label>Text extracted from business card — verify before saving</label><pre id="ocrRaw" class="ocr-raw"></pre><div class="hint">OCR can misread small print. Confirm name, company and contact fields before saving.</div></div>
+          <div id="cameraBox" class="camera"><video id="cameraVideo" autoplay playsinline muted></video><div class="camera-actions"><button type="button" class="btn btn-primary btn-small" id="captureBtn">Capture</button><button type="button" class="btn btn-outline btn-small" id="closeCameraBtn">Cancel</button></div></div>
+          <div class="form-actions"><button type="submit" class="btn btn-primary" id="saveBtn"><span class="btn-icon">＋</span> Save visitor</button><button type="reset" class="btn btn-outline" id="resetBtn">Clear form</button></div>
+          <div class="consent">Store only the information needed for business follow-up. Confirm the visitor is comfortable having their photo recorded.</div>
+        </form>
+      </div>
+    </section>
+    <section class="panel" aria-labelledby="recordsTitle">
+      <div class="panel-head"><div><h3 id="recordsTitle">Saved visitors</h3><div class="eyebrow" style="margin-top:4px">Stored on this device</div></div><div class="toolbar"><button class="btn btn-primary btn-small" id="exportBtn">↓ Export Excel</button><button class="btn btn-outline btn-small" id="backupBtn">Backup</button></div></div>
+      <div class="search-row"><input class="search" id="searchInput" type="text" placeholder="Search name, company or interest…" aria-label="Search saved visitors"><button class="btn btn-outline btn-small" id="importBtn">Import backup</button><input id="importInput" type="file" accept="application/json,.json" class="hidden"></div>
+      <div id="recordList" class="records"><div class="empty"><div class="empty-icon">▤</div><strong>No visitors saved yet</strong>New registrations will appear here.</div></div>
+      <div class="section-footer"><p><strong>Keep your data safe.</strong> Export Excel regularly and keep a JSON backup.<br>Do not clear browser data or switch browsers during the event.</p><button class="btn btn-outline btn-small" id="refreshBtn">Refresh list</button></div>
+    </section>
+  </div>
+  <div class="footer-note">TEAL Expo Visitor Capture · Offline storage · No cloud upload</div>
+</main>
+<div id="notice" class="notice" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const DB_NAME = 'teal-expo-visitor-register';
+  const DB_VERSION = 1;
+  let db = null;
+  let currentPhoto = null;
+  let currentCardPhoto = null;
+  let activePhotoKind = 'visitor';
+  let cameraStream = null;
+  let noticeTimer = null;
+  let scanCardPending = false;
+  let ocrCounter = 0;
+  window.__tealOcrCallbacks = Object.create(null);
+  const $ = id => document.getElementById(id);
+  const form = $('visitorForm');
+  const otherCheck = $('otherInterestCheck');
+
+  function notify(message, error = false) {
+    const el = $('notice'); el.textContent = message; el.className = 'notice show' + (error ? ' error' : '');
+    clearTimeout(noticeTimer); noticeTimer = setTimeout(() => el.className = 'notice', 3400);
+  }
+  function localDateTime(value = new Date()) {
+    const d = new Date(value);
+    return d.toLocaleString(undefined, {year:'numeric',month:'short',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+  }
+  function todayKey(value = new Date()) { const d = new Date(value); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+  function openDB() {
+    return new Promise((resolve, reject) => {
+      if (!('indexedDB' in window)) { reject(new Error('This browser does not support local database storage.')); return; }
+      const request = indexedDB.open(DB_NAME, DB_VERSION);
+      request.onupgradeneeded = () => { const database = request.result; if (!database.objectStoreNames.contains('visitors')) database.createObjectStore('visitors', {keyPath:'id', autoIncrement:true}); };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error || new Error('Could not open local database.'));
+      request.onblocked = () => reject(new Error('Database is busy. Close any other tab running this app and retry.'));
+    });
+  }
+  function allRecords() { return new Promise((resolve,reject) => { const tx=db.transaction('visitors','readonly'); const req=tx.objectStore('visitors').getAll(); req.onsuccess=()=>resolve(req.result || []); req.onerror=()=>reject(req.error); }); }
+  function addRecord(record) { return new Promise((resolve,reject) => { const tx=db.transaction('visitors','readwrite'); const req=tx.objectStore('visitors').add(record); req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error); }); }
+  function deleteRecord(id) { return new Promise((resolve,reject) => { const tx=db.transaction('visitors','readwrite'); const req=tx.objectStore('visitors').delete(Number(id)); req.onsuccess=()=>resolve(); req.onerror=()=>reject(req.error); }); }
+  function clearRecords() { return new Promise((resolve,reject) => { const tx=db.transaction('visitors','readwrite'); const req=tx.objectStore('visitors').clear(); req.onsuccess=()=>resolve(); req.onerror=()=>reject(req.error); }); }
+  function saveImported(record) { const copy = {...record}; delete copy.id; return addRecord(copy); }
+
+  function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+  function shortInterest(list) { return (list || []).slice(0,3).map(x => `<span class="tag">${escapeHtml(x)}</span>`).join('') + ((list || []).length > 3 ? `<span class="tag">+${list.length-3} more</span>` : ''); }
+  async function renderRecords() {
+    const records = await allRecords();
+    records.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+    $('totalCount').textContent = records.length;
+    $('todayCount').textContent = records.filter(r => todayKey(r.createdAt) === todayKey()).length;
+    const query = $('searchInput').value.trim().toLowerCase();
+    const filtered = records.filter(r => [r.name,r.company,r.designation,r.mobile,r.email,r.website,r.repName,r.notes,(r.interests||[]).join(' ')].join(' ').toLowerCase().includes(query));
+    const root = $('recordList');
+    if (!filtered.length) {
+      root.innerHTML = `<div class="empty"><div class="empty-icon">${records.length ? '⌕' : '▤'}</div><strong>${records.length ? 'No matching visitors' : 'No visitors saved yet'}</strong>${records.length ? 'Try another name, company or interest.' : 'New registrations will appear here.'}</div>`;
+      return;
+    }
+    root.innerHTML = filtered.map(r => {
+      const visitorPhoto = (r.visitorPhoto && r.visitorPhoto.data) ? r.visitorPhoto : r.photo;
+      const photo = visitorPhoto && visitorPhoto.data ? `<img class="thumb" src="${visitorPhoto.data}" alt="Photo of ${escapeHtml(r.name)}">` : `<div class="thumb" style="display:grid;place-items:center;color:#8290a0;font-size:21px">♙</div>`;
+      const cardTag = r.cardPhoto && r.cardPhoto.data ? '<span class="tag">Card photo saved</span>' : '';
+      return `<article class="record"><div>${photo}</div><div class="record-main"><div class="record-name">${escapeHtml(r.name)}</div><div class="record-company">${escapeHtml(r.company)}</div><div class="record-tags">${shortInterest(r.interests || [])}${cardTag}</div><div class="record-date">${escapeHtml(localDateTime(r.createdAt))}</div></div><div class="record-right"><button class="btn btn-outline btn-small" data-action="details" data-id="${r.id}">View</button><button class="btn btn-danger btn-small" data-action="delete" data-id="${r.id}" aria-label="Delete ${escapeHtml(r.name)}">Delete</button></div></article>`;
+    }).join('');
+  }
+  function selectedInterests() {
+    const selected = [...document.querySelectorAll('#interestGrid input[type=checkbox]:checked')].map(el=>el.value);
+    if (selected.includes('Other')) {
+      const other = $('otherInterest').value.trim();
+      const idx = selected.indexOf('Other'); selected[idx] = other ? `Other: ${other}` : 'Other';
+    }
+    return selected;
+  }
+  function setPhoto(data, kind='visitor') {
+    if (kind === 'visitor') currentPhoto = data; else currentCardPhoto = data;
+    const ids = kind === 'visitor'
+      ? {preview:'photoPreview',placeholder:'photoPlaceholder',remove:'removePhotoBtn'}
+      : {preview:'cardPhotoPreview',placeholder:'cardPhotoPlaceholder',remove:'removeCardPhotoBtn'};
+    if (data && data.data) { $(ids.preview).src=data.data; $(ids.preview).style.display='block'; $(ids.placeholder).style.display='none'; $(ids.remove).classList.remove('hidden'); }
+    else { $(ids.preview).removeAttribute('src'); $(ids.preview).style.display='none'; $(ids.placeholder).style.display='grid'; $(ids.remove).classList.add('hidden'); }
+  }
+  async function imageFileToJpeg(file) {
+    if (!file || !file.type.startsWith('image/')) throw new Error('Please choose a valid image file.');
+    const url = URL.createObjectURL(file);
+    try {
+      const img = await new Promise((resolve,reject) => { const image = new Image(); image.onload=()=>resolve(image); image.onerror=()=>reject(new Error('This image could not be opened.')); image.src=url; });
+      const max = 1000, scale = Math.min(1, max / Math.max(img.naturalWidth,img.naturalHeight));
+      const canvas = document.createElement('canvas'); canvas.width=Math.max(1,Math.round(img.naturalWidth*scale)); canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));
+      const ctx=canvas.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.drawImage(img,0,0,canvas.width,canvas.height);
+      return {data:canvas.toDataURL('image/jpeg',0.82),width:canvas.width,height:canvas.height,type:'image/jpeg'};
+    } finally { URL.revokeObjectURL(url); }
+  }
+  async function chooseFile(file, kind='visitor') {
+    if (!file) return;
+    try { notify('Preparing photo…'); const photo=await imageFileToJpeg(file); setPhoto(photo,kind); notify(kind==='visitor'?'Visitor photo added.':'Card photo added.'); }
+    catch (e) { notify(e.message || 'Could not load this photo.', true); }
+    $(kind==='visitor'?'photoInput':'cardPhotoInput').value='';
+  }
+  function applyBusinessCardText(text) {
+    const raw = String(text || '').replace(/\r/g, '').trim();
+    if (!raw) { notify('No readable text found. Try a clearer, well-lit photo.', true); return; }
+    $('ocrRaw').textContent = raw;
+    $('ocrPanel').classList.remove('hidden');
+    const lines = raw.split('\n').map(s => s.replace(/[|•·]+/g, ' ').replace(/\s+/g, ' ').trim()).filter(Boolean);
+    const email = (raw.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i) || [])[0] || '';
+    let website = '';
+    const urls = raw.match(/(?:https?:\/\/)?(?:www\.)?[a-z0-9][a-z0-9.-]*\.[a-z]{2,}(?:\/[a-z0-9._~:/?#[\]@!$&'()*+,;=-]*)?/ig) || [];
+    website = urls.find(u => !u.includes('@') && !u.toLowerCase().includes(email.toLowerCase())) || '';
+    website = website.replace(/[.,;]+$/, '');
+    const phoneCandidates = raw.match(/(?:\+?\d[\d\s().-]{7,}\d)/g) || [];
+    let mobile = '';
+    for (const candidate of phoneCandidates) {
+      const digits = candidate.replace(/\D/g, '');
+      if (digits.length >= 8 && digits.length <= 15) { mobile = candidate.replace(/\s+/g, ' ').trim(); break; }
+    }
+    const companyWords = /\b(private limited|pvt\.?\s*ltd\.?|limited|\bltd\.?|inc\.?|llp|llc|gmbh|corporation|corp\.?|technologies|technology|industries|industry|engineering|automation|manufacturing|solutions|enterprises|company|group|systems|services|motors|industries|india)\b/i;
+    const roleWords = /\b(CEO|CTO|CFO|COO|director|manager|head|president|vice president|VP|plant|purchase|procurement|engineer|consultant|founder|owner|sales|marketing|operations|executive|specialist|lead|supervisor|officer|professor|doctor|Dr\.)\b/i;
+    const contactLine = s => /@|www\.|https?:\/\/|\d{7}/i.test(s);
+    const companyLine = lines.find(s => companyWords.test(s) && !contactLine(s)) || '';
+    const roleLine = lines.find(s => roleWords.test(s) && !contactLine(s) && s !== companyLine) || '';
+    const nameLine = lines.find(s => {
+      if (s === companyLine || s === roleLine || contactLine(s) || companyWords.test(s) || roleWords.test(s)) return false;
+      const words = s.split(/\s+/);
+      return words.length >= 2 && words.length <= 5 && /^[\p{L}.' -]+$/u.test(s);
+    }) || '';
+    const setIfDetected = (id, value) => { if (value && !$(id).value.trim()) $(id).value = value; };
+    setIfDetected('visitorName', nameLine);
+    setIfDetected('company', companyLine);
+    setIfDetected('designation', roleLine);
+    setIfDetected('mobile', mobile);
+    setIfDetected('email', email);
+    setIfDetected('website', website);
+    if (nameLine || companyLine || email || mobile || website) {
+      notify('Card text extracted. Check the highlighted fields, correct errors, and save.');
+    } else {
+      notify('Text was read, but fields were not identified confidently. Use the text below to enter details manually.', true);
+    }
+  }
+  window.onNativeOcrResult = function(callbackId, success, textOrError) {
+    const cb = window.__tealOcrCallbacks[callbackId];
+    if (!cb) return;
+    delete window.__tealOcrCallbacks[callbackId];
+    if (success) applyBusinessCardText(textOrError);
+    else notify('Business card scan failed: ' + (textOrError || 'try again with a clearer photo'), true);
+  };
+  function runOfflineOcr(photo) {
+    if (!window.AndroidBridge || typeof window.AndroidBridge.recognizeBusinessCard !== 'function') {
+      notify('Offline text extraction works in the installed Android APK. The browser HTML preview can only save the card photo.', true);
+      return;
+    }
+    if (!photo || !photo.data) { notify('Capture or choose a card photo first.', true); return; }
+    const base64 = photo.data.split(',')[1] || '';
+    const callbackId = 'teal_ocr_' + (++ocrCounter);
+    window.__tealOcrCallbacks[callbackId] = true;
+    try {
+      const accepted = window.AndroidBridge.recognizeBusinessCard(base64, callbackId);
+      if (accepted === false) { delete window.__tealOcrCallbacks[callbackId]; notify('The OCR engine could not start. Try again.', true); }
+      else notify('Reading card offline…');
+    } catch (e) {
+      delete window.__tealOcrCallbacks[callbackId];
+      notify('Could not scan the card: ' + e.message, true);
+    }
+  }
+
+  async function stopCamera() {
+    if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null;}
+    $('cameraVideo').srcObject=null; $('cameraBox').style.display='none'; $('takePhotoBtn').disabled=false; $('takeCardPhotoBtn').disabled=false;
+  }
+  async function startCamera(kind='visitor') {
+    activePhotoKind=kind;
+    if (kind === 'card') scanCardPending = false;
+    // In the APK, let Android show its native camera/gallery chooser for better compatibility.
+    if (window.AndroidBridge) { $(kind==='visitor'?'photoInput':'cardPhotoInput').click(); return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { $(kind==='visitor'?'photoInput':'cardPhotoInput').click(); return; }
+    try {
+      $(kind==='visitor'?'takePhotoBtn':'takeCardPhotoBtn').disabled=true;
+      cameraStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+      $('cameraVideo').srcObject=cameraStream; $('cameraBox').style.display='block'; await $('cameraVideo').play();
+    } catch(e) { await stopCamera(); notify('Camera access was blocked or unavailable. Choose an existing photo instead.',true); }
+    finally { $('takePhotoBtn').disabled=false; $('takeCardPhotoBtn').disabled=false; }
+  }
+  async function capturePhoto() {
+    const video=$('cameraVideo'); if(!video.videoWidth){notify('Camera is not ready yet. Try again.',true);return;}
+    const max=1000, scale=Math.min(1,max/Math.max(video.videoWidth,video.videoHeight)); const canvas=document.createElement('canvas'); canvas.width=Math.round(video.videoWidth*scale);canvas.height=Math.round(video.videoHeight*scale);canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height);
+    setPhoto({data:canvas.toDataURL('image/jpeg',0.82),width:canvas.width,height:canvas.height,type:'image/jpeg'},activePhotoKind); await stopCamera(); notify('Photo captured.');
+  }
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    const name=$('visitorName').value.trim(), company=$('company').value.trim(), interests=selectedInterests();
+    const repName=$('repName').value.trim();
+    if(!name || !company){notify('Enter the visitor name and company.',true);return;}
+    if(!repName){notify('Enter the TEAL representative name.',true);$('repName').focus();return;}
+    if(!interests.length){notify('Select at least one area of interest.',true);return;}
+    const saveBtn=$('saveBtn'); saveBtn.disabled=true; saveBtn.textContent='Saving…';
+    try {
+      localStorage.setItem('teal-expo-rep-name', repName);
+      await addRecord({createdAt:new Date().toISOString(),name,company,designation:$('designation').value.trim(),mobile:$('mobile').value.trim(),email:$('email').value.trim(),website:$('website').value.trim(),repName,department:'',notes:$('notes').value.trim(),interests,visitorPhoto:currentPhoto ? {...currentPhoto} : null,cardPhoto:currentCardPhoto ? {...currentCardPhoto} : null});
+      const savedRep=repName;
+      form.reset(); $('repName').value=savedRep; setPhoto(null,'visitor'); setPhoto(null,'card'); $('ocrPanel').classList.add('hidden'); $('ocrRaw').textContent=''; $('otherInterestWrap').classList.add('hidden'); await stopCamera(); $('visitorName').focus(); await renderRecords(); notify('Visitor saved on this phone.');
+    } catch(e) { notify('Could not save. Export a backup if this keeps happening, then retry.',true); console.error(e); }
+    finally { saveBtn.disabled=false; saveBtn.innerHTML='<span class="btn-icon">＋</span> Save visitor'; }
+  });
+  form.addEventListener('reset', () => { setTimeout(()=>{setPhoto(null,'visitor');setPhoto(null,'card');$('otherInterestWrap').classList.add('hidden');stopCamera();},0); });
+  otherCheck.addEventListener('change',()=> $('otherInterestWrap').classList.toggle('hidden',!otherCheck.checked));
+  $('choosePhotoBtn').addEventListener('click',()=>$('photoInput').click());
+  $('photoInput').addEventListener('change',e=>chooseFile(e.target.files[0],'visitor'));
+  $('removePhotoBtn').addEventListener('click',()=>{setPhoto(null,'visitor');notify('Visitor photo removed.');});
+  $('takePhotoBtn').addEventListener('click',()=>startCamera('visitor'));
+  $('chooseCardPhotoBtn').addEventListener('click',()=>{scanCardPending=false;$('cardPhotoInput').click();});
+  $('scanCardBtn').addEventListener('click',()=>{scanCardPending=true;$('cardPhotoInput').click();});
+  $('cardPhotoInput').addEventListener('change',async e=>{
+    const file=e.target.files[0], shouldScan=scanCardPending; scanCardPending=false;
+    await chooseFile(file,'card');
+    if(shouldScan && currentCardPhoto) runOfflineOcr(currentCardPhoto);
+  });
+  $('removeCardPhotoBtn').addEventListener('click',()=>{setPhoto(null,'card');notify('Card photo removed.');});
+  $('takeCardPhotoBtn').addEventListener('click',()=>startCamera('card'));
+  $('captureBtn').addEventListener('click',capturePhoto);
+  $('closeCameraBtn').addEventListener('click',stopCamera);
+  $('searchInput').addEventListener('input',renderRecords);
+  $('refreshBtn').addEventListener('click',()=>renderRecords().then(()=>notify('Visitor list refreshed.')));
+  $('recordList').addEventListener('click',async e=>{
+    const btn=e.target.closest('button[data-action]'); if(!btn)return; const id=Number(btn.dataset.id); const records=await allRecords(); const record=records.find(r=>r.id===id); if(!record)return;
+    if(btn.dataset.action==='delete') { if(!confirm(`Delete the visitor record for ${record.name}? This cannot be undone.`))return; try{await deleteRecord(id);await renderRecords();notify('Visitor record deleted.');}catch(err){notify('Could not delete this visitor.',true);} }
+    else if(btn.dataset.action==='details') { const lines=[`Name: ${record.name}`,`Company: ${record.company}`,`Designation: ${record.designation||'—'}`,`Mobile: ${record.mobile||'—'}`,`Email: ${record.email||'—'}`,`Website: ${record.website||'—'}`,`Collected by: ${record.repName||'—'}`,`Notes: ${record.notes||'—'}`,`Areas of interest: ${(record.interests||[]).join(', ')}`,`Registered: ${localDateTime(record.createdAt)}`,`Visitor photo: ${(record.visitorPhoto||record.photo)?'Yes':'No'}`,`Visitor card photo: ${record.cardPhoto?'Yes':'No'}`]; alert(lines.join('\n')); }
+  });
+
+  // Small dependency-free ZIP writer. The XLSX file is a standard Office Open XML workbook;
+  // visitor photos are embedded as actual worksheet images, not pasted as text.
+  const encoder = new TextEncoder();
+  const crcTable = (()=>{const table=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?(0xedb88320^(c>>>1)):(c>>>1);table[n]=c>>>0;}return table;})();
+  function crc32(bytes){let c=0xffffffff;for(let i=0;i<bytes.length;i++)c=crcTable[(c^bytes[i])&0xff]^(c>>>8);return (c^0xffffffff)>>>0;}
+  function u16(v){return [v&255,(v>>>8)&255];} function u32(v){return [v&255,(v>>>8)&255,(v>>>16)&255,(v>>>24)&255];}
+  function joinBytes(parts){let size=0;for(const p of parts)size+=p.length;const out=new Uint8Array(size);let off=0;for(const p of parts){out.set(p,off);off+=p.length;}return out;}
+  function zipStore(files){
+    const localParts=[], centralParts=[];let offset=0; const now=new Date();const dosTime=(now.getHours()<<11)|(now.getMinutes()<<5)|Math.floor(now.getSeconds()/2);const dosDate=((Math.max(1980,now.getFullYear())-1980)<<9)|((now.getMonth()+1)<<5)|now.getDate();
+    for(const file of files){const name=encoder.encode(file.name),data=typeof file.data==='string'?encoder.encode(file.data):file.data;const crc=crc32(data);const local=joinBytes([new Uint8Array([0x50,0x4b,0x03,0x04,...u16(20),...u16(0),...u16(0),...u16(dosTime),...u16(dosDate),...u32(crc),...u32(data.length),...u32(data.length),...u16(name.length),...u16(0)]),name,data]);localParts.push(local);
+      const central=joinBytes([new Uint8Array([0x50,0x4b,0x01,0x02,...u16(20),...u16(20),...u16(0),...u16(0),...u16(dosTime),...u16(dosDate),...u32(crc),...u32(data.length),...u32(data.length),...u16(name.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(offset)]),name]);centralParts.push(central);offset+=local.length;
+    }
+    const central=joinBytes(centralParts);const eocd=new Uint8Array([0x50,0x4b,0x05,0x06,...u16(0),...u16(0),...u16(files.length),...u16(files.length),...u32(central.length),...u32(offset),...u16(0)]);
+    return joinBytes([...localParts,central,eocd]);
+  }
+  function xmlEscape(value){return String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
+  function colName(n){let out='';while(n>0){const r=(n-1)%26;out=String.fromCharCode(65+r)+out;n=Math.floor((n-1)/26);}return out;}
+  function base64ToBytes(dataUrl){const base64=dataUrl.split(',')[1]||'';const bin=atob(base64);const out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
+  function cell(ref,value,style=''){const sty=style?` s="${style}"`:'';return `<c r="${ref}" t="inlineStr"${sty}><is><t xml:space="preserve">${xmlEscape(value)}</t></is></c>`;}
+  function buildWorkbook(records){
+    const headers=['Visitor ID','Registered At','Visitor Name','Company','Designation','Mobile','Email','Website','Areas of Interest','Collected By (TEAL)','Notes','Visitor Photo','Visitor Card Photo'];
+    const photos=[];
+    records.forEach((record,index)=>{
+      const visitorPhoto=record.visitorPhoto || record.photo || null;
+      if(visitorPhoto && visitorPhoto.data) photos.push({record,rowIndex:index,photo:visitorPhoto,col:11,kind:'Visitor photo'});
+      if(record.cardPhoto && record.cardPhoto.data) photos.push({record,rowIndex:index,photo:record.cardPhoto,col:12,kind:'Visitor card photo'});
+    });
+    const imgFiles=[],drawings=[],drawingRels=[];
+    photos.forEach((item,idx)=>{
+      const bytes=base64ToBytes(item.photo.data); const name=`image${idx+1}.jpg`; imgFiles.push({name:`xl/media/${name}`,data:bytes});
+      const w=Number(item.photo.width)||1,h=Number(item.photo.height)||1;const maxEmu=635000;let cx=maxEmu,cy=maxEmu;if(w>h)cy=Math.round(maxEmu*h/w);else cx=Math.round(maxEmu*w/h);const row=item.rowIndex+1;
+      drawings.push(`<xdr:oneCellAnchor><xdr:from><xdr:col>${item.col}</xdr:col><xdr:colOff>45000</xdr:colOff><xdr:row>${row}</xdr:row><xdr:rowOff>40000</xdr:rowOff></xdr:from><xdr:ext cx="${cx}" cy="${cy}"/><xdr:pic><xdr:nvPicPr><xdr:cNvPr id="${idx+1}" name="${xmlEscape(item.kind)} ${idx+1}" descr="${xmlEscape(item.record.name)}"/><xdr:cNvPicPr><a:picLocks noChangeAspect="1"/></xdr:cNvPicPr></xdr:nvPicPr><xdr:blipFill><a:blip r:embed="rId${idx+1}"/><a:stretch><a:fillRect/></a:stretch></xdr:blipFill><xdr:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${cx}" cy="${cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></xdr:spPr></xdr:pic><xdr:clientData/></xdr:oneCellAnchor>`);
+      drawingRels.push(`<Relationship Id="rId${idx+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/${name}"/>`);
+    });
+    const rows=[];
+    rows.push(`<row r="1" ht="27" customHeight="1">${headers.map((h,i)=>cell(`${colName(i+1)}1`,h,'1')).join('')}</row>`);
+    records.forEach((r,i)=>{
+      const n=i+2, interests=(r.interests||[]).join('; ');const vp=(r.visitorPhoto||r.photo);const cp=r.cardPhoto;
+      const vals=[String(r.id??i+1),localDateTime(r.createdAt),r.name,r.company,r.designation||'',r.mobile||'',r.email||'',r.website||'',interests,r.repName||'',r.notes||'',vp&&vp.data?'Image embedded':'No photo',cp&&cp.data?'Image embedded':'No photo'];
+      rows.push(`<row r="${n}" ht="54" customHeight="1">${vals.map((v,j)=>cell(`${colName(j+1)}${n}`,v)).join('')}</row>`);
+    });
+    const rowCount=records.length+1;
+    const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><dimension ref="A1:M${rowCount}"/><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="18"/><cols><col min="1" max="1" width="12" customWidth="1"/><col min="2" max="2" width="23" customWidth="1"/><col min="3" max="3" width="25" customWidth="1"/><col min="4" max="4" width="26" customWidth="1"/><col min="5" max="5" width="18" customWidth="1"/><col min="6" max="6" width="17" customWidth="1"/><col min="7" max="7" width="28" customWidth="1"/><col min="8" max="8" width="28" customWidth="1"/><col min="9" max="9" width="46" customWidth="1"/><col min="10" max="10" width="25" customWidth="1"/><col min="11" max="11" width="38" customWidth="1"/><col min="12" max="12" width="18" customWidth="1"/><col min="13" max="13" width="22" customWidth="1"/></cols><sheetData>${rows.join('')}</sheetData><autoFilter ref="A1:M${rowCount}"/>${photos.length?'<drawing r:id="rId1"/>':''}</worksheet>`;
+    const files=[
+      {name:'[Content_Types].xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="jpg" ContentType="image/jpeg"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${photos.length?'<Override PartName="/xl/drawings/drawing1.xml" ContentType="application/vnd.openxmlformats-officedocument.drawing+xml"/>':''}</Types>`},
+      {name:'_rels/.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
+      {name:'xl/workbook.xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView/></bookViews><sheets><sheet name="Visitors" sheetId="1" r:id="rId1"/></sheets><calcPr calcId="191029"/></workbook>`},
+      {name:'xl/_rels/workbook.xml.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+      {name:'xl/styles.xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><color rgb="FF172433"/><name val="Aptos"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Aptos"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF112A46"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`},
+      {name:'xl/worksheets/sheet1.xml',data:sheet},
+    ];
+    if(photos.length){files.push({name:'xl/worksheets/_rels/sheet1.xml.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing" Target="../drawings/drawing1.xml"/></Relationships>`});files.push({name:'xl/drawings/drawing1.xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xdr:wsDr xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">${drawings.join('')}</xdr:wsDr>`});files.push({name:'xl/drawings/_rels/drawing1.xml.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${drawingRels.join('')}</Relationships>`});files.push(...imgFiles);}
+    return zipStore(files);
+  }
+
+  window.__tealSaveCallbacks = window.__tealSaveCallbacks || Object.create(null);
+  window.onNativeSaveResult = function(callbackId,success,message){const cb=window.__tealSaveCallbacks[callbackId];if(!cb)return;delete window.__tealSaveCallbacks[callbackId];if(success)cb.resolve(message||'File saved.');else cb.reject(new Error(message||'File could not be saved.'));};
+  let nativeSaveCounter=0;
+  async function downloadBlob(blob,filename){if(window.AndroidBridge && typeof window.AndroidBridge.saveFile==='function'){const bytes=new Uint8Array(await blob.arrayBuffer());let binary='';const chunk=0x8000;for(let i=0;i<bytes.length;i+=chunk)binary+=String.fromCharCode(...bytes.subarray(i,Math.min(i+chunk,bytes.length)));const callbackId='teal_save_'+(++nativeSaveCounter);return new Promise((resolve,reject)=>{window.__tealSaveCallbacks[callbackId]={resolve,reject};try{const accepted=window.AndroidBridge.saveFile(btoa(binary),filename,blob.type||'application/octet-stream',callbackId);if(accepted===false){delete window.__tealSaveCallbacks[callbackId];reject(new Error('Android could not start the file save.'));}}catch(e){delete window.__tealSaveCallbacks[callbackId];reject(e);}});}const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);return 'Download started.';}
+  function eventFilename(ext){const d=new Date();return `TEAL_Expo_Visitors_${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}.${ext}`;}
+  $('exportBtn').addEventListener('click',async()=>{
+    try { const records=await allRecords(); if(!records.length){notify('No visitor records to export yet.',true);return;} $('exportBtn').disabled=true;$('exportBtn').textContent='Preparing…'; await new Promise(resolve=>setTimeout(resolve,25));const bytes=buildWorkbook(records);await downloadBlob(new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),eventFilename('xlsx'));notify(window.AndroidBridge?'Excel saved to Downloads / TEAL Expo.':`Excel exported with ${records.length} visitor${records.length===1?'':'s'}.`); }
+    catch(e){console.error(e);notify('Excel export failed. Create a JSON backup and retry.',true);}
+    finally{$('exportBtn').disabled=false;$('exportBtn').textContent='↓ Export Excel';}
+  });
+  $('backupBtn').addEventListener('click',async()=>{try{const records=await allRecords();const data={app:'TEAL Expo Visitor Capture',version:2,exportedAt:new Date().toISOString(),records};await downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),eventFilename('json'));notify(window.AndroidBridge?'Backup saved to Downloads / TEAL Expo.':'Backup downloaded. Keep it somewhere safe.');}catch(e){notify('Backup could not be created.',true);}});
+  $('importBtn').addEventListener('click',()=>$('importInput').click());
+  $('importInput').addEventListener('change',async e=>{
+    const file=e.target.files[0];if(!file)return;
+    try{const parsed=JSON.parse(await file.text());const records=Array.isArray(parsed)?parsed:parsed.records;if(!Array.isArray(records))throw new Error('This file does not look like a TEAL visitor backup.');let count=0;for(const r of records){if(!r||!String(r.name||'').trim()||!String(r.company||'').trim())continue;const visitorPhoto=(r.visitorPhoto&&r.visitorPhoto.data)?r.visitorPhoto:(r.photo&&r.photo.data?r.photo:null);await saveImported({createdAt:r.createdAt||new Date().toISOString(),name:String(r.name),company:String(r.company),interests:Array.isArray(r.interests)?r.interests.map(String):[],visitorPhoto,cardPhoto:r.cardPhoto&&r.cardPhoto.data?r.cardPhoto:null});count++;}await renderRecords();notify(`Imported ${count} visitor record${count===1?'':'s'}.`);}catch(err){notify(err.message||'Could not import this backup.',true);}finally{$('importInput').value='';}
+  });
+
+  $('repName').value = localStorage.getItem('teal-expo-rep-name') || '';
+  $('repName').addEventListener('change',()=>localStorage.setItem('teal-expo-rep-name',$('repName').value.trim()));
+  window.addEventListener('beforeunload',()=>{if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());});
+  (async()=>{try{db=await openDB();await renderRecords();}catch(e){console.error(e);notify('Local database could not start. Close and reopen the app, then retry.',true);$('recordList').innerHTML='<div class="empty"><strong>Local storage could not start</strong>Previously saved visitors may be unavailable until storage is fixed. Create backups regularly.</div>';}})();
+})();
+</script>
+</body>
+</html>
