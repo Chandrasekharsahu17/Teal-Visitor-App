@@ -10,11 +10,126 @@
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:15px}button,input,textarea{font:inherit}button{cursor:pointer}.topbar{background:linear-gradient(110deg,var(--navy),var(--navy2));color:#fff;padding:22px max(20px,calc((100vw - 1180px)/2));display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:14px}.logo{width:48px;height:48px;border:1px solid rgba(255,255,255,.5);border-radius:12px;display:grid;place-items:center;font-weight:800;letter-spacing:1px;font-size:15px;background:rgba(255,255,255,.08)}h1{font-size:22px;line-height:1.2;margin:0 0 5px;font-weight:750;letter-spacing:-.3px}.subtitle{color:#d8e5f0;font-size:13px}.offline{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);border-radius:30px;padding:8px 12px;font-size:12px;white-space:nowrap}.offline:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#65dfa0;margin-right:7px}.wrap{max-width:1180px;margin:26px auto;padding:0 20px}.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:18px}.intro h2{margin:0 0 5px;font-size:23px;letter-spacing:-.4px}.intro p{margin:0;color:var(--muted);font-size:14px}.stats{display:flex;gap:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:130px;box-shadow:0 2px 8px rgba(17,42,70,.025)}.stat strong{display:block;font-size:23px;color:var(--navy)}.stat span{font-size:12px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0, .95fr) minmax(0,1.25fr);gap:20px;align-items:start}.panel{background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.panel-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-head h3{margin:0;font-size:17px}.eyebrow{color:var(--muted);font-size:12px}.panel-body{padding:20px}.field{margin-bottom:17px}.field label,.field-label{display:block;font-size:13px;font-weight:700;margin:0 0 7px}.required{color:var(--red)}input[type=text],input[type=email],input[type=tel],textarea,.search{width:100%;border:1px solid #cdd8e3;border-radius:9px;background:#fff;padding:11px 12px;color:var(--ink);outline:none;transition:border .15s,box-shadow .15s}input:focus,textarea:focus,.search:focus{border-color:#4289b7;box-shadow:0 0 0 3px rgba(66,137,183,.13)}input::placeholder,textarea::placeholder{color:#96a2af}.interest-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.interest{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:10px;font-size:12px;line-height:1.35;min-height:54px;background:#fff;cursor:pointer}.interest:has(input:checked){border-color:#278a94;background:#f0fbfa}.interest input{margin:2px 0 0;accent-color:var(--teal);flex:0 0 auto}.interest span{font-weight:550}.hint{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px}.photo-box{border:1px dashed #b8c7d6;border-radius:12px;background:#f8fafc;padding:13px;display:flex;gap:14px;align-items:center}.photo-preview{width:92px;height:92px;border-radius:10px;object-fit:cover;background:#e6edf3;flex:0 0 auto;display:none}.photo-placeholder{width:92px;height:92px;border-radius:10px;background:#e6edf3;display:grid;place-items:center;flex:0 0 auto;color:#65778a}.photo-placeholder svg{width:33px;height:33px}.photo-actions{display:flex;gap:8px;flex-wrap:wrap}.small-note{font-size:11px;color:var(--muted);margin-top:7px}.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:transform .05s,background .15s}.btn:active{transform:translateY(1px)}.btn:disabled{opacity:.5;cursor:not-allowed}.btn-primary{background:var(--teal);color:#fff}.btn-primary:hover{background:#066c77}.btn-dark{background:var(--navy);color:#fff}.btn-outline{background:#fff;border:1px solid #cad6e1;color:var(--navy)}.btn-outline:hover{background:#f5f8fb}.btn-danger{background:#fff0ef;color:var(--red);border:1px solid #f3c8c5}.btn-small{padding:8px 10px;font-size:12px}.form-actions{display:flex;gap:10px;margin-top:21px}.form-actions .btn-primary{flex:1}.camera{display:none;margin-top:12px;background:#0c1723;padding:10px;border-radius:12px}.camera video{display:block;width:100%;max-height:290px;object-fit:contain;border-radius:8px}.camera-actions{display:flex;gap:8px;margin-top:9px}.camera-actions button{flex:1}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.search-row{display:flex;gap:10px;padding:15px 20px;border-bottom:1px solid var(--line)}.search{flex:1;min-width:120px}.records{padding:0 20px 12px;max-height:690px;overflow:auto}.record{padding:14px 0;display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:12px;align-items:start;border-bottom:1px solid #edf1f5}.record:last-child{border-bottom:0}.thumb{width:54px;height:54px;border-radius:9px;object-fit:cover;background:#e6edf3}.record-main{min-width:0}.record-name{font-weight:750;font-size:14px;overflow-wrap:anywhere}.record-company{color:#405267;font-size:12px;margin-top:3px;overflow-wrap:anywhere}.record-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.tag{background:#edf5f7;border-radius:5px;padding:4px 6px;font-size:10px;color:#24566a;line-height:1.2}.record-date{font-size:10px;color:#8290a0;margin-top:7px}.record-right{display:flex;flex-direction:column;gap:6px;align-items:flex-end}.empty{padding:42px 20px;text-align:center;color:var(--muted)}.empty .empty-icon{font-size:30px;margin-bottom:8px}.empty strong{display:block;color:var(--ink);margin-bottom:5px}.section-footer{border-top:1px solid var(--line);padding:14px 20px;background:#fbfcfe;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.section-footer p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.notice{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#142a40;color:white;padding:12px 17px;border-radius:10px;box-shadow:0 8px 30px #1724332b;font-size:13px;z-index:30;transition:all .2s;max-width:calc(100vw - 32px)}.notice.show{opacity:1;transform:translate(-50%,0)}.notice.error{background:#8d2018}.consent{font-size:11px;color:var(--muted);line-height:1.45;margin-top:13px}.footer-note{text-align:center;color:#8492a0;font-size:11px;margin:18px 0 30px}.hidden{display:none!important}.other-field{margin-top:9px}.btn-icon{font-size:15px;line-height:1}.kbd-note{font-size:11px;color:var(--muted)}.ocr-raw{white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto;margin:0;padding:12px;background:#f6f8fa;border:1px solid var(--line);border-radius:8px;font:12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace}
 @media(max-width:900px){.layout{grid-template-columns:1fr}.records{max-height:none}.topbar{padding:17px 20px}.wrap{margin:20px auto}.intro{align-items:flex-start;flex-direction:column}.stats{width:100%}.stat{flex:1}.panel-head{align-items:flex-start;flex-direction:column}.panel-head .toolbar{width:100%}}
 @media(max-width:520px){.topbar{align-items:flex-start}.offline{font-size:0;padding:10px}.offline:before{margin:0}.brand{gap:10px}.logo{width:42px;height:42px}h1{font-size:18px}.subtitle{font-size:11px}.wrap{padding:0 12px}.panel-body{padding:15px}.panel-head{padding:15px}.search-row{padding:12px}.records{padding:0 14px 8px}.interest-grid{grid-template-columns:1fr}.photo-box{align-items:flex-start}.photo-preview,.photo-placeholder{width:78px;height:78px}.stat{min-width:0;padding:10px}.stat strong{font-size:20px}.record{grid-template-columns:44px minmax(0,1fr) auto;gap:8px}.thumb{width:44px;height:44px}.record-right .btn{padding:6px 7px}.form-actions{flex-direction:column}}
+
+/* Clean TEAL visitor-capture visual system */
+:root{--navy:#102b3d;--navy2:#16475a;--teal:#087f83;--ink:#182a36;--muted:#647782;--line:#dbe5e8;--bg:#f2f6f7;--white:#fff;--shadow:0 8px 26px rgba(16,43,61,.065)}
+body{background:var(--bg);font-size:14px;line-height:1.45}
+.topbar{position:relative;padding:18px max(18px,calc((100vw - 1120px)/2));border-bottom:4px solid #48d9c5;gap:18px;background:linear-gradient(112deg,#102b3d,#16475a)}
+.brand{gap:14px;min-width:0}
+.logo-lockup{width:120px;flex:0 0 120px;display:flex;align-items:center}
+.logo-lockup svg{display:block;width:100%;height:auto;max-height:44px;overflow:visible}
+.brand-copy{min-width:0}
+h1{font-size:20px;line-height:1.2;letter-spacing:-.2px;margin:0 0 5px;font-weight:760}
+.subtitle{font-size:12px;color:#d8e8ec;line-height:1.35}
+.offline{font-size:11px;letter-spacing:.15px;padding:7px 10px}
+.wrap{max-width:1120px;margin:22px auto;padding:0 18px}
+.intro{align-items:center;margin-bottom:16px}
+.intro h2{font-size:21px;color:var(--navy)}
+.intro p{font-size:13px;line-height:1.5}
+.stat{border-radius:13px;min-width:112px;padding:10px 13px}
+.stat strong{font-size:21px}
+.layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.panel{border-radius:16px;box-shadow:0 5px 20px rgba(16,43,61,.055)}
+.panel-head{padding:16px 18px;background:#fcfefe}
+.panel-head h3{font-size:16px}
+.panel-body{padding:18px}
+.field{margin-bottom:14px}
+.field label,.field-label{font-size:12px;margin-bottom:6px}
+input[type=text],input[type=email],input[type=tel],textarea,.search{border-color:#cbdadd;border-radius:10px;padding:11px 12px;font-size:14px;min-height:43px}
+input:focus,textarea:focus,.search:focus{border-color:#168f91;box-shadow:0 0 0 3px rgba(22,143,145,.12)}
+.capture-card{padding:15px;border:1px solid #b9e6df;border-radius:15px;background:linear-gradient(145deg,#f0fbf8,#fbfefd);margin:0 0 22px;box-shadow:0 4px 14px rgba(8,127,131,.06)}
+.capture-heading{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.capture-symbol{width:39px;height:39px;flex:0 0 39px;border-radius:12px;display:grid;place-items:center;background:#087f83;color:#fff;font-size:19px}
+.capture-heading h4,.section-title h4{font-size:14px;font-weight:750;letter-spacing:-.1px;color:var(--navy);margin:0}
+.capture-heading p,.section-title p{font-size:11px;color:var(--muted);line-height:1.45;margin:3px 0 0}
+.capture-heading>div:nth-child(2){flex:1;min-width:0}
+.optional-badge,.optional-inline{display:inline-flex;align-items:center;border-radius:20px;background:#edf5f5;color:#577078;font-size:9px;font-weight:750;letter-spacing:.35px;padding:4px 7px;white-space:nowrap}
+.optional-inline{margin-left:4px;font-size:9px;padding:2px 6px;letter-spacing:0;vertical-align:1px}
+.capture-card .field{margin:0}
+.capture-card .field-label{font-size:12px;font-weight:750}
+.capture-card .photo-box{border:1px solid #d3e8e5;background:#fff;padding:10px;gap:10px;border-radius:12px}
+.capture-card .photo-preview,.capture-card .photo-placeholder{width:66px;height:66px;border-radius:9px}
+.capture-card .photo-placeholder{background:#edf7f6;color:#4e8480}
+.capture-card .photo-actions{gap:6px}
+.capture-card .btn{min-height:34px;border-radius:8px}
+.capture-card .small-note{font-size:10px}
+.section-title{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.section-number{width:25px;height:25px;flex:0 0 25px;border-radius:8px;display:grid;place-items:center;background:#dff6f0;color:#087f83;font-size:11px;font-weight:800}
+.soft-number{background:#eef3f4;color:#6b8088}
+.core-fields,.optional-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+.core-fields .field,.optional-fields .field{min-width:0}
+.optional-fields{border:1px solid #e1e9eb;background:#fbfdfd;border-radius:13px;padding:13px 12px 0;margin:0 0 21px;gap:0 12px}
+.optional-fields .field{margin-bottom:13px}
+.optional-section{margin-top:17px}
+.interest-field{margin-bottom:17px}
+.interest-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.interest{border-radius:10px;border-color:#e0e9eb;padding:9px;min-height:46px;font-size:11px;line-height:1.35}
+.interest:has(input:checked){border-color:#168f91;background:#effaf7;box-shadow:inset 0 0 0 1px rgba(22,143,145,.08)}
+.photo-box{border-radius:12px;background:#fafcfc;border-color:#d4e0e3;padding:11px}
+.photo-preview,.photo-placeholder{width:78px;height:78px}
+.photo-actions{gap:7px}
+.btn{border-radius:10px;padding:10px 13px;font-size:12px}
+.btn-primary{background:#087f83}
+.btn-primary:hover{background:#066d71}
+.btn-outline{border-color:#cad8dc;color:#244657}
+.form-actions{margin-top:18px;gap:8px}
+.form-actions .btn{min-height:43px}
+.section-footer{background:#f9fbfb;padding:13px 17px}
+.record{gap:10px;padding:12px 0}
+.record-tags{gap:4px}
+.tag{background:#edf5f5;color:#285e65}
+.consent{background:#f8fafb;border:1px solid #e3eaed;border-radius:10px;padding:10px 11px}
+.footer-note{margin:15px 0 25px}
+@media(max-width:800px){
+  .topbar{flex-wrap:wrap;padding:14px 16px;gap:10px}
+  .brand{flex:1 1 100%;gap:12px}
+  .logo-lockup{width:105px;flex-basis:105px}
+  h1{font-size:18px}
+  .offline{white-space:normal;align-self:flex-start;font-size:10px}
+  .wrap{margin:16px auto;padding:0 12px}
+  .layout{grid-template-columns:minmax(0,1fr);gap:14px}
+  .intro{align-items:flex-start;flex-direction:column;gap:12px}
+  .stats{width:100%}
+  .stat{flex:1}
+  .panel-body{padding:15px}
+  .core-fields,.optional-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:450px){
+  .logo-lockup{width:94px;flex-basis:94px}
+  .brand{gap:10px}
+  h1{font-size:16px}
+  .subtitle{font-size:10px}
+  .capture-card{padding:12px}
+  .capture-heading{align-items:flex-start;gap:8px}
+  .capture-symbol{width:33px;height:33px;flex-basis:33px}
+  .capture-heading h4{font-size:13px}
+  .capture-heading p{font-size:10px}
+  .optional-badge{font-size:8px;padding:4px 5px}
+  .core-fields,.optional-fields{grid-template-columns:minmax(0,1fr);gap:0}
+  .optional-fields{padding:12px 12px 0}
+  .interest-grid{grid-template-columns:minmax(0,1fr)}
+  .photo-box{align-items:flex-start}
+  .photo-preview,.photo-placeholder{width:64px;height:64px}
+  .photo-actions .btn{padding:8px 9px;font-size:11px}
+}
+
 </style>
 </head>
 <body>
 <header class="topbar">
-  <div class="brand"><div class="logo">TEAL</div><div><h1>TEAL Expo Visitor Capture</h1><div class="subtitle">Visitor registration · Shop / Exhibition · Offline</div></div></div>
+  <div class="brand">
+    <div class="logo-lockup" aria-label="TEAL logo">
+      <svg viewBox="0 0 190 54" role="img" aria-hidden="true">
+        <g fill="#48D9C5">
+          <path d="M2 4 27 8 27 49 17 43 16 18 2 15Z"/>
+          <path d="M31 8 56 4 56 15 42 18 41 43 31 49Z"/>
+        </g>
+        <text x="64" y="42" fill="#F2EEE8" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="700" letter-spacing="1.3">TEAL</text>
+        <path d="M91 10 H116 V14 H91 Z" fill="#48D9C5"/>
+      </svg>
+    </div>
+    <div class="brand-copy"><h1>Expo Visitor Capture</h1><div class="subtitle">Visitor registration · Exhibition mode · Offline</div></div>
+  </div>
   <div class="offline">OFFLINE READY · DATA STAYS ON THIS DEVICE</div>
 </header>
 <main class="wrap">
@@ -24,13 +139,38 @@
       <div class="panel-head"><div><h3 id="formTitle">New visitor</h3><div class="eyebrow" style="margin-top:4px">Usually takes less than a minute</div></div><span class="tag">NEW ENTRY</span></div>
       <div class="panel-body">
         <form id="visitorForm">
-          <div class="field"><label for="visitorName">Visitor name <span class="required">*</span></label><input id="visitorName" name="name" type="text" placeholder="Enter full name" autocomplete="off" required maxlength="120"></div>
-          <div class="field"><label for="company">Company <span class="required">*</span></label><input id="company" name="company" type="text" placeholder="Company / organisation" autocomplete="organization" required maxlength="140"></div>
-          <div class="field"><label for="designation">Designation</label><input id="designation" name="designation" type="text" placeholder="Job title / role" maxlength="120"></div>
-          <div class="field"><label for="mobile">Mobile</label><input id="mobile" name="mobile" type="tel" placeholder="Phone number" inputmode="tel" maxlength="40"></div>
-          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="name@company.com" autocomplete="email" maxlength="160"></div>
-          <div class="field"><label for="website">Website</label><input id="website" name="website" type="text" placeholder="www.company.com" maxlength="160"></div>
-          <div class="field"><span class="field-label">Areas of interest <span class="required">*</span></span>
+          <section class="capture-card" aria-labelledby="captureCardTitle">
+            <div class="capture-heading">
+              <div class="capture-symbol" aria-hidden="true">▤</div>
+              <div><h4 id="captureCardTitle">Start with the business card</h4><p>Scan once to fill in contact details, then review them before saving.</p></div>
+              <span class="optional-badge">OPTIONAL</span>
+            </div>
+          <div class="field">
+            <span class="field-label">Visitor card / business card photo <span style="font-weight:400;color:var(--muted)">(optional)</span></span>
+            <div class="photo-box">
+              <div id="cardPhotoPlaceholder" class="photo-placeholder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19M6 14h5"/></svg></div>
+              <img id="cardPhotoPreview" class="photo-preview" alt="Visitor card photo preview">
+              <div style="min-width:0;flex:1"><div class="photo-actions"><button class="btn btn-primary btn-small" type="button" id="scanCardBtn">Scan &amp; auto-fill</button><button class="btn btn-outline btn-small" type="button" id="takeCardPhotoBtn"><span class="btn-icon">◎</span> Take photo</button><button class="btn btn-outline btn-small" type="button" id="chooseCardPhotoBtn">Choose image</button><button class="btn btn-outline btn-small hidden" type="button" id="removeCardPhotoBtn">Remove</button></div><input id="cardPhotoInput" type="file" accept="image/*" capture="environment" class="hidden"><div class="small-note">Capture the visitor badge or business card for later reference.</div></div>
+            </div>
+          </div>
+
+          <div id="ocrPanel" class="field hidden"><label>Text extracted from business card — verify before saving</label><pre id="ocrRaw" class="ocr-raw"></pre><div class="hint">OCR can misread small print. Confirm name, company and contact fields before saving.</div></div>
+
+          </section>
+          <div class="section-title"><span class="section-number">01</span><div><h4>Visitor details</h4><p>Name, company, designation and phone are required.</p></div></div>
+          <div class="core-fields">
+          <div class="field"><label for="visitorName">Visitor name <span class="required">*</span></label><input id="visitorName" name="name" type="text" placeholder="Enter full name" autocomplete="off" required maxlength="120"></div>Visitor name <span class="required">*</span></label><input id="visitorName" name="name" type="text" placeholder="Enter full name" autocomplete="off" required maxlength="120"></div>
+          <div class="field"><label for="company">Company name <span class="required">*</span></label><input id="company" name="company" type="text" placeholder="Company / organisation" autocomplete="organization" required maxlength="140"></div>
+          <div class="field"><label for="designation">Designation <span class="required">*</span></label><input id="designation" name="designation" type="text" placeholder="Job title / role" required maxlength="120"></div>
+          <div class="field"><label for="mobile">Phone number <span class="required">*</span></label><input id="mobile" name="mobile" type="tel" placeholder="Phone number" inputmode="tel" required maxlength="40"></div>
+          </div>
+          <div class="section-title optional-section"><span class="section-number soft-number">02</span><div><h4>Other contact details</h4><p>Email and website are optional.</p></div></div>
+          <div class="optional-fields">
+          <div class="field"><label for="email">Email <span class="optional-inline">Optional</span></label><input id="email" name="email" type="email" placeholder="name@company.com" autocomplete="email" maxlength="160"></div>
+          <div class="field"><label for="website">Website <span class="optional-inline">Optional</span></label><input id="website" name="website" type="text" placeholder="www.company.com" maxlength="160"></div>
+          </div>
+          <div class="section-title optional-section"><span class="section-number soft-number">03</span><div><h4>Areas of interest</h4><p>Select any that apply, or leave blank.</p></div></div>
+          <div class="field interest-field"><span class="field-label">Select all that apply</span>
             <div class="interest-grid" id="interestGrid">
               <label class="interest"><input type="checkbox" value="Industrial Automation & Robotics"><span>Industrial Automation & Robotics</span></label>
               <label class="interest"><input type="checkbox" value="Assembly & Testing Systems"><span>Assembly & Testing Systems</span></label>
@@ -46,7 +186,8 @@
             <div id="otherInterestWrap" class="other-field hidden"><input id="otherInterest" type="text" placeholder="Specify other area of interest" maxlength="120"></div>
             <div class="hint">Select all areas that apply.</div>
           </div>
-          <div class="field"><label for="repName">Collected by — TEAL representative <span class="required">*</span></label><input id="repName" name="repName" type="text" placeholder="Your name (remembered on this phone)" required maxlength="120"><div class="hint">Enter this once; the app remembers it on this phone.</div></div>
+          <div class="section-title optional-section"><span class="section-number soft-number">04</span><div><h4>Follow-up details</h4><p>Optional details for the TEAL team.</p></div></div>
+          <div class="field"><label for="repName">Collected by — TEAL representative <span class="optional-inline">Optional</span></label><input id="repName" name="repName" type="text" placeholder="Your name (remembered on this phone)" maxlength="120"><div class="hint">When entered, your name is remembered on this phone.</div></div>
           <div class="field"><label for="notes">Meeting notes / requirement</label><textarea id="notes" name="notes" rows="3" placeholder="Key requirement, product, follow-up action…" maxlength="1000"></textarea></div>
           <div class="field">
             <span class="field-label">Visitor photo <span style="font-weight:400;color:var(--muted)">(optional)</span></span>
@@ -56,15 +197,6 @@
               <div style="min-width:0;flex:1"><div class="photo-actions"><button class="btn btn-outline btn-small" type="button" id="takePhotoBtn"><span class="btn-icon">◎</span> Take photo</button><button class="btn btn-outline btn-small" type="button" id="choosePhotoBtn">Choose photo</button><button class="btn btn-outline btn-small hidden" type="button" id="removePhotoBtn">Remove</button></div><input id="photoInput" type="file" accept="image/*" capture="environment" class="hidden"><div class="small-note">Take a live photo or choose an existing image.</div></div>
             </div>
           </div>
-          <div class="field">
-            <span class="field-label">Visitor card / business card photo <span style="font-weight:400;color:var(--muted)">(optional)</span></span>
-            <div class="photo-box">
-              <div id="cardPhotoPlaceholder" class="photo-placeholder" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19M6 14h5"/></svg></div>
-              <img id="cardPhotoPreview" class="photo-preview" alt="Visitor card photo preview">
-              <div style="min-width:0;flex:1"><div class="photo-actions"><button class="btn btn-primary btn-small" type="button" id="scanCardBtn">Scan &amp; auto-fill</button><button class="btn btn-outline btn-small" type="button" id="takeCardPhotoBtn"><span class="btn-icon">◎</span> Take photo</button><button class="btn btn-outline btn-small" type="button" id="chooseCardPhotoBtn">Choose image</button><button class="btn btn-outline btn-small hidden" type="button" id="removeCardPhotoBtn">Remove</button></div><input id="cardPhotoInput" type="file" accept="image/*" capture="environment" class="hidden"><div class="small-note">Capture the visitor badge or business card for later reference.</div></div>
-            </div>
-          </div>
-          <div id="ocrPanel" class="field hidden"><label>Text extracted from business card — verify before saving</label><pre id="ocrRaw" class="ocr-raw"></pre><div class="hint">OCR can misread small print. Confirm name, company and contact fields before saving.</div></div>
           <div id="cameraBox" class="camera"><video id="cameraVideo" autoplay playsinline muted></video><div class="camera-actions"><button type="button" class="btn btn-primary btn-small" id="captureBtn">Capture</button><button type="button" class="btn btn-outline btn-small" id="closeCameraBtn">Cancel</button></div></div>
           <div class="form-actions"><button type="submit" class="btn btn-primary" id="saveBtn"><span class="btn-icon">＋</span> Save visitor</button><button type="reset" class="btn btn-outline" id="resetBtn">Clear form</button></div>
           <div class="consent">Store only the information needed for business follow-up. Confirm the visitor is comfortable having their photo recorded.</div>
@@ -184,10 +316,14 @@
     $('ocrRaw').textContent = raw;
     $('ocrPanel').classList.remove('hidden');
     const lines = raw.split('\n').map(s => s.replace(/[|•·]+/g, ' ').replace(/\s+/g, ' ').trim()).filter(Boolean);
-    const email = (raw.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i) || [])[0] || '';
-    let website = '';
-    const urls = raw.match(/(?:https?:\/\/)?(?:www\.)?[a-z0-9][a-z0-9.-]*\.[a-z]{2,}(?:\/[a-z0-9._~:/?#[\]@!$&'()*+,;=-]*)?/ig) || [];
-    website = urls.find(u => !u.includes('@') && !u.toLowerCase().includes(email.toLowerCase())) || '';
+    const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/ig;
+    const email = (raw.match(emailPattern) || [])[0] || '';
+    // Remove complete email addresses before scanning for domains; this prevents
+    // "person@company.com" from incorrectly filling the Website field with company.com.
+    const textWithoutEmails = raw.replace(emailPattern, ' ');
+    const urlPattern = /(?:https?:\/\/|www\.)[a-z0-9][a-z0-9.-]*\.[a-z]{2,}(?:\/[^\s,;]*)?|\b(?:[a-z0-9-]+\.)+(?:com|org|net|in|co|io|biz|info|tech|ai|edu|gov)(?:\.[a-z]{2})?\b/ig;
+    const urls = textWithoutEmails.match(urlPattern) || [];
+    let website = urls.find(u => !u.includes('@')) || '';
     website = website.replace(/[.,;]+$/, '');
     const phoneCandidates = raw.match(/(?:\+?\d[\d\s().-]{7,}\d)/g) || [];
     let mobile = '';
@@ -269,16 +405,14 @@
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    const name=$('visitorName').value.trim(), company=$('company').value.trim(), interests=selectedInterests();
+    const name=$('visitorName').value.trim(), company=$('company').value.trim(), designation=$('designation').value.trim(), mobile=$('mobile').value.trim(), interests=selectedInterests();
     const repName=$('repName').value.trim();
-    if(!name || !company){notify('Enter the visitor name and company.',true);return;}
-    if(!repName){notify('Enter the TEAL representative name.',true);$('repName').focus();return;}
-    if(!interests.length){notify('Select at least one area of interest.',true);return;}
+    if(!name || !company || !designation || !mobile){notify('Complete the four required fields: name, company, designation and phone number.',true);return;}
     const saveBtn=$('saveBtn'); saveBtn.disabled=true; saveBtn.textContent='Saving…';
     try {
-      localStorage.setItem('teal-expo-rep-name', repName);
-      await addRecord({createdAt:new Date().toISOString(),name,company,designation:$('designation').value.trim(),mobile:$('mobile').value.trim(),email:$('email').value.trim(),website:$('website').value.trim(),repName,department:'',notes:$('notes').value.trim(),interests,visitorPhoto:currentPhoto ? {...currentPhoto} : null,cardPhoto:currentCardPhoto ? {...currentCardPhoto} : null});
-      const savedRep=repName;
+      if(repName) localStorage.setItem('teal-expo-rep-name', repName);
+      await addRecord({createdAt:new Date().toISOString(),name,company,designation,mobile,email:$('email').value.trim(),website:$('website').value.trim(),repName,department:'',notes:$('notes').value.trim(),interests,visitorPhoto:currentPhoto ? {...currentPhoto} : null,cardPhoto:currentCardPhoto ? {...currentCardPhoto} : null});
+      const savedRep=localStorage.getItem('teal-expo-rep-name') || repName;
       form.reset(); $('repName').value=savedRep; setPhoto(null,'visitor'); setPhoto(null,'card'); $('ocrPanel').classList.add('hidden'); $('ocrRaw').textContent=''; $('otherInterestWrap').classList.add('hidden'); await stopCamera(); $('visitorName').focus(); await renderRecords(); notify('Visitor saved on this phone.');
     } catch(e) { notify('Could not save. Export a backup if this keeps happening, then retry.',true); console.error(e); }
     finally { saveBtn.disabled=false; saveBtn.innerHTML='<span class="btn-icon">＋</span> Save visitor'; }
