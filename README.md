@@ -1,4 +1,4 @@
-# TEAL Expo Visitor Capture — Android v2.0
+# TEAL Expo Visitor Capture — Android v2.2
 
 An offline-first Android visitor registration app for TEAL exhibition and expo teams.
 
