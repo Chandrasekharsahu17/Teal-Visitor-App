@@ -1,41 +1,59 @@
-# TEAL Expo Visitor Capture — Android Project
+# TEAL Expo Visitor Capture — Android v2.0
 
-This project packages the offline visitor-capture app as an Android application. It includes two separate optional image fields: **visitor photo** and **visitor badge / business-card photo**. The images stay on the phone and are embedded in the exported Excel workbook. Exports are written to `Downloads/TEAL Expo` on Android 10 and newer.
+An offline-first Android visitor registration app for TEAL exhibition and expo teams.
 
-## What is included
+## Visitor-capture flow
 
-- Android app source (`app/src/main/java/com/teal/expo/MainActivity.java`)
-- Fully offline HTML UI bundled as an Android asset
-- Local browser database on the Android app's private WebView origin
-- Native camera/gallery chooser for both image fields
-- Excel (`.xlsx`) export with both photo columns and embedded pictures
-- JSON backup/import stored in the phone Downloads folder
-- GitHub Actions workflow that builds a debug APK artifact
+1. **Home dashboard** — visitor totals, today's registrations, photo count, and quick navigation.
+2. **Business-card capture** — take a photo or select an image and run on-device ML Kit text recognition.
+3. **Contact details** — review the suggested name, company, designation and phone. These four fields are required.
+4. **Interests and follow-up** — optional interest selections, alternate phone, email addresses, website, LinkedIn/profile, address, representative, meeting notes and visitor photo.
+5. **Review and save** — confirm the full record before storing it. The app shows a saved confirmation.
+6. **Saved visitors** — search, view full details, edit or delete records.
+7. **Export and settings** — export Excel, create/restore JSON backups, and set a default TEAL representative.
 
-## How to get an APK using GitHub Actions
+## OCR and data preservation
 
-1. Create a **private** repository on GitHub, for example `teal-expo-visitor-app`.
-2. Extract this ZIP and upload all files/folders to the repository's `main` branch. Keep the `.github/workflows/build-apk.yml` file.
-3. Open the repository's **Actions** tab and enable workflows if asked.
-4. Select **Build TEAL Expo APK** and click **Run workflow**. If you just pushed the files to `main`, the workflow may have started automatically.
-5. When the run completes successfully, open the run and download the artifact named `TEAL-Expo-Visitor-Capture-APK`.
-6. Extract the artifact ZIP to find `app-debug.apk`, then transfer it to the Android phone and install it. Android may ask you to allow installation from that file manager.
+Text recognition is processed on the phone; no OCR service or web API is called. OCR is not infallible, so the app shows the extracted text and highlights fields it suggests. **Verify suggested values before saving.** The complete recognized text is stored with the record and included in the Excel and JSON exports, so text that the field parser does not classify is not discarded. A photo is also stored when one is captured.
 
-The first build may take a few minutes because GitHub downloads the Android SDK and Gradle dependencies. This project does not require a backend or runtime internet access. GitHub is used only to compile the APK.
+The app can suggest a person's name, company, designation, phone numbers, email addresses, website, LinkedIn/profile URL and a labelled address when these are readable. Accuracy depends on card quality, layout, language, glare and OCR quality; manual review remains necessary.
 
-## Alternative: build locally with Android Studio
+## Local data and exports
 
-Open the folder in Android Studio with JDK 17 and Android SDK Platform 35 installed, let Gradle sync, then run **Build > Build Bundle(s) / APK(s) > Build APK(s)**. Copy the resulting debug APK from `app/build/outputs/apk/debug/app-debug.apk`.
+- Records use the local IndexedDB database in the bundled Android WebView origin.
+- No backend, cloud sync, third-party analytics or runtime internet service is included.
+- Visitor and business-card photos are stored locally.
+- Excel export includes visitor details, all optional contact fields, meeting notes, original OCR text and embedded images.
+- JSON backup/import carries the full record fields and photos. Keep a backup before reinstalling the app or changing phones.
+- On Android 10 and newer, exports are written under **Downloads / TEAL Expo**.
 
-## Expo-day checklist
+## Source of truth
 
-- Register 3 test visitors, with and without both images.
-- Export Excel and open it on a computer to verify both photo columns and images.
-- Create a JSON backup and test importing it.
-- Restart the app and confirm visitors remain saved.
-- Verify the camera chooser on the exact Android phone used at the booth.
-- Export a backup at regular intervals and at event close.
+The packaged app's UI is **`app/src/main/assets/index.html`**. The Java Android bridge is **`app/src/main/java/com/teal/expo/MainActivity.java`**. The root `index.html` and `TEAL_Expo_Visitor_App_V2.html` are synchronized previews of the packaged UI; offline OCR itself requires the installed Android APK.
 
-## Important status note
+## Build an APK
 
-The APK binary is **not included in this source ZIP**. The available build environment did not have Android SDK/Gradle installed and could not download them. The source and a GitHub Actions build workflow are included so a real APK can be compiled without having Android Studio installed locally. The APK still needs a successful build and testing on the target phone before the event.
+1. Open the GitHub repository's **Actions** tab.
+2. Open the latest **Build TEAL Expo APK** run. Pushes to app/build files trigger it automatically; manual runs are also available.
+3. Wait until the run shows a green **Success** status.
+4. Under **Artifacts**, download `TEAL-Expo-Visitor-Capture-APK`.
+5. Extract the downloaded ZIP and install `app-debug.apk` on an Android phone.
+
+The APK is a sideloadable debug build, not a Play Store release. The workflow keeps a stable debug signing key in the GitHub Actions cache so future builds can normally update the installed app without changing its signature.
+
+## Expo-day acceptance checklist
+
+Before collecting real visitor data, test all of the following on the exact phone that will be used:
+
+- Capture a card in camera mode and choose a card image from Gallery.
+- Test cards with multiple emails, phone numbers, a website and an address; compare suggested fields with the original OCR text.
+- Save a record with all required fields and a record without optional fields.
+- Add a visitor photo, then verify both photos and OCR text in the visitor details.
+- Close and reopen the app; confirm records remain.
+- Edit a saved record and confirm changes persist.
+- Export Excel and open it in a spreadsheet app on a computer; inspect every contact column and both embedded-photo columns.
+- Create a JSON backup, import it, and verify that fields and photos are preserved.
+- Turn off internet and repeat scanning, saving, search and export.
+- Keep a separate backup outside the phone before the event.
+
+The GitHub Actions build verifies that Gradle produces the APK. It does not replace real-device testing of the camera/gallery flows, local storage, Excel workbook and OCR quality.
