@@ -372,9 +372,10 @@
   $('removePhotoBtn').addEventListener('click',()=>{setPhoto(null,'visitor');notify('Visitor photo removed.');});
   $('takePhotoBtn').addEventListener('click',()=>startCamera('visitor'));
   $('chooseCardPhotoBtn').addEventListener('click',()=>{scanCardPending=false;$('cardPhotoInput').click();});
-  $('scanCardBtn').addEventListener('click',()=>{scanCardPending=true;$('cardPhotoInput').click();});
+  $('scanCardBtn').addEventListener('click',()=>{if(currentCardPhoto){runOfflineOcr(currentCardPhoto);return;}scanCardPending=true;$('cardPhotoInput').click();});
   $('cardPhotoInput').addEventListener('change',async e=>{
     const file=e.target.files[0], shouldScan=scanCardPending; scanCardPending=false;
+    if(file){currentCardText='';$('ocrRaw').textContent='';$('ocrPanel').classList.add('hidden');}
     await chooseFile(file,'card');
     if(shouldScan && currentCardPhoto) runOfflineOcr(currentCardPhoto);
   });
@@ -472,7 +473,7 @@
     catch(e){console.error(e);notify('Excel export failed. Create a JSON backup and retry.',true);}
     finally{$('exportBtn').disabled=false;$('exportBtn').textContent='↓ Export Excel';}
   });
-  $('backupBtn').addEventListener('click',async()=>{try{const records=await allRecords();const data={app:'TEAL Expo Visitor Capture',version:2,exportedAt:new Date().toISOString(),records};await downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),eventFilename('json'));notify(window.AndroidBridge?'Backup saved to Downloads / TEAL Expo.':'Backup downloaded. Keep it somewhere safe.');}catch(e){notify('Backup could not be created.',true);}});
+  $('backupBtn').addEventListener('click',async()=>{try{const records=await allRecords();const data={app:'TEAL Expo Visitor Capture',version:3,exportedAt:new Date().toISOString(),records};await downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),eventFilename('json'));notify(window.AndroidBridge?'Backup saved to Downloads / TEAL Expo.':'Backup downloaded. Keep it somewhere safe.');}catch(e){notify('Backup could not be created.',true);}});
   $('importBtn').addEventListener('click',()=>$('importInput').click());
   $('importInput').addEventListener('change',async e=>{
     const file=e.target.files[0];if(!file)return;
