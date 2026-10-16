@@ -253,9 +253,11 @@
     const faxCandidates = lines.filter(line => /\bfax\b/i.test(line)).flatMap(line => line.match(phonePattern) || []);
     const fax = faxCandidates.find(v=>v.replace(/\D/g,'').length>=7)?.replace(/\s+/g,' ').trim() || '';
     const faxDigits = new Set(faxCandidates.map(v=>v.replace(/\D/g,'')));
-    const phoneLineCandidates = lines.filter(line => /\b(mobile|mob\.?|phone|telephone|tel\.?|cell|direct|office|contact)\b/i.test(line) && !/\bfax\b/i.test(line));
+    const mobileLabelLines = lines.filter(line => /\b(mobile|mob\.?|cell|cellular|direct)\b/i.test(line) && !/\bfax\b/i.test(line));
+    const otherPhoneLabelLines = lines.filter(line => /\b(phone|telephone|tel\.?|office|contact)\b/i.test(line) && !/\bfax\b/i.test(line) && !/\b(mobile|mob\.?|cell|cellular|direct)\b/i.test(line));
     // Parse line by line so adjacent phone numbers can never be merged by a newline.
-    const phoneCandidates = [...new Set([...phoneLineCandidates.flatMap(line => line.match(phonePattern) || []), ...lines.filter(line=>!/\bfax\b/i.test(line)).flatMap(line => line.match(phonePattern) || [])])];
+    // Prefer a labelled mobile/cell number before an office or switchboard number.
+    const phoneCandidates = [...new Set([...mobileLabelLines.flatMap(line => line.match(phonePattern) || []), ...otherPhoneLabelLines.flatMap(line => line.match(phonePattern) || []), ...lines.filter(line=>!/\bfax\b/i.test(line)).flatMap(line => line.match(phonePattern) || [])])];
     const phoneNumbers = [];
     for (const candidate of phoneCandidates) {
       const digits = candidate.replace(/\D/g, '');
@@ -278,8 +280,8 @@
       const words = line.split(/\s+/);
       return words.length >= 2 && words.length <= 5 && /^[\p{L}.' -]+$/u.test(line);
     }) || '');
-    const addressCandidate = lines.find(line => /^(office address|address|location)\s*[:|—-]/i.test(line)) || lines.find(line => /\b(road|street|industrial estate|sector|avenue|boulevard|pin code|postal code)\b/i.test(line) && !contactLine(line)) || '';
-    const address = addressCandidate ? cleanLabel(addressCandidate,'office address|address|location') : '';
+    const addressCandidate = lines.find(line => /^(company address|office address|registered office|corporate office|head office|address|location)\s*[:|—-]/i.test(line)) || lines.find(line => /\b(road|street|industrial estate|sector|avenue|boulevard|pin code|postal code)\b/i.test(line) && !contactLine(line)) || '';
+    const address = addressCandidate ? cleanLabel(addressCandidate,'company address|office address|registered office|corporate office|head office|address|location') : '';
     const departmentCandidate = lines.find(line => /^(department|dept\.?|division|business unit|function)\s*[:|—-]/i.test(line)) || '';
     const department = departmentCandidate ? cleanLabel(departmentCandidate,'department|dept\.?|division|business unit|function') : '';
     const setIfDetected = (id, value) => { if (value && !$(id).value.trim()) { $(id).value = value; const field = $(id).closest('.field'); if(field) field.classList.add('ocr-suggested'); } };
@@ -437,7 +439,7 @@
     const central=joinBytes(centralParts);const eocd=new Uint8Array([0x50,0x4b,0x05,0x06,...u16(0),...u16(0),...u16(files.length),...u16(files.length),...u32(central.length),...u32(offset),...u16(0)]);
     return joinBytes([...localParts,central,eocd]);
   }
-  function xmlEscape(value){return String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
+  function xmlEscape(value){return String(value??'').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
   function colName(n){let out='';while(n>0){const r=(n-1)%26;out=String.fromCharCode(65+r)+out;n=Math.floor((n-1)/26);}return out;}
   function base64ToBytes(dataUrl){const base64=dataUrl.split(',')[1]||'';const bin=atob(base64);const out=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out;}
   function cell(ref,value,style=''){const sty=style?` s="${style}"`:'';return `<c r="${ref}" t="inlineStr"${sty}><is><t xml:space="preserve">${xmlEscape(value)}</t></is></c>`;}
