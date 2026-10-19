@@ -1,4 +1,4 @@
-# TEAL Expo Visitor Capture — Android v2.2
+# TEAL Expo Visitor Capture — Android v2.3
 
 An offline-first Android visitor registration app for TEAL exhibition and expo teams.
 
@@ -7,7 +7,7 @@ An offline-first Android visitor registration app for TEAL exhibition and expo t
 1. **Home dashboard** — visitor totals, today's registrations, photo count, and quick navigation.
 2. **Business-card capture** — take a photo or select an image and run on-device ML Kit text recognition.
 3. **Contact details** — review the suggested name, company, designation and phone. These four fields are required.
-4. **Interests and follow-up** — optional interest selections, alternate phone, email addresses, website, LinkedIn/profile, address, representative, meeting notes and visitor photo.
+4. **Notes and follow-up** — alternate phone, email addresses, website, LinkedIn/profile, address, representative, meeting notes and visitor photo. Areas of Interest has been removed.
 5. **Review and save** — confirm the full record before storing it. The app shows a saved confirmation.
 6. **Saved visitors** — search, view full details, edit or delete records.
 7. **Export and settings** — export Excel, create/restore JSON backups, and set a default TEAL representative.
@@ -23,7 +23,7 @@ The app can suggest a person's name, company, designation, phone numbers, email 
 - Records use the local IndexedDB database in the bundled Android WebView origin.
 - No backend, cloud sync, third-party analytics or runtime internet service is included.
 - Visitor and business-card photos are stored locally.
-- Excel export includes visitor details, all optional contact fields, meeting notes, original OCR text and embedded images.
+- Excel export includes visitor details, all optional contact fields, meeting notes, original OCR text and embedded images. There is no Areas of Interest column.
 - JSON backup/import carries the full record fields and photos. Keep a backup before reinstalling the app or changing phones.
 - On Android 10 and newer, exports are written under **Downloads / TEAL Expo**.
 
