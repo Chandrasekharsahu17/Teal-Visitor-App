@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#112a46">
+<meta name="description" content="TEAL Expo Visitor Capture — cross-platform visitor registration with local storage, card OCR and Excel export.">
+<meta name="application-name" content="TEAL Expo Capture">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>TEAL Expo — Visitor Capture</title>
 <style>
 
@@ -320,22 +327,48 @@
     if (success) applyBusinessCardText(textOrError);
     else notify('Business card scan failed: ' + (textOrError || 'try again with a clearer photo'), true);
   };
-  function runOfflineOcr(photo) {
-    if (!window.AndroidBridge || typeof window.AndroidBridge.recognizeBusinessCard !== 'function') {
-      notify('Offline text extraction works in the installed Android APK. The browser HTML preview can only save the card photo.', true);
+  let browserOcrPromise = null;
+  function loadBrowserOcr() {
+    if (window.Tesseract) return Promise.resolve(window.Tesseract);
+    if (browserOcrPromise) return browserOcrPromise;
+    browserOcrPromise = new Promise((resolve,reject) => {
+      const script=document.createElement('script');
+      script.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+      script.async=true;
+      script.onload=()=>window.Tesseract?resolve(window.Tesseract):reject(new Error('OCR library did not load'));
+      script.onerror=()=>reject(new Error('OCR library could not load. Connect to the internet and try again.'));
+      document.head.appendChild(script);
+    });
+    return browserOcrPromise;
+  }
+  async function runOfflineOcr(photo) {
+    if (!photo || !photo.data) { notify('Capture or choose a card photo first.', true); return; }
+    if (window.AndroidBridge && typeof window.AndroidBridge.recognizeBusinessCard === 'function') {
+      const base64 = photo.data.split(',')[1] || '';
+      const callbackId = 'teal_ocr_' + (++ocrCounter);
+      window.__tealOcrCallbacks[callbackId] = true;
+      try {
+        const accepted = window.AndroidBridge.recognizeBusinessCard(base64, callbackId);
+        if (accepted === false) { delete window.__tealOcrCallbacks[callbackId]; notify('The OCR engine could not start. Try again.', true); }
+        else notify('Reading card offline…');
+      } catch (e) {
+        delete window.__tealOcrCallbacks[callbackId];
+        notify('Could not scan the card: ' + e.message, true);
+      }
       return;
     }
-    if (!photo || !photo.data) { notify('Capture or choose a card photo first.', true); return; }
-    const base64 = photo.data.split(',')[1] || '';
-    const callbackId = 'teal_ocr_' + (++ocrCounter);
-    window.__tealOcrCallbacks[callbackId] = true;
     try {
-      const accepted = window.AndroidBridge.recognizeBusinessCard(base64, callbackId);
-      if (accepted === false) { delete window.__tealOcrCallbacks[callbackId]; notify('The OCR engine could not start. Try again.', true); }
-      else notify('Reading card offline…');
+      notify('Preparing on-device card reader…');
+      const Tesseract = await loadBrowserOcr();
+      notify('Reading card on this device…');
+      const result = await Tesseract.recognize(photo.data, 'eng', {
+        logger: m => { if (m.status === 'recognizing text') notify('Reading card… ' + Math.round((m.progress||0)*100) + '%'); }
+      });
+      const extracted = result && result.data ? result.data.text : '';
+      if (extracted && extracted.trim()) applyBusinessCardText(extracted);
+      else notify('No text found. Try a sharper, well-lit card photo.', true);
     } catch (e) {
-      delete window.__tealOcrCallbacks[callbackId];
-      notify('Could not scan the card: ' + e.message, true);
+      notify('Card OCR could not start. Connect to the internet for the first OCR download, then retry. You can still enter details manually.', true);
     }
   }
 
@@ -580,6 +613,9 @@
   $('homeRepDisplay').textContent=localStorage.getItem('teal-expo-rep-name')||'TEAL representative not set';
   $('homeRepAvatar').textContent=(localStorage.getItem('teal-expo-rep-name')||'TE').split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();
   $('repName').addEventListener('change',()=>{const v=$('repName').value.trim();if(v)localStorage.setItem('teal-expo-rep-name',v);$('settingsRepName').value=v;$('homeRepDisplay').textContent=v||'TEAL representative not set';$('homeRepAvatar').textContent=v?v.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase():'TE';});
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+  }
   window.addEventListener('beforeunload',()=>{if(cameraStream)cameraStream.getTracks().forEach(t=>t.stop());});
   (async()=>{try{db=await openDB();await renderRecords();}catch(e){console.error(e);notify('Local database could not start. Close and reopen the app, then retry.',true);$('recordList').innerHTML='<div class="empty"><strong>Local storage could not start</strong>Previously saved visitors may be unavailable until storage is fixed. Create backups regularly.</div>';}})();
 })();
