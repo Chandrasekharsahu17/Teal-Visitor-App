@@ -1,0 +1,15 @@
+{
+  "id": "./",
+  "name": "TEAL Expo Visitor Capture",
+  "short_name": "TEAL Expo",
+  "description": "Local visitor registration, business-card OCR and Excel export for TEAL expos.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F6F7",
+  "theme_color": "#112a46",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
