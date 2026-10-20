@@ -1,6 +1,16 @@
-# TEAL Expo Visitor Capture — Android v2.3
+# TEAL Expo Visitor Capture — Web + Android v2.3
 
-An offline-first Android visitor registration app for TEAL exhibition and expo teams.
+A cross-platform visitor registration app for TEAL exhibition and expo teams. Open it in Chrome, Safari or another modern browser on Android, iPhone, iPad or desktop. No app-store installation is required.
+
+## Open the web app
+
+After GitHub Pages deployment completes, open: `https://chandrasekharsahu17.github.io/Teal-Visitor-App/`.
+
+- **Android:** open the link in Chrome. Use the browser menu → Install app / Add to Home screen if desired.
+- **iPhone/iPad:** open the link in Safari → Share → Add to Home Screen.
+- Visitor records remain in the browser storage on that device. They are **not synced or shared** between different people/devices; export Excel or JSON backups and transfer them securely when needed.
+- The web app shell can be cached for repeat/offline use. First-time browser OCR downloads the OCR engine and English language data; card text recognition runs in the browser on the device. The Android APK continues to use native on-device OCR.
+- Camera access requires HTTPS and browser permission. Private browsing or clearing site data can remove locally stored records; create backups regularly.
 
 ## Visitor-capture flow
 
